@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Inventory App</string>
+    <string name="empty_list">You can add products by clicking the red floating button</string>
 </resources>
