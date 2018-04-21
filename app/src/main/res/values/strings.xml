@@ -4,4 +4,8 @@
     <string name="sale">Sale</string>
     <string name="photo">photo</string>
     <string name="product">product</string>
+    <string name="add_one">Add one</string>
+    <string name="subtract_one">Subtract one</string>
+    <string name="order">Order</string>
+    <string name="delete">Delete</string>
 </resources>

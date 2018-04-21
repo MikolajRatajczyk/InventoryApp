@@ -6,6 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".DetailActivity">
 
+    <Button
+        android:id="@+id/detail_delete_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableTop="@drawable/delete_icon"
+        android:text="@string/delete"
+        app:layout_constraintEnd_toEndOf="@+id/detail_quantity_increase_button"
+        app:layout_constraintStart_toStartOf="@+id/detail_quantity_decrease_button"
+        app:layout_constraintTop_toBottomOf="@+id/detail_order_button" />
+
+    <Button
+        android:id="@+id/detail_order_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableTop="@drawable/order_icon"
+        android:text="@string/order"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/detail_quantity_increase_button"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toEndOf="@+id/detail_quantity_decrease_button"
+        app:layout_constraintTop_toBottomOf="@+id/detail_product_photo"
+        app:layout_constraintVertical_bias="0.69" />
+
+    <Button
+        android:id="@+id/detail_quantity_increase_button"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:drawableTop="@drawable/plus_one_icon"
+        android:text="@string/add_one"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_order_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detail_order_button" />
+
+    <Button
+        android:id="@+id/detail_quantity_decrease_button"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:drawableTop="@drawable/minus_one_icon"
+        android:text="@string/subtract_one"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_order_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detail_order_button" />
+
+    <TextView
+        android:id="@+id/detail_product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_product_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/detail_product_name"
+        tools:text="3€" />
+
+    <TextView
+        android:id="@+id/detail_product_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_product_name"
+        tools:text="28" />
+
+    <TextView
+        android:id="@+id/detail_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_product_photo"
+        tools:text="Name" />
+
     <ImageView
         android:id="@+id/detail_product_photo"
         android:layout_width="match_parent"
@@ -23,8 +106,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/view2"
+        android:id="@+id/detail_image_divider"
         style="@style/Divider"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detail_product_photo" />
