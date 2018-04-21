@@ -1,9 +1,10 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 
 public class CatalogActivity extends AppCompatActivity
 {
@@ -19,6 +20,16 @@ public class CatalogActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        fabNewButton = (FloatingActionButton)findViewById(R.id.fab_new_product);
+        fabNewButton = (FloatingActionButton) findViewById(R.id.fab_new_product);
+
+        fabNewButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(CatalogActivity.this, DetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
