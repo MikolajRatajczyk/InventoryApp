@@ -77,7 +77,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_card_giftcard_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_mode_edit_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -87,7 +87,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="product_list_item_placeholder" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="detail_edit_mode_icon" />
                             <entry key="sourceFile" value="C:\Users\Misiekmr" />
                           </map>
                         </option>

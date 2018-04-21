@@ -3,4 +3,5 @@
     <string name="empty_list">You can add products by clicking the red floating button</string>
     <string name="sale">Sale</string>
     <string name="photo">photo</string>
+    <string name="product">product</string>
 </resources>
