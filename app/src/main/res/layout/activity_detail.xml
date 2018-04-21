@@ -56,38 +56,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/detail_order_button" />
 
-    <TextView
+    <EditText
         android:id="@+id/detail_product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:hint="@string/price"
+        android:focusable="false"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="@+id/detail_product_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/detail_product_name"
-        tools:text="3€" />
+        app:layout_constraintTop_toTopOf="@+id/detail_product_name" />
 
-    <TextView
+    <EditText
         android:id="@+id/detail_product_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:hint="@string/quantity"
+        android:focusable="false"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_product_name"
-        tools:text="28" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_product_name" />
 
-    <TextView
+    <EditText
         android:id="@+id/detail_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:hint="@string/name"
+        android:focusable="false"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_product_photo"
-        tools:text="Name" />
+        app:layout_constraintTop_toBottomOf="@+id/detail_product_photo" />
 
     <ImageView
         android:id="@+id/detail_product_photo"
@@ -97,6 +100,7 @@
         tools:src="@drawable/product_list_item_placeholder" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

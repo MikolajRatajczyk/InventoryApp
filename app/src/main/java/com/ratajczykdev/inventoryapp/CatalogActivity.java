@@ -12,7 +12,7 @@ public class CatalogActivity extends AppCompatActivity
     /**
      * Floating action button for adding a new product
      */
-    private FloatingActionButton fabNewButton;
+    private FloatingActionButton fabNewProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,9 +20,9 @@ public class CatalogActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        fabNewButton = (FloatingActionButton) findViewById(R.id.fab_new_product);
+        fabNewProduct = (FloatingActionButton) findViewById(R.id.fab_new_product);
 
-        fabNewButton.setOnClickListener(new View.OnClickListener()
+        fabNewProduct.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)

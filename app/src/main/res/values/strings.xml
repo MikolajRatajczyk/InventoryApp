@@ -8,4 +8,7 @@
     <string name="subtract_one">Subtract one</string>
     <string name="order">Order</string>
     <string name="delete">Delete</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="name">Name</string>
 </resources>
