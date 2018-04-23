@@ -9,12 +9,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 //  TODO: fill methods
 public class ProductProvider extends ContentProvider
 {
+    /**
+     * Tag for log messages
+     */
+    private static final String LOG_TAG = ProductProvider.class.getSimpleName();
+
     /**
      * URI matcher code for the content URI for a single product in the products table
      */
@@ -119,18 +125,76 @@ public class ProductProvider extends ContentProvider
      */
     private Uri insertProduct(Uri uri, ContentValues contentValues)
     {
-        return null;
+        //  TODO: do sanity check for photo (?)
+        String name = contentValues.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+        if (name == null || name.isEmpty())
+        {
+            throw new IllegalArgumentException("Product requires a name");
+        }
+
+        //  can be null, because the database will automatically set it to default 0
+        Integer price = contentValues.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
+        if (price != null && price < 0)
+        {
+            throw new IllegalArgumentException("Product needs valid price");
+        }
+
+        //  can be null, because the database will automatically set it to default 0
+        Integer quantity = contentValues.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        if (quantity != null && quantity < 0)
+        {
+            throw new IllegalArgumentException("Product needs valid quantity");
+        }
+
+        SQLiteDatabase sqLiteDatabase = productDbHelper.getWritableDatabase();
+
+        long id = sqLiteDatabase.insert(ProductEntry.TABLE_NAME, null, contentValues);
+        if (id == -1)
+        {
+            Log.e(LOG_TAG, "Insertion to the database failed for  " + uri);
+            return null;
+        }
+
+        //  Notify all listeners that the data has changed for the product content URI
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        return ContentUris.withAppendedId(uri, id);
     }
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings)
     {
+        //  TODO: fill
         return 0;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings)
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String selection, @Nullable String[] selectionArgs)
     {
+        final int match = uriMatcher.match(uri);
+        if (match == PRODUCTS_CODE)
+        {
+            return updateProduct(uri, contentValues, selection, selectionArgs);
+        }
+        if (match == PRODUCT_CODE)
+        {
+            selection = ProductEntry._ID + "=?";
+            selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+            return updateProduct(uri, contentValues, selection, selectionArgs);
+        } else
+        {
+            throw new IllegalArgumentException("Product update in database is not supported for " + uri);
+        }
+    }
+
+    /**
+     * Update one product or more in the database
+     *
+     * @return number of rows successfully updated in the database
+     */
+    private int updateProduct(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs)
+    {
+        //  TODO: fill
         return 0;
     }
 }
