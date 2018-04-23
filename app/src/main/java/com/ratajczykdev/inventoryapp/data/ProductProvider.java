@@ -17,11 +17,6 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 public class ProductProvider extends ContentProvider
 {
     /**
-     * Tag for log messages
-     */
-    private static final String LOG_TAG = ProductProvider.class.getSimpleName();
-
-    /**
      * URI matcher code for the content URI for a single product in the products table
      */
     public static final int PRODUCT_CODE = 1;
@@ -32,14 +27,14 @@ public class ProductProvider extends ContentProvider
     public static final int PRODUCTS_CODE = 2;
 
     /**
+     * Tag for log messages
+     */
+    private static final String LOG_TAG = ProductProvider.class.getSimpleName();
+
+    /**
      * Matches a content URI to a corresponding code
      */
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
-    /**
-     * Database helper
-     */
-    private ProductDbHelper productDbHelper;
 
     static
     {
@@ -47,6 +42,11 @@ public class ProductProvider extends ContentProvider
         uriMatcher.addURI(ProductContract.CONTENT_AUTHORITY, ProductContract.PATH_PRODUCTS + "/#", PRODUCT_CODE);
         uriMatcher.addURI(ProductContract.CONTENT_AUTHORITY, ProductContract.PATH_PRODUCTS, PRODUCTS_CODE);
     }
+
+    /**
+     * Database helper
+     */
+    private ProductDbHelper productDbHelper;
 
     @Override
     public boolean onCreate()
