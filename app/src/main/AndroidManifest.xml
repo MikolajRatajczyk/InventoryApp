@@ -21,6 +21,12 @@
         <activity
             android:name=".DetailActivity"
             android:label="Details"></activity>
+
+        <provider
+            android:name=".data.ProductProvider"
+            android:authorities="com.ratajczykdev.inventoryapp"
+            android:exported="false" />
+
     </application>
 
 </manifest>
