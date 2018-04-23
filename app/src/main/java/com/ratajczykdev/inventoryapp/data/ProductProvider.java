@@ -194,7 +194,57 @@ public class ProductProvider extends ContentProvider
      */
     private int updateProduct(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs)
     {
-        //  TODO: fill
-        return 0;
+        //  TODO: do sanity check for photo (?)
+        //  TODO: verify
+
+        if (contentValues.containsKey(ProductEntry.COLUMN_PRODUCT_NAME))
+        {
+            String name = contentValues.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
+            if (name == null || name.isEmpty())
+            {
+                throw new IllegalArgumentException("Product requires a name");
+            }
+
+        }
+
+        //  can be null, because the database will automatically set it to default 0
+        if (contentValues.containsKey(ProductEntry.COLUMN_PRODUCT_PRICE))
+        {
+            Integer price = contentValues.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
+            if (price != null && price < 0)
+            {
+                throw new IllegalArgumentException("Product needs valid price");
+            }
+        }
+
+
+        //  can be null, because the database will automatically set it to default 0
+        if (contentValues.containsKey(ProductEntry.COLUMN_PRODUCT_QUANTITY))
+        {
+            Integer quantity = contentValues.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            if (quantity != null && quantity < 0)
+            {
+                throw new IllegalArgumentException("Product needs valid quantity");
+            }
+        }
+
+        // If no values to update, there is no need to update the database
+        if (contentValues.size() == 0)
+        {
+            return 0;
+        }
+
+        SQLiteDatabase sqLiteDatabase = productDbHelper.getWritableDatabase();
+
+        int updatedRowsNumber = sqLiteDatabase.update(ProductEntry.TABLE_NAME, contentValues, selection, selectionArgs);
+
+        if (updatedRowsNumber != 0)
+        {
+            //  Notify all listeners that the data has changed for the product content URI
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return updatedRowsNumber;
     }
+
 }
