@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
@@ -27,6 +28,11 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      * Adapter for list view
      */
     private ProductCursorAdapter productCursorAdapter;
+
+    /**
+     * Identifier for product data loader
+     */
+    private static final int PRODUCT_LOADER_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +62,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         // TODO: set OnClickListener for product list view
 
+        //  start loader
+        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
 
     }
 
@@ -74,6 +82,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
 
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
+        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -81,6 +90,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     {
         String[] projection = {
                 ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
                 ProductEntry.COLUMN_PRODUCT_PHOTO,
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY};

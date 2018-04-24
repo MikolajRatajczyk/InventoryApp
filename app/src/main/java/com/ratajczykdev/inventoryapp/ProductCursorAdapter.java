@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,10 +71,10 @@ public class ProductCursorAdapter extends CursorAdapter
         int quantity = cursor.getInt(quantityColumnIndex);
 
         textName.setText(name);
-        // TODO: crrect photo storing in database
+        // TODO: correct photo storing in database
         imagePhoto.setContentDescription(photo);
         //  TODO: now it's only int, make it number with point
-        textPrice.setText(price);
-        textQuantity.setText(quantity);
+        textPrice.setText(String.valueOf(price));
+        textQuantity.setText(String.valueOf(quantity));
     }
 }
