@@ -42,8 +42,8 @@ public class CatalogActivity extends AppCompatActivity
         productCursorAdapter = new ProductCursorAdapter(this, null);
 
         ListView viewProductList = (ListView) findViewById(R.id.product_list);
-        //  TODO: make empty view for viewProductList
-
+        View viewEmptyHint = (View) findViewById(R.id.empty_view_hint);
+        viewProductList.setEmptyView(viewEmptyHint);
         viewProductList.setAdapter(productCursorAdapter);
 
         // TODO: set OnClickListener for product list view
