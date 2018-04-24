@@ -1,7 +1,11 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +15,7 @@ import android.widget.ListView;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
-public class CatalogActivity extends AppCompatActivity
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
 
     /**
@@ -57,7 +61,7 @@ public class CatalogActivity extends AppCompatActivity
 
     /**
      * Helper method to insert hardcoded product data into the database.
-     *
+     * <p>
      * Only for debugging.
      */
     private void insertFakeProduct()
@@ -70,5 +74,37 @@ public class CatalogActivity extends AppCompatActivity
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
 
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+    {
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_PHOTO,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
+                ProductEntry.COLUMN_PRODUCT_QUANTITY};
+
+        return new CursorLoader(
+                this,
+                ProductEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+    {
+        //  update adapter with new data
+        productCursorAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader)
+    {
+        //  when data needs to be deleted
+        productCursorAdapter.swapCursor(null);
     }
 }
