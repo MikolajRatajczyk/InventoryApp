@@ -2,9 +2,14 @@ package com.ratajczykdev.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 /**
  * {@link ProductCursorAdapter} is an adapter for list or grid view
@@ -34,7 +39,8 @@ public class ProductCursorAdapter extends CursorAdapter
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent)
     {
-        return null;
+        //  Inflate a list item view
+        return LayoutInflater.from(context).inflate(R.layout.product_list_item, parent, false);
     }
 
     /**
@@ -47,6 +53,27 @@ public class ProductCursorAdapter extends CursorAdapter
     @Override
     public void bindView(View view, Context context, Cursor cursor)
     {
+        TextView textName = (TextView) view.findViewById(R.id.text_name);
+        ImageView imagePhoto = (ImageView) view.findViewById(R.id.image_photo);
+        TextView textPrice = (TextView) view.findViewById(R.id.text_price);
+        TextView textQuantity = (TextView) view.findViewById(R.id.text_quantity);
 
+        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+        int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+
+        String name = cursor.getString(nameColumnIndex);
+        //  TODO: correct photo storing in database
+        String photo = cursor.getString(photoColumnIndex);
+        int price = cursor.getInt(priceColumnIndex);
+        int quantity = cursor.getInt(quantityColumnIndex);
+
+        textName.setText(name);
+        // TODO: crrect photo storing in database
+        imagePhoto.setContentDescription(photo);
+        //  TODO: now it's only int, make it number with point
+        textPrice.setText(price);
+        textQuantity.setText(quantity);
     }
 }
