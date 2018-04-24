@@ -63,6 +63,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
+        android:focusable="false"
         android:text="@string/sale"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

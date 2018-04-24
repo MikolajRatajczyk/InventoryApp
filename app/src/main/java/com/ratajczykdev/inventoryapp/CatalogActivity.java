@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -59,8 +60,15 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         View viewEmptyHint = (View) findViewById(R.id.empty_view_hint);
         viewProductList.setEmptyView(viewEmptyHint);
         viewProductList.setAdapter(productCursorAdapter);
-
-        // TODO: set OnClickListener for product list view
+        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                //  TODO: make it open with data from selected product
+                startActivity(new Intent(CatalogActivity.this, DetailActivity.class));
+            }
+        });
 
         //  start loader
         getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
