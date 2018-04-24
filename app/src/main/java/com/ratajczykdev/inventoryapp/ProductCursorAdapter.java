@@ -72,6 +72,7 @@ public class ProductCursorAdapter extends CursorAdapter
         textName.setText(name);
         // TODO: correct photo storing in database
         imagePhoto.setContentDescription(photo);
+        //  TODO: consider using Locale...
         textPrice.setText(String.format("%.2f", price));
         textQuantity.setText(String.valueOf(quantity));
     }
