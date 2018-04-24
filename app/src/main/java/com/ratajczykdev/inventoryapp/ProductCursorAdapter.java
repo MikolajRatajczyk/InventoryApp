@@ -2,7 +2,6 @@ package com.ratajczykdev.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,14 +66,13 @@ public class ProductCursorAdapter extends CursorAdapter
         String name = cursor.getString(nameColumnIndex);
         //  TODO: correct photo storing in database
         String photo = cursor.getString(photoColumnIndex);
-        int price = cursor.getInt(priceColumnIndex);
+        float price = (float) cursor.getInt(priceColumnIndex) / 100;
         int quantity = cursor.getInt(quantityColumnIndex);
 
         textName.setText(name);
         // TODO: correct photo storing in database
         imagePhoto.setContentDescription(photo);
-        //  TODO: now it's only int, make it number with point
-        textPrice.setText(String.valueOf(price));
+        textPrice.setText(String.format("%.2f", price));
         textQuantity.setText(String.valueOf(quantity));
     }
 }
