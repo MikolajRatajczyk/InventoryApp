@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ListView;
 
 public class CatalogActivity extends AppCompatActivity
 {
@@ -13,6 +14,11 @@ public class CatalogActivity extends AppCompatActivity
      * Floating action button for adding a new product
      */
     private FloatingActionButton fabNewProduct;
+
+    /**
+     * Adapter for list view
+     */
+    private ProductCursorAdapter productCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,5 +37,17 @@ public class CatalogActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        //  loader will provide cursor, so now pass null for cursor
+        productCursorAdapter = new ProductCursorAdapter(this, null);
+
+        ListView viewProductList = (ListView) findViewById(R.id.product_list);
+        //  TODO: make empty view for viewProductList
+
+        viewProductList.setAdapter(productCursorAdapter);
+
+        // TODO: set OnClickListener for product list view
+
+
     }
 }
