@@ -85,5 +85,10 @@ public class DetailActivity extends AppCompatActivity
         textName.setFocusableInTouchMode(true);
         textPrice.setFocusableInTouchMode(true);
         textQuantity.setFocusableInTouchMode(true);
+
+        buttonQuantityDecrease.setVisibility(View.GONE);
+        buttonOrder.setVisibility(View.GONE);
+        buttonQuantityIncrease.setVisibility(View.GONE);
+        buttonDelete.setVisibility(View.GONE);
     }
 }
