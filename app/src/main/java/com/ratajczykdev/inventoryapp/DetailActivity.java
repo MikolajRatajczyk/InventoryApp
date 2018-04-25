@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class DetailActivity extends AppCompatActivity
@@ -28,6 +29,27 @@ public class DetailActivity extends AppCompatActivity
      */
     private EditText textQuantity;
 
+    /**
+     * Button for decreasing product quantity by one
+     */
+    private Button buttonQuantityDecrease;
+
+    /**
+     * Button for making the order from supplier
+     */
+    private Button buttonOrder;
+
+    /**
+     * Button for increasing product quantity by one
+     */
+    private Button buttonQuantityIncrease;
+
+    /**
+     * Button for completely deleting product
+     */
+    private Button buttonDelete;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,6 +70,11 @@ public class DetailActivity extends AppCompatActivity
         textName = (EditText) findViewById(R.id.detail_product_name);
         textPrice = (EditText) findViewById(R.id.detail_product_price);
         textQuantity = (EditText) findViewById(R.id.detail_product_quantity);
+
+        buttonQuantityDecrease = (Button) findViewById(R.id.detail_quantity_decrease_button);
+        buttonOrder = (Button) findViewById(R.id.detail_order_button);
+        buttonQuantityIncrease = (Button) findViewById(R.id.detail_quantity_increase_button);
+        buttonDelete = (Button) findViewById(R.id.detail_delete_button);
     }
 
     /**
