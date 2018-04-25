@@ -124,6 +124,7 @@ public class DetailActivity extends AppCompatActivity
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
+        //  use Intent.createChooser ... if user uses two or more email apps
         startActivity(Intent.createChooser(emailIntent, chooserTitle));
     }
 
