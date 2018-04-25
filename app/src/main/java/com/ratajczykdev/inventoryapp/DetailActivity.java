@@ -1,5 +1,7 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +77,15 @@ public class DetailActivity extends AppCompatActivity
         buttonOrder = (Button) findViewById(R.id.detail_order_button);
         buttonQuantityIncrease = (Button) findViewById(R.id.detail_quantity_increase_button);
         buttonDelete = (Button) findViewById(R.id.detail_delete_button);
+
+        buttonOrder.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                sendOrder();
+            }
+        });
     }
 
     /**
@@ -91,4 +102,29 @@ public class DetailActivity extends AppCompatActivity
         buttonQuantityIncrease.setVisibility(View.GONE);
         buttonDelete.setVisibility(View.GONE);
     }
+
+    /**
+     * Method to send predefined order
+     */
+    private void sendOrder()
+    {
+        //  TODO: delete hardcoded Strings
+        //  TODO: add ability to specify the quantity before making order
+        //  TODO: add ability to specify the name of owner before making order
+        //  TODO: add product name to subject
+        String subject = "Order - " + "[SOMETHING]";
+        String body = "Dear Sir/Madam," +
+                "\n\nI would like to order " + "[SOMETHING]." +
+                "\nNumber of items: " + " [QUANTITY]."
+                + "\n\nYours faithfully,"
+                + "\n" + "[OWNER_NAME]";
+        String chooserTitle = "Select an app to send message";
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+        startActivity(Intent.createChooser(emailIntent, chooserTitle));
+    }
+
 }
