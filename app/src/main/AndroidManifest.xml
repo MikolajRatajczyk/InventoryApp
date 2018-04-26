@@ -11,22 +11,25 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".CatalogActivity"
-            android:label="Products">
+            android:label="Products catalog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DetailActivity"
-            android:label="Details"></activity>
 
         <provider
             android:name=".data.ProductProvider"
             android:authorities="com.ratajczykdev.inventoryapp"
             android:exported="false" />
 
+        <activity
+            android:name=".ProductDetailActivity"
+            android:label="Details" />
+        <activity
+            android:name=".ProductEditActivity"
+            android:label="Edit product" />
     </application>
 
 </manifest>

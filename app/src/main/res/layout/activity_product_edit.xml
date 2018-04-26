@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductEditActivity">
+
+    <ImageView
+        android:id="@+id/product_edit_photo_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.38"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/product_photo_icon_grey"
+        android:contentDescription="@string/edit_symbol" />
+
+    <Button
+        android:id="@+id/product_edit_image_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/add_photo"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_edit_photo_icon"
+        app:layout_constraintStart_toEndOf="@+id/product_edit_photo_icon"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_photo_icon" />
+
+    <ImageView
+        android:id="@+id/product_edit_name_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/product_edit_quantity_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_edit_image_button"
+        app:srcCompat="@drawable/product_name_icon_grey"
+        android:contentDescription="@string/name_symbol" />
+
+    <EditText
+        android:id="@+id/product_edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="@string/name"
+        android:inputType="text"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_edit_name_icon"
+        app:layout_constraintStart_toEndOf="@+id/product_edit_name_icon"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_name_icon" />
+
+    <ImageView
+        android:id="@+id/product_edit_quantity_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/product_edit_price_icon"
+        app:layout_constraintStart_toStartOf="@+id/product_edit_name_icon"
+        app:layout_constraintTop_toBottomOf="@+id/product_edit_name_icon"
+        app:srcCompat="@drawable/product_quantity_icon_grey"
+        android:contentDescription="@string/quantity_symbol" />
+
+    <EditText
+        android:id="@+id/product_edit_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="@string/quantity"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_edit_quantity_icon"
+        app:layout_constraintStart_toEndOf="@+id/product_edit_quantity_icon"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_quantity_icon" />
+
+    <ImageView
+        android:id="@+id/product_edit_price_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/product_edit_delete_button"
+        app:layout_constraintStart_toStartOf="@+id/product_edit_quantity_icon"
+        app:layout_constraintTop_toBottomOf="@+id/product_edit_quantity_icon"
+        app:srcCompat="@drawable/product_price_icon_grey"
+        android:contentDescription="@string/price_symbol" />
+
+    <EditText
+        android:id="@+id/product_edit_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="@string/price"
+        android:inputType="numberDecimal"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_edit_price_icon"
+        app:layout_constraintStart_toEndOf="@+id/product_edit_price_icon"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_price_icon" />
+
+    <Button
+        android:id="@+id/product_edit_delete_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorAccent"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+</android.support.constraint.ConstraintLayout>

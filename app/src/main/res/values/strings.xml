@@ -11,4 +11,10 @@
     <string name="price">Price</string>
     <string name="quantity">Quantity</string>
     <string name="name">Name</string>
+    <string name="edit">Edit</string>
+    <string name="add_photo">add photo</string>
+    <string name="edit_symbol">edit symbol</string>
+    <string name="name_symbol">name symbol</string>
+    <string name="quantity_symbol">quantity symbol</string>
+    <string name="price_symbol">price symbol</string>
 </resources>

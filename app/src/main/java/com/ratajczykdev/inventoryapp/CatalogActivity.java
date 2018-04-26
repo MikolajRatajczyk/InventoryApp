@@ -50,7 +50,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(CatalogActivity.this, DetailActivity.class);
+                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +68,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
                 //  TODO: make it open with data from selected product
-                startActivity(new Intent(CatalogActivity.this, DetailActivity.class));
+                startActivity(new Intent(CatalogActivity.this, ProductDetailActivity.class));
             }
         });
 
