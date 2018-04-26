@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".CatalogActivity"
-            android:label="Products catalog">
+            android:label="@string/products_catalog_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,10 +26,10 @@
 
         <activity
             android:name=".ProductDetailActivity"
-            android:label="Details" />
+            android:label="@string/details_title" />
         <activity
             android:name=".ProductEditActivity"
-            android:label="Edit product" />
+            android:label="@string/edit_product_title" />
     </application>
 
 </manifest>

@@ -13,12 +13,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
+        android:contentDescription="@string/edit_symbol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.38"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/product_photo_icon_grey"
-        android:contentDescription="@string/edit_symbol" />
+        app:srcCompat="@drawable/product_photo_icon_grey" />
 
     <Button
         android:id="@+id/product_edit_image_button"
@@ -38,11 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="@string/name_symbol"
         app:layout_constraintBottom_toTopOf="@+id/product_edit_quantity_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_edit_image_button"
-        app:srcCompat="@drawable/product_name_icon_grey"
-        android:contentDescription="@string/name_symbol" />
+        app:srcCompat="@drawable/product_name_icon_grey" />
 
     <EditText
         android:id="@+id/product_edit_name"
@@ -60,11 +60,11 @@
         android:id="@+id/product_edit_quantity_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/quantity_symbol"
         app:layout_constraintBottom_toTopOf="@+id/product_edit_price_icon"
         app:layout_constraintStart_toStartOf="@+id/product_edit_name_icon"
         app:layout_constraintTop_toBottomOf="@+id/product_edit_name_icon"
-        app:srcCompat="@drawable/product_quantity_icon_grey"
-        android:contentDescription="@string/quantity_symbol" />
+        app:srcCompat="@drawable/product_quantity_icon_grey" />
 
     <EditText
         android:id="@+id/product_edit_quantity"
@@ -82,11 +82,11 @@
         android:id="@+id/product_edit_price_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/price_symbol"
         app:layout_constraintBottom_toTopOf="@+id/product_edit_delete_button"
         app:layout_constraintStart_toStartOf="@+id/product_edit_quantity_icon"
         app:layout_constraintTop_toBottomOf="@+id/product_edit_quantity_icon"
-        app:srcCompat="@drawable/product_price_icon_grey"
-        android:contentDescription="@string/price_symbol" />
+        app:srcCompat="@drawable/product_price_icon_grey" />
 
     <EditText
         android:id="@+id/product_edit_price"
@@ -111,7 +111,6 @@
         android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 
 </android.support.constraint.ConstraintLayout>
