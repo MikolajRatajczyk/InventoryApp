@@ -2,6 +2,8 @@ package com.ratajczykdev.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,14 +66,15 @@ public class ProductCursorAdapter extends CursorAdapter
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
 
         String name = cursor.getString(nameColumnIndex);
-        //  TODO: correct photo storing in database
-        String photo = cursor.getString(photoColumnIndex);
+        // get photo as byte array
+        byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
+        //  convert byte array to Bitmap
+        Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
         float price = (float) cursor.getInt(priceColumnIndex) / 100;
         int quantity = cursor.getInt(quantityColumnIndex);
 
         textName.setText(name);
-        // TODO: correct photo storing in database
-        imagePhoto.setContentDescription(photo);
+        imagePhoto.setImageBitmap(photo);
         //  TODO: consider using Locale...
         textPrice.setText(String.format("%.2f", price));
         textQuantity.setText(String.valueOf(quantity));

@@ -64,7 +64,6 @@ public final class ProductContract
          */
         public static final String COLUMN_PRODUCT_NAME = "name";
 
-        //  TODO: correct data type!
         /**
          * Photo of the product
          */

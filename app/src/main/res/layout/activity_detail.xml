@@ -99,7 +99,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:contentDescription="@string/product"
-        tools:src="@drawable/product_list_item_placeholder" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_edit_mode"

@@ -6,6 +6,8 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,23 +19,23 @@ import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+import java.io.ByteArrayOutputStream;
+
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
-
-    /**
-     * Floating action button for adding a new product
-     */
-    private FloatingActionButton fabNewProduct;
-
-    /**
-     * Adapter for list view
-     */
-    private ProductCursorAdapter productCursorAdapter;
 
     /**
      * Identifier for product data loader
      */
     private static final int PRODUCT_LOADER_ID = 0;
+    /**
+     * Floating action button for adding a new product
+     */
+    private FloatingActionButton fabNewProduct;
+    /**
+     * Adapter for list view
+     */
+    private ProductCursorAdapter productCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,8 +86,14 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
-        //  TODO: correct photo storing
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, "Nice photo");
+
+        //  Drawable (PNG) to Bitmap
+        Bitmap bitmapPhoto = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.product_photo_placeholder_phone);
+        //  Bitmap to byte[]
+        byte[] byteArrayPhoto = bitmapToByteArray(Bitmap.CompressFormat.PNG, bitmapPhoto);
+        //  put byte[] in contentValues
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
+
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 1580);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
 
@@ -125,4 +133,21 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //  when data needs to be deleted
         productCursorAdapter.swapCursor(null);
     }
+
+
+    /**
+     * Converts given Bitmap to byte array
+     *
+     * @param compressFormat chosen CompressFormat e.g. PNG
+     * @param bitmap         bitmap to convert
+     * @return byte array with image
+     */
+    private byte[] bitmapToByteArray(Bitmap.CompressFormat compressFormat, Bitmap bitmap)
+    {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(compressFormat, 70, stream);
+
+        return stream.toByteArray();
+    }
+
 }
