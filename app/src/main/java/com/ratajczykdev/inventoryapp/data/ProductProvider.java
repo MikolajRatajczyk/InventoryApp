@@ -13,7 +13,6 @@ import android.util.Log;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
-//  TODO: fill methods
 public class ProductProvider extends ContentProvider
 {
     /**
@@ -125,7 +124,6 @@ public class ProductProvider extends ContentProvider
      */
     private Uri insertProduct(Uri uri, ContentValues contentValues)
     {
-        //  TODO: do sanity check for photo (?)
         String name = contentValues.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
         if (name == null || name.isEmpty())
         {
@@ -217,7 +215,6 @@ public class ProductProvider extends ContentProvider
      */
     private int updateProduct(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs)
     {
-        //  TODO: do sanity check for photo (?)
         //  TODO: verify
 
         if (contentValues.containsKey(ProductEntry.COLUMN_PRODUCT_NAME))
