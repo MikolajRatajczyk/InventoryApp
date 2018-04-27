@@ -109,7 +109,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             @Override
             public void onClick(View view)
             {
-                //  TODO: make it start e-mail app with product data
+                sendOrder();
             }
         });
     }
