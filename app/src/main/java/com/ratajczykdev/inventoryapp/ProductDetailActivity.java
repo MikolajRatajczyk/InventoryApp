@@ -205,15 +205,13 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     {
         //  TODO: delete hardcoded Strings
         //  TODO: add ability to specify the quantity before making order
-        //  TODO: add ability to specify the name of owner before making order
         String productName = textName.getText().toString();
 
         String subject = "Order - " + productName;
         String body = "Dear Sir/Madam," +
                 "\n\nI would like to order " + productName + "." +
                 "\nNumber of items: " + " [QUANTITY]."
-                + "\n\nYours faithfully,"
-                + "\n" + "[OWNER_NAME]";
+                + "\n\nYours faithfully,";
         String chooserTitle = "Select an app to send message";
 
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
