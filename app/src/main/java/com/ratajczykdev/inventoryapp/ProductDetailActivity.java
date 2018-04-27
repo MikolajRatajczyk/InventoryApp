@@ -58,6 +58,11 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      */
     private static final int EXISTING_PRODUCT_LOADER_ID = 1;
 
+    /**
+     * Content URI for the existing product
+     */
+    private Uri currentProductUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,17 +84,25 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
         if (getIntent().getData() != null)
         {
+            currentProductUri = getIntent().getData();
             getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER_ID, null, this);
+
+            fabEditMode.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
+                    intent.setData(currentProductUri);
+                    startActivity(intent);
+                }
+            });
+        } else
+        {
+            //  if there is no correct data, so there is no point on editing - hide fab
+            fabEditMode.setVisibility(View.INVISIBLE);
         }
 
-        fabEditMode.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                //  TODO: make it start ProductEditActivity
-            }
-        });
 
         buttonOrder.setOnClickListener(new View.OnClickListener()
         {
@@ -114,7 +127,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
         return new CursorLoader(
                 this,
-                ProductEntry.CONTENT_URI,
+                currentProductUri,
                 projection,
                 null,
                 null,
