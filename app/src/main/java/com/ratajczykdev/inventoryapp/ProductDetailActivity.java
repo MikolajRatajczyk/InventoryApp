@@ -205,6 +205,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     {
         //  TODO: delete hardcoded Strings
         //  TODO: add ability to specify the quantity before making order
+        //  TODO: add feature to get user name from Google Account and save it to email body
         String productName = textName.getText().toString();
 
         String subject = "Order - " + productName;
