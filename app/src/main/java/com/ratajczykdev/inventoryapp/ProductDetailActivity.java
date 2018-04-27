@@ -43,8 +43,21 @@ public class ProductDetailActivity extends AppCompatActivity
     {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null)
+        {
+            getSupportActionBar().hide();
+        }
         setContentView(R.layout.activity_product_detail);
+
+        if (getIntent().getData() != null)
+        {
+            setProductDataFromIntent();
+        }
+    }
+
+    private void setProductDataFromIntent()
+    {
+        //  TODO: complete this method
     }
 
     /**

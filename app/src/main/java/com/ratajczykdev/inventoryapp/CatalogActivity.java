@@ -1,6 +1,7 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -65,10 +66,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
             {
-                //  TODO: make it open with data from selected product
-                startActivity(new Intent(CatalogActivity.this, ProductDetailActivity.class));
+                Intent intent = new Intent(CatalogActivity.this, ProductDetailActivity.class);
+                //  create the content URI that represents the specific product that was clicked on
+                Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
+                intent.setData(currentProductUri);
+                startActivity(intent);
             }
         });
 
