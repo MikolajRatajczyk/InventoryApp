@@ -101,6 +101,8 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         {
             //  if there is no correct data, so there is no point on editing - hide fab
             fabEditMode.setVisibility(View.INVISIBLE);
+            // also hide order button
+            buttonOrder.setVisibility(View.INVISIBLE);
         }
 
 
