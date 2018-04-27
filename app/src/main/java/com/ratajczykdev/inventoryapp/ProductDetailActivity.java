@@ -24,40 +24,33 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
     /**
+     * Identifier for the existing product data loader
+     */
+    private static final int EXISTING_PRODUCT_LOADER_ID = 1;
+    /**
      * Floating action button for switching to edit mode
      */
     private FloatingActionButton fabEditMode;
-
     /**
      * Product photo
      */
     private ImageView imagePhoto;
-
     /**
      * Product name
      */
     private TextView textName;
-
     /**
      * Product quantity
      */
     private TextView textQuantity;
-
     /**
      * Product price
      */
     private TextView textPrice;
-
     /**
      * Button for making the order from supplier
      */
     private Button buttonOrder;
-
-    /**
-     * Identifier for the existing product data loader
-     */
-    private static final int EXISTING_PRODUCT_LOADER_ID = 1;
-
     /**
      * Content URI for the existing product
      */
@@ -167,7 +160,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      */
     private void setProductData(Cursor cursor)
     {
-        //  TODO: correct photo loading
         if (cursor == null || cursor.getCount() < 1)
         {
             Log.e(ProductDetailActivity.class.getSimpleName(), "Error with loading existing product data from database");
