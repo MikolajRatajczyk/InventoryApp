@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+import java.util.Locale;
+
 public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
     /**
@@ -184,8 +186,9 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
             textName.setText(name);
             imagePhoto.setImageBitmap(photo);
-            //  TODO: consider using Locale...
-            textPrice.setText(String.format("%.2f", price));
+            // get current Locale in order to set proper decimal sign
+            Locale currentLocale = getResources().getConfiguration().locale;
+            textPrice.setText(String.format(currentLocale, "%.2f", price));
             textQuantity.setText(String.valueOf(quantity));
         }
     }

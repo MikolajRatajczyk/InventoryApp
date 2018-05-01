@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+import java.util.Locale;
+
 /**
  * {@link ProductCursorAdapter} is an adapter for list or grid view
  * that uses a {@link Cursor} of product data as its data source.
@@ -75,8 +77,9 @@ public class ProductCursorAdapter extends CursorAdapter
 
         textName.setText(name);
         imagePhoto.setImageBitmap(photo);
-        //  TODO: consider using Locale...
-        textPrice.setText(String.format("%.2f", price));
+        // get current Locale in order to set proper decimal sign
+        Locale currentLocale = context.getResources().getConfiguration().locale;
+        textPrice.setText(String.format(currentLocale, "%.2f", price));
         textQuantity.setText(String.valueOf(quantity));
     }
 }
