@@ -1,7 +1,9 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -106,9 +108,38 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             @Override
             public void onClick(View view)
             {
-                sendOrder();
+                buildOrderDialog().show();
             }
         });
+    }
+
+    //  TODO: add a comment
+    private AlertDialog buildOrderDialog()
+    {
+        //  TODO: delete hardcoded strings
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Number of parts")
+                .setMessage("How many do you want to order?");
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i)
+            {
+                //  TODO: get productQuantity from NumberPicker
+                // TODO: delete 123
+                sendOrder(123);
+            }
+        });
+
+        return builder.create();
     }
 
 
@@ -196,7 +227,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     /**
      * Method to send predefined order
      */
-    private void sendOrder()
+    private void sendOrder(int productQuantity)
     {
         //  TODO: delete hardcoded Strings
         //  TODO: add ability to specify the quantity before making order
@@ -206,7 +237,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         String subject = "Order - " + productName;
         String body = "Dear Sir/Madam," +
                 "\n\nI would like to order " + productName + "." +
-                "\nNumber of items: " + " [QUANTITY]."
+                "\nNumber of items: " + String.valueOf(productQuantity)
                 + "\n\nYours faithfully,";
         String chooserTitle = "Select an app to send message";
 
