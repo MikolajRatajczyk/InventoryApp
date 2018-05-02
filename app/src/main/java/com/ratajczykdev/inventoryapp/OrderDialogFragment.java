@@ -92,8 +92,8 @@ public class OrderDialogFragment extends DialogFragment
      */
     public interface OrderDialogListener
     {
-        public void onDialogPositiveClick(DialogFragment dialog);
+        void onDialogPositiveClick(DialogFragment dialog);
 
-        public void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogNegativeClick(DialogFragment dialog);
     }
 }
