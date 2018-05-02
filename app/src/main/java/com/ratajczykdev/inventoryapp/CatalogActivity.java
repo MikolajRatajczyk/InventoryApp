@@ -44,7 +44,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        fabNewProduct = (FloatingActionButton) findViewById(R.id.fab_new_product);
+        fabNewProduct = findViewById(R.id.fab_new_product);
 
         fabNewProduct.setOnClickListener(new View.OnClickListener()
         {
@@ -59,8 +59,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //  loader will provide cursor, so now pass null for cursor
         productCursorAdapter = new ProductCursorAdapter(this, null);
 
-        ListView viewProductList = (ListView) findViewById(R.id.product_list);
-        View viewEmptyHint = (View) findViewById(R.id.empty_view_hint);
+        ListView viewProductList = findViewById(R.id.product_list);
+        View viewEmptyHint = findViewById(R.id.empty_view_hint);
         viewProductList.setEmptyView(viewEmptyHint);
         viewProductList.setAdapter(productCursorAdapter);
         viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener()

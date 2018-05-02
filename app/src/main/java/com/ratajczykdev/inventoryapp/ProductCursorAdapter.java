@@ -57,10 +57,10 @@ public class ProductCursorAdapter extends CursorAdapter
     @Override
     public void bindView(View view, Context context, Cursor cursor)
     {
-        TextView textName = (TextView) view.findViewById(R.id.text_name);
-        ImageView imagePhoto = (ImageView) view.findViewById(R.id.image_photo);
-        TextView textPrice = (TextView) view.findViewById(R.id.text_price);
-        TextView textQuantity = (TextView) view.findViewById(R.id.text_quantity);
+        TextView textName = view.findViewById(R.id.text_name);
+        ImageView imagePhoto = view.findViewById(R.id.image_photo);
+        TextView textPrice = view.findViewById(R.id.text_price);
+        TextView textQuantity = view.findViewById(R.id.text_quantity);
 
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
