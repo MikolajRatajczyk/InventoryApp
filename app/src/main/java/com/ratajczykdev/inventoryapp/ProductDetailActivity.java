@@ -1,9 +1,8 @@
 package com.ratajczykdev.inventoryapp;
 
-import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -25,7 +24,7 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
 
-public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
+public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OrderDialogFragment.OrderDialogListener
 {
     /**
      * Identifier for the existing product data loader
@@ -72,12 +71,12 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
         setContentView(R.layout.activity_product_detail);
 
-        imagePhoto = (ImageView) findViewById(R.id.product_detail_photo);
-        fabEditMode = (FloatingActionButton) findViewById(R.id.product_detail_edit_fab);
-        textName = (TextView) findViewById(R.id.product_detail_name);
-        textQuantity = (TextView) findViewById(R.id.product_detail_quantity);
-        textPrice = (TextView) findViewById(R.id.product_detail_price);
-        buttonOrder = (Button) findViewById(R.id.product_detail_order_button);
+        imagePhoto = findViewById(R.id.product_detail_photo);
+        fabEditMode = findViewById(R.id.product_detail_edit_fab);
+        textName = findViewById(R.id.product_detail_name);
+        textQuantity = findViewById(R.id.product_detail_quantity);
+        textPrice =  findViewById(R.id.product_detail_price);
+        buttonOrder =  findViewById(R.id.product_detail_order_button);
 
         if (getIntent().getData() != null)
         {
@@ -102,44 +101,79 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             buttonOrder.setVisibility(View.INVISIBLE);
         }
 
-
         buttonOrder.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                buildOrderDialog().show();
+                showOrderDialog();
             }
         });
     }
 
-    //  TODO: add a comment
-    private AlertDialog buildOrderDialog()
+    /**
+     * Shows OrderDialogFragment that gets product quantity from user
+     */
+    private void showOrderDialog()
     {
-        //  TODO: delete hardcoded strings
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Number of parts")
-                .setMessage("How many do you want to order?");
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i)
-            {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i)
-            {
-                //  TODO: get productQuantity from NumberPicker
-                // TODO: delete 123
-                sendOrder(123);
-            }
-        });
+        OrderDialogFragment orderDialog = new OrderDialogFragment();
+        orderDialog.show(getFragmentManager(), "OrderDialogFragment");
+    }
 
-        return builder.create();
+
+    /**
+     * Triggered when user clicks positive button on OrderDialogFragment
+     * <p>
+     * The dialog fragment receives a reference to this Activity through the
+     * Fragment.onAttach() callback, which it uses to call this  method
+     * defined by the NoticeDialogFragment.NoticeDialogListener interface
+     *
+     * @param dialog OrderDialogFragment object
+     */
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog)
+    {
+        int productQuantity = ((OrderDialogFragment) dialog).getQuantity();
+        sendOrder(productQuantity);
+    }
+
+    /**
+     * Triggered when user clicks negative button on OrderDialogFragment
+     * <p>
+     * The dialog fragment receives a reference to this Activity through the
+     * Fragment.onAttach() callback, which it uses to call this  method
+     * defined by the NoticeDialogFragment.NoticeDialogListener interface
+     *
+     * @param dialog OrderDialogFragment object
+     */
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog)
+    {
+        dialog.dismiss();
+    }
+
+    /**
+     * Method to send predefined order
+     */
+    private void sendOrder(int productQuantity)
+    {
+        //  TODO: delete hardcoded Strings
+        //  TODO: add feature to get user name from Google Account and save it to email body
+        String productName = textName.getText().toString();
+
+        String subject = "Order - " + productName;
+        String body = "Dear Sir/Madam," +
+                "\n\nI would like to order " + productName + "." +
+                "\nNumber of items: " + String.valueOf(productQuantity)
+                + "\n\nYours faithfully,";
+        String chooserTitle = "Select an app to send message";
+
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+        //  use Intent.createChooser ... if user uses two or more email apps
+        startActivity(Intent.createChooser(emailIntent, chooserTitle));
     }
 
 
@@ -224,27 +258,5 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
     }
 
-    /**
-     * Method to send predefined order
-     */
-    private void sendOrder(int productQuantity)
-    {
-        //  TODO: delete hardcoded Strings
-        //  TODO: add feature to get user name from Google Account and save it to email body
-        String productName = textName.getText().toString();
 
-        String subject = "Order - " + productName;
-        String body = "Dear Sir/Madam," +
-                "\n\nI would like to order " + productName + "." +
-                "\nNumber of items: " + String.valueOf(productQuantity)
-                + "\n\nYours faithfully,";
-        String chooserTitle = "Select an app to send message";
-
-        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-
-        //  use Intent.createChooser ... if user uses two or more email apps
-        startActivity(Intent.createChooser(emailIntent, chooserTitle));
-    }
 }
