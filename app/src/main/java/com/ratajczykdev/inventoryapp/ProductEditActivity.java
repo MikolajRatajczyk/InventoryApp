@@ -22,6 +22,9 @@ import java.util.Locale;
 //  TODO: finish
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    /**
+     * Identifier for product data loader
+     */
     private static final int EDITED_PRODUCT_LOADER_ID = 1;
     /**
      * Add photo button
