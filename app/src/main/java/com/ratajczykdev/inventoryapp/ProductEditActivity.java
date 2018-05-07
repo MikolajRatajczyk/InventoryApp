@@ -78,11 +78,25 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         buttonSave = findViewById(R.id.product_edit_save_button);
 
         currentProductUri = getIntent().getData();
+        //  edit mode
         if (currentProductUri != null)
         {
             getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
+            setupButtonsForEditing();
         }
 
+        //  adding a new product mode
+        if (currentProductUri == null)
+        {
+            setupButtonsForAdding();
+        }
+    }
+
+    /**
+     * Setups all buttons in order to edit existing product
+     */
+    private void setupButtonsForEditing()
+    {
         buttonCancel.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -117,6 +131,14 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
                 }
             }
         });
+    }
+
+    /**
+     * Setups all buttons in order to add a new product to database
+     */
+    private void setupButtonsForAdding()
+    {
+        buttonDelete.setVisibility(View.INVISIBLE);
     }
 
     /**
