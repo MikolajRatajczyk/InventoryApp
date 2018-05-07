@@ -71,7 +71,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         }
         //  TODO: finish whole editing behaviour
 
-        buttonAddPhoto=findViewById(R.id.product_edit_image_button);
+        buttonAddPhoto=findViewById(R.id.product_edit_add_photo_button);
         editTextName=findViewById(R.id.product_edit_name);
         editTextQuantity=findViewById(R.id.product_edit_quantity);
         editTextPrice=findViewById(R.id.product_edit_price);

@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/product_photo_icon_grey" />
 
     <Button
-        android:id="@+id/product_edit_image_button"
+        android:id="@+id/product_edit_add_photo_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:contentDescription="@string/name_symbol"
         app:layout_constraintBottom_toTopOf="@+id/product_edit_quantity_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_edit_image_button"
+        app:layout_constraintTop_toBottomOf="@+id/product_edit_add_photo_button"
         app:srcCompat="@drawable/product_name_icon_grey" />
 
     <EditText
