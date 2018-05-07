@@ -1,12 +1,14 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -76,9 +78,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         buttonDismiss = findViewById(R.id.product_edit_dismiss_button);
         buttonSave = findViewById(R.id.product_edit_save_button);
 
-        if (getIntent() != null)
+        currentProductUri = getIntent().getData();
+        if (currentProductUri != null)
         {
-            currentProductUri = getIntent().getData();
             getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
         }
 
@@ -91,7 +93,45 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             }
         });
 
+        buttonSave.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                saveExistingProduct();
+                finish();
+            }
+        });
+
         //  TODO: finish whole editing behaviour
+    }
+
+
+    /**
+     * Saves existing product with changes to database
+     */
+    private void saveExistingProduct()
+    {
+        //  TODO: correct price input from user
+        String name = editTextName.getText().toString().trim();
+        int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
+        int price = stringPriceToInt(editTextPrice.getText().toString().trim());
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
+        //  TODO: add photo
+
+        int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
+        if (rowsAffected == 0)
+        {
+            Toast.makeText(this, "Saving product failed", Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed");
+        } else
+        {
+            Toast.makeText(this, "Product saved", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -162,5 +202,27 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         editTextName.setText("");
         editTextQuantity.setText("");
         editTextPrice.setText("");
+    }
+
+    /**
+     * Converts String price with decimal separator to int type without decimal separator
+     *
+     * @param stringPrice String to be converted
+     * @return int price without decimal separator
+     */
+    private int stringPriceToInt(String stringPrice)
+    {
+        if (TextUtils.isEmpty(stringPrice))
+        {
+            Toast.makeText(this, "Incorrect price", Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Incorrect price, conversion to int failed");
+            return 0;
+        }
+
+        //  TODO: get decimal separator from user locale
+        final String decimalSeparator = ",";
+        String stringPriceWithoutSeparator = stringPrice.replaceAll(decimalSeparator, "");
+
+        return Integer.valueOf(stringPriceWithoutSeparator);
     }
 }
