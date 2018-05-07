@@ -20,4 +20,5 @@
     <string name="dismiss">dismiss</string>
     <string name="add">add</string>
     <string name="save">save</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -44,9 +44,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private Button buttonDelete;
     /**
-     * Dismiss button
+     * Cancel button
      */
-    private Button buttonDismiss;
+    private Button buttonCancel;
     /**
      * Save button
      */
@@ -67,7 +67,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         editTextQuantity = findViewById(R.id.product_edit_quantity);
         editTextPrice = findViewById(R.id.product_edit_price);
         buttonDelete = findViewById(R.id.product_edit_delete_button);
-        buttonDismiss = findViewById(R.id.product_edit_dismiss_button);
+        buttonCancel = findViewById(R.id.product_edit_cancel_button);
         buttonSave = findViewById(R.id.product_edit_save_button);
 
         currentProductUri = getIntent().getData();
@@ -76,7 +76,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
         }
 
-        buttonDismiss.setOnClickListener(new View.OnClickListener()
+        buttonCancel.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
