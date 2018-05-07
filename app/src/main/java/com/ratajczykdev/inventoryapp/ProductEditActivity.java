@@ -77,6 +77,15 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         buttonCancel = findViewById(R.id.product_edit_cancel_button);
         buttonSave = findViewById(R.id.product_edit_save_button);
 
+        buttonCancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+
         currentProductUri = getIntent().getData();
         //  edit mode
         if (currentProductUri != null)
@@ -97,14 +106,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private void setupButtonsForEditing()
     {
-        buttonCancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                finish();
-            }
-        });
 
         buttonSave.setOnClickListener(new View.OnClickListener()
         {
@@ -139,6 +140,21 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     private void setupButtonsForAdding()
     {
         buttonDelete.setVisibility(View.INVISIBLE);
+
+        buttonSave.setText("Add");
+        buttonSave.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (addNewProduct())
+                {
+                    Intent intent = new Intent(ProductEditActivity.this, CatalogActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
 
     /**
@@ -197,6 +213,45 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             Toast.makeText(this, "Product saved", Toast.LENGTH_SHORT).show();
             return true;
         }
+    }
+
+    /**
+     * Adds a new product to database
+     *
+     * @return true if adding was successful, false if failed
+     */
+    private boolean addNewProduct()
+    {
+        String name = editTextName.getText().toString().trim();
+        if (TextUtils.isEmpty(name))
+        {
+            Toast.makeText(this, "Enter correct name", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
+
+        String stringPrice = editTextPrice.getText().toString().trim();
+        float floatPrice = Float.valueOf(stringPrice);
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
+
+
+        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
+        if (newUri == null)
+        {
+            Toast.makeText(this, "Adding a new product failed", Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Adding a new product failed");
+            return false;
+        } else
+        {
+            Toast.makeText(this, "Product added", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+
     }
 
     @Override

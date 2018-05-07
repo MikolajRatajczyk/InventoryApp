@@ -68,16 +68,20 @@ public class ProductCursorAdapter extends CursorAdapter
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
 
         String name = cursor.getString(nameColumnIndex);
-        // get photo as byte array
-        byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
-        //  convert byte array to Bitmap
-        Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
         float price = cursor.getFloat(priceColumnIndex);
         int quantity = cursor.getInt(quantityColumnIndex);
 
         textName.setText(name);
-        imagePhoto.setImageBitmap(photo);
         textPrice.setText(String.format(Locale.US, "%.2f", price));
         textQuantity.setText(String.valueOf(quantity));
+
+        if (!(cursor.isNull(photoColumnIndex)))
+        {
+            // get photo as byte array
+            byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
+            //  convert byte array to Bitmap
+            Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
+            imagePhoto.setImageBitmap(photo);
+        }
     }
 }
