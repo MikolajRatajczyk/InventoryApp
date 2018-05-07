@@ -20,9 +20,12 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
 
-//  TODO: finish
+/**
+ * This class allows to edit or add a new product to the database.
+ */
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    //  TODO: add adding new product feature
     /**
      * Identifier for product data loader
      */
@@ -108,9 +111,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             {
                 if (deleteProduct())
                 {
-                    finish();
                     Intent intent = new Intent(ProductEditActivity.this, CatalogActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -209,7 +212,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         if (cursor == null || cursor.getCount() < 1)
         {
             Log.e(ProductEditActivity.class.getSimpleName(), "Error with loading existing product data from database");
-            Toast.makeText(this, "Error with loading product", Toast.LENGTH_SHORT).show();
             return;
         }
 
