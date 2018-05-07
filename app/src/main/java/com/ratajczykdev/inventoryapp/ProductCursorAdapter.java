@@ -73,7 +73,7 @@ public class ProductCursorAdapter extends CursorAdapter
         //  convert byte array to Bitmap
         Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
         float price = cursor.getFloat(priceColumnIndex);
-        float quantity = cursor.getFloat(quantityColumnIndex);
+        int quantity = cursor.getInt(quantityColumnIndex);
 
         textName.setText(name);
         imagePhoto.setImageBitmap(photo);
