@@ -90,6 +90,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
                 finish();
             }
         });
+
         //  TODO: finish whole editing behaviour
     }
 
