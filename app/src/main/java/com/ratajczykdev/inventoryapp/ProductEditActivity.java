@@ -50,9 +50,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     private Button buttonDismiss;
 
     /**
-     * Add button
+     * Save button
      */
-    private Button buttonAdd;
+    private Button buttonSave;
 
     /**
      * Content URI for the existing product
@@ -73,7 +73,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         editTextPrice = findViewById(R.id.product_edit_price);
         buttonDelete = findViewById(R.id.product_edit_delete_button);
         buttonDismiss = findViewById(R.id.product_edit_dismiss_button);
-        buttonAdd = findViewById(R.id.product_edit_add_button);
+        buttonSave = findViewById(R.id.product_edit_save_button);
 
         if (getIntent() != null)
         {

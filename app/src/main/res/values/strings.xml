@@ -19,4 +19,5 @@
     <string name="edit_product_title">Edit product</string>
     <string name="dismiss">dismiss</string>
     <string name="add">add</string>
+    <string name="save">save</string>
 </resources>
