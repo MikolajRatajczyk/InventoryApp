@@ -42,6 +42,16 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     private Button buttonDelete;
 
     /**
+     * Dismiss button
+     */
+    private Button buttonDismiss;
+
+    /**
+     * Add button
+     */
+    private Button buttonAdd;
+
+    /**
      * Content URI for the existing product
      */
     private Uri currentProductUri;
