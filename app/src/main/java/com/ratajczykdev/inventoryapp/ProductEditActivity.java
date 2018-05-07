@@ -70,6 +70,14 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
         }
         //  TODO: finish whole editing behaviour
+
+        buttonAddPhoto=findViewById(R.id.product_edit_image_button);
+        editTextName=findViewById(R.id.product_edit_name);
+        editTextQuantity=findViewById(R.id.product_edit_quantity);
+        editTextPrice=findViewById(R.id.product_edit_price);
+        buttonDelete=findViewById(R.id.product_edit_delete_button);
+        buttonDismiss=findViewById(R.id.product_edit_dismiss_button);
+        buttonAdd=findViewById(R.id.product_edit_add_button);
     }
 
     @Override
