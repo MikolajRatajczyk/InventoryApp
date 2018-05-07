@@ -191,9 +191,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
     {
         setProductData(cursor);
-        //  TODO: delete debugging Toast
-        Toast.makeText(this, currentProductUri.toString() + "->" + cursor.toString(), Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
