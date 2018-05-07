@@ -7,11 +7,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
+
+import java.util.Locale;
 
 //  TODO: finish
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
@@ -71,13 +74,13 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         }
         //  TODO: finish whole editing behaviour
 
-        buttonAddPhoto=findViewById(R.id.product_edit_add_photo_button);
-        editTextName=findViewById(R.id.product_edit_name);
-        editTextQuantity=findViewById(R.id.product_edit_quantity);
-        editTextPrice=findViewById(R.id.product_edit_price);
-        buttonDelete=findViewById(R.id.product_edit_delete_button);
-        buttonDismiss=findViewById(R.id.product_edit_dismiss_button);
-        buttonAdd=findViewById(R.id.product_edit_add_button);
+        buttonAddPhoto = findViewById(R.id.product_edit_add_photo_button);
+        editTextName = findViewById(R.id.product_edit_name);
+        editTextQuantity = findViewById(R.id.product_edit_quantity);
+        editTextPrice = findViewById(R.id.product_edit_price);
+        buttonDelete = findViewById(R.id.product_edit_delete_button);
+        buttonDismiss = findViewById(R.id.product_edit_dismiss_button);
+        buttonAdd = findViewById(R.id.product_edit_add_button);
     }
 
     @Override
@@ -96,7 +99,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
     {
-        //  TODO: fill
+        setProductData(cursor);
         //  TODO: delete debugging Toast
         Toast.makeText(this, currentProductUri.toString() + "->" + cursor.toString(), Toast.LENGTH_SHORT).show();
 
@@ -105,6 +108,48 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     @Override
     public void onLoaderReset(Loader<Cursor> loader)
     {
-        //  TODO: fill
+        releaseProductData();
+    }
+
+    /**
+     * Set current product data with provided ones from database
+     *
+     * @param cursor cursor that contains the existing product data
+     */
+    private void setProductData(Cursor cursor)
+    {
+        if (cursor == null || cursor.getCount() < 1)
+        {
+            Log.e(ProductEditActivity.class.getSimpleName(), "Error with loading existing product data from database");
+            Toast.makeText(this, "Error with loading product", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (cursor.moveToFirst())
+        {
+            int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+
+            String name = cursor.getString(nameColumnIndex);
+            float price = (float) cursor.getInt(priceColumnIndex) / 100;
+            int quantity = cursor.getInt(quantityColumnIndex);
+
+            editTextName.setText(name);
+            // get current Locale in order to set proper decimal sign
+            Locale currentLocale = getResources().getConfiguration().locale;
+            editTextPrice.setText(String.format(currentLocale, "%.2f", price));
+            editTextQuantity.setText(String.valueOf(quantity));
+        }
+    }
+
+    /**
+     * Replace current product data with blank space
+     */
+    private void releaseProductData()
+    {
+        editTextName.setText("");
+        editTextQuantity.setText("");
+        editTextPrice.setText("");
     }
 }
