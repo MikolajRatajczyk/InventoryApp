@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -80,6 +81,15 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             currentProductUri = getIntent().getData();
             getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
         }
+
+        buttonDismiss.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
         //  TODO: finish whole editing behaviour
     }
 
