@@ -17,4 +17,6 @@
     <string name="details_title">Details</string>
     <string name="products_catalog_title">Products catalog</string>
     <string name="edit_product_title">Edit product</string>
+    <string name="dismiss">dismiss</string>
+    <string name="add">add</string>
 </resources>
