@@ -51,6 +51,10 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      */
     private TextView textPrice;
     /**
+     * Button for finishing activity
+     */
+    private Button buttonDismiss;
+    /**
      * Button for making the order from supplier
      */
     private Button buttonOrder;
@@ -75,8 +79,9 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         fabEditMode = findViewById(R.id.product_detail_edit_fab);
         textName = findViewById(R.id.product_detail_name);
         textQuantity = findViewById(R.id.product_detail_quantity);
-        textPrice =  findViewById(R.id.product_detail_price);
-        buttonOrder =  findViewById(R.id.product_detail_order_button);
+        textPrice = findViewById(R.id.product_detail_price);
+        buttonOrder = findViewById(R.id.product_detail_order_button);
+        buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
 
         if (getIntent().getData() != null)
         {
@@ -100,6 +105,15 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             // also hide order button
             buttonOrder.setVisibility(View.INVISIBLE);
         }
+
+        buttonDismiss.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
 
         buttonOrder.setOnClickListener(new View.OnClickListener()
         {
