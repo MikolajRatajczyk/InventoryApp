@@ -22,47 +22,39 @@ import java.util.Locale;
 //  TODO: finish
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    private static final int EDITED_PRODUCT_LOADER_ID = 1;
     /**
      * Add photo button
      */
     private Button buttonAddPhoto;
-
     /**
      * Name EditText
      */
     private EditText editTextName;
-
     /**
      * Quantity EditText
      */
     private EditText editTextQuantity;
-
     /**
      * Price EditText
      */
     private EditText editTextPrice;
-
     /**
      * Delete button
      */
     private Button buttonDelete;
-
     /**
      * Dismiss button
      */
     private Button buttonDismiss;
-
     /**
      * Save button
      */
     private Button buttonSave;
-
     /**
      * Content URI for the existing product
      */
     private Uri currentProductUri;
-
-    private static final int EDITED_PRODUCT_LOADER_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -112,15 +104,16 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private void saveExistingProduct()
     {
-        //  TODO: correct price input from user
         String name = editTextName.getText().toString().trim();
         int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
-        int price = stringPriceToInt(editTextPrice.getText().toString().trim());
+
+        String stringPrice = editTextPrice.getText().toString().trim();
+        float floatPrice = Float.valueOf(stringPrice);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
         //  TODO: add photo
 
         int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
@@ -183,13 +176,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
 
             String name = cursor.getString(nameColumnIndex);
-            float price = (float) cursor.getInt(priceColumnIndex) / 100;
+            float price = cursor.getFloat(priceColumnIndex);
             int quantity = cursor.getInt(quantityColumnIndex);
 
             editTextName.setText(name);
-            // get current Locale in order to set proper decimal sign
-            Locale currentLocale = getResources().getConfiguration().locale;
-            editTextPrice.setText(String.format(currentLocale, "%.2f", price));
+            editTextPrice.setText(String.format(Locale.US, "%.2f", price));
             editTextQuantity.setText(String.valueOf(quantity));
         }
     }
@@ -202,27 +193,5 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         editTextName.setText("");
         editTextQuantity.setText("");
         editTextPrice.setText("");
-    }
-
-    /**
-     * Converts String price with decimal separator to int type without decimal separator
-     *
-     * @param stringPrice String to be converted
-     * @return int price without decimal separator
-     */
-    private int stringPriceToInt(String stringPrice)
-    {
-        if (TextUtils.isEmpty(stringPrice))
-        {
-            Toast.makeText(this, "Incorrect price", Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Incorrect price, conversion to int failed");
-            return 0;
-        }
-
-        //  TODO: get decimal separator from user locale
-        final String decimalSeparator = ",";
-        String stringPriceWithoutSeparator = stringPrice.replaceAll(decimalSeparator, "");
-
-        return Integer.valueOf(stringPriceWithoutSeparator);
     }
 }

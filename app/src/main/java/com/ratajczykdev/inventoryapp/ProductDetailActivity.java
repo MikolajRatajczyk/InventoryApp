@@ -260,14 +260,12 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
             //  convert byte array to Bitmap
             Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
-            float price = (float) cursor.getInt(priceColumnIndex) / 100;
+            float price = cursor.getFloat(priceColumnIndex);
             int quantity = cursor.getInt(quantityColumnIndex);
 
             textName.setText(name);
             imagePhoto.setImageBitmap(photo);
-            // get current Locale in order to set proper decimal sign
-            Locale currentLocale = getResources().getConfiguration().locale;
-            textPrice.setText(String.format(currentLocale, "%.2f", price));
+            textPrice.setText(String.format(Locale.US, "%.2f", price));
             textQuantity.setText(String.valueOf(quantity));
         }
     }

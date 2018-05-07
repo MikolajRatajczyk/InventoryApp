@@ -72,14 +72,12 @@ public class ProductCursorAdapter extends CursorAdapter
         byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
         //  convert byte array to Bitmap
         Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
-        float price = (float) cursor.getInt(priceColumnIndex) / 100;
-        int quantity = cursor.getInt(quantityColumnIndex);
+        float price = cursor.getFloat(priceColumnIndex);
+        float quantity = cursor.getFloat(quantityColumnIndex);
 
         textName.setText(name);
         imagePhoto.setImageBitmap(photo);
-        // get current Locale in order to set proper decimal sign
-        Locale currentLocale = context.getResources().getConfiguration().locale;
-        textPrice.setText(String.format(currentLocale, "%.2f", price));
+        textPrice.setText(String.format(Locale.US, "%.2f", price));
         textQuantity.setText(String.valueOf(quantity));
     }
 }

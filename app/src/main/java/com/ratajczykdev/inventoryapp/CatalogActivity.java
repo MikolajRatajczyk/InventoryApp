@@ -98,7 +98,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //  put byte[] in contentValues
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
 
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 1580);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
 
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
