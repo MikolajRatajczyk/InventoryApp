@@ -3,6 +3,7 @@ package com.ratajczykdev.inventoryapp;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -100,7 +101,39 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             }
         });
 
-        //  TODO: finish whole editing behaviour
+        buttonDelete.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (deleteProduct())
+                {
+                    finish();
+                    Intent intent = new Intent(ProductEditActivity.this, CatalogActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    /**
+     * Deletes existing product from database
+     *
+     * @return true if deletion was successful, false if failed
+     */
+    private boolean deleteProduct()
+    {
+        int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
+        if (rowsDeleted == 0)
+        {
+            Toast.makeText(this, "Deleting product failed", Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductUri.toString());
+            return false;
+        } else
+        {
+            Toast.makeText(this, "Product deleted", Toast.LENGTH_SHORT).show();
+            return true;
+        }
     }
 
 
@@ -132,7 +165,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         if (rowsAffected == 0)
         {
             Toast.makeText(this, "Saving product failed", Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed");
+            Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed for URI: " + currentProductUri.toString());
             return false;
         } else
         {
