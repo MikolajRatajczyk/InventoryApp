@@ -90,8 +90,10 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             @Override
             public void onClick(View view)
             {
-                saveExistingProduct();
-                finish();
+                if (saveExistingProduct())
+                {
+                    finish();
+                }
             }
         });
 
@@ -100,11 +102,18 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
 
     /**
-     * Saves existing product with changes to database
+     * Saves existing product with changes
+     *
+     * @return true if change was successful, false if failed
      */
-    private void saveExistingProduct()
+    private boolean saveExistingProduct()
     {
         String name = editTextName.getText().toString().trim();
+        if (TextUtils.isEmpty(name))
+        {
+            Toast.makeText(this, "Enter correct name", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
 
         String stringPrice = editTextPrice.getText().toString().trim();
@@ -121,9 +130,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             Toast.makeText(this, "Saving product failed", Toast.LENGTH_SHORT).show();
             Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed");
+            return false;
         } else
         {
             Toast.makeText(this, "Product saved", Toast.LENGTH_SHORT).show();
+            return true;
         }
     }
 
