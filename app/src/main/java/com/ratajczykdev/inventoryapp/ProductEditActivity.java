@@ -6,6 +6,8 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,8 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.data.PhotoConverter;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Locale;
 
 /**
@@ -29,6 +34,10 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      * Identifier for product data loader
      */
     private static final int EDITED_PRODUCT_LOADER_ID = 1;
+    /**
+     * Request code that identifies photo request from user
+     */
+    private static final int PHOTO_REQUEST_ID = 2;
     /**
      * Change photo button
      */
@@ -61,6 +70,10 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      * Content URI for the existing product
      */
     private Uri currentProductUri;
+    /**
+     * URI to product photo from user
+     */
+    private Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -84,6 +97,14 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
                 finish();
             }
         });
+        buttonChangePhoto.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                requestBitmapUriFromUser();
+            }
+        });
 
         currentProductUri = getIntent().getData();
         //  edit mode
@@ -98,6 +119,63 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             setupButtonsForAdding();
         }
+    }
+
+    /**
+     * Starts activity to receive image URI from user
+     */
+    private void requestBitmapUriFromUser()
+    {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, PHOTO_REQUEST_ID);
+    }
+
+    /**
+     * This method is called when request finishes in other app
+     *
+     * @param requestCode request code passed when starting activity
+     * @param resultCode  result code
+     * @param data        carries the result data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PHOTO_REQUEST_ID)
+        {
+            if (resultCode == RESULT_OK && data != null)
+            {
+                imageUri = data.getData();
+
+            } else
+            {
+                Toast.makeText(this, "Image not picked", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    /**
+     * Makes InputStream from the photo's URI
+     *
+     * @param photoUri photo URI
+     * @return InputStream with the photo
+     */
+    private InputStream photoUriToInputStream(Uri photoUri)
+    {
+        InputStream photoStream = null;
+        try
+        {
+            photoStream = getContentResolver().openInputStream(photoUri);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, "Getting image failed", Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Getting image failed for URI: " + photoUri.toString());
+        }
+
+        return photoStream;
     }
 
     /**
@@ -200,7 +278,14 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
-        //  TODO: add photo
+
+        if (imageUri != null)
+        {
+            Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
+            Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
+            byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
+            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
+        }
 
         int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
         if (rowsAffected == 0)
@@ -248,6 +333,13 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, intQuantity);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
 
+        if (imageUri != null)
+        {
+            Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
+            Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
+            byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
+            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
+        }
 
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
         if (newUri == null)

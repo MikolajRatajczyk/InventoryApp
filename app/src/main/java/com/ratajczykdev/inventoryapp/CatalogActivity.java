@@ -18,9 +18,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.data.PhotoConverter;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
-
-import java.io.ByteArrayOutputStream;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
@@ -94,7 +93,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //  Drawable (PNG) to Bitmap
         Bitmap bitmapPhoto = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.product_photo_placeholder_phone);
         //  Bitmap to byte[]
-        byte[] byteArrayPhoto = bitmapToByteArray(Bitmap.CompressFormat.PNG, bitmapPhoto);
+        byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(bitmapPhoto);
         //  put byte[] in contentValues
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
 
@@ -136,22 +135,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     {
         //  when data needs to be deleted
         productCursorAdapter.swapCursor(null);
-    }
-
-
-    /**
-     * Converts given Bitmap to byte array
-     *
-     * @param compressFormat chosen CompressFormat e.g. PNG
-     * @param bitmap         bitmap to convert
-     * @return byte array with image
-     */
-    private byte[] bitmapToByteArray(Bitmap.CompressFormat compressFormat, Bitmap bitmap)
-    {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(compressFormat, 70, stream);
-
-        return stream.toByteArray();
     }
 
 }
