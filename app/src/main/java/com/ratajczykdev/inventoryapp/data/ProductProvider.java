@@ -215,8 +215,6 @@ public class ProductProvider extends ContentProvider
      */
     private int updateProduct(Uri uri, ContentValues contentValues, String selection, String[] selectionArgs)
     {
-        //  TODO: verify
-
         if (contentValues.containsKey(ProductEntry.COLUMN_PRODUCT_NAME))
         {
             String name = contentValues.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
@@ -236,7 +234,6 @@ public class ProductProvider extends ContentProvider
                 throw new IllegalArgumentException("Product needs valid price");
             }
         }
-
 
         //  can be null, because the database will automatically set it to default 0
         if (contentValues.containsKey(ProductEntry.COLUMN_PRODUCT_QUANTITY))
