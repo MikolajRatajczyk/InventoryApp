@@ -150,7 +150,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
             } else
             {
-                Toast.makeText(this, "Image not picked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.info_not_picked_image, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -171,7 +171,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         catch (FileNotFoundException e)
         {
             e.printStackTrace();
-            Toast.makeText(this, "Getting image failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.failed_getting_image, Toast.LENGTH_SHORT).show();
             Log.e(ProductEditActivity.class.getSimpleName(), "Getting image failed for URI: " + photoUri.toString());
         }
 
@@ -245,12 +245,12 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
         if (rowsDeleted == 0)
         {
-            Toast.makeText(this, "Deleting product failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.failed_deleting_product, Toast.LENGTH_SHORT).show();
             Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductUri.toString());
             return false;
         } else
         {
-            Toast.makeText(this, "Product deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.info_deleted_product, Toast.LENGTH_SHORT).show();
             return true;
         }
     }
@@ -266,7 +266,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         String name = editTextName.getText().toString().trim();
         if (TextUtils.isEmpty(name))
         {
-            Toast.makeText(this, "Enter correct name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
             return false;
         }
         int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
@@ -290,12 +290,12 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
         if (rowsAffected == 0)
         {
-            Toast.makeText(this, "Saving product failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.failed_saving_product, Toast.LENGTH_SHORT).show();
             Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed for URI: " + currentProductUri.toString());
             return false;
         } else
         {
-            Toast.makeText(this, "Product saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.info_saved_product, Toast.LENGTH_SHORT).show();
             return true;
         }
     }
@@ -310,7 +310,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         String name = editTextName.getText().toString().trim();
         if (TextUtils.isEmpty(name))
         {
-            Toast.makeText(this, "Enter correct name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -344,12 +344,12 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
         if (newUri == null)
         {
-            Toast.makeText(this, "Adding a new product failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.failed_adding_product, Toast.LENGTH_SHORT).show();
             Log.e(ProductEditActivity.class.getSimpleName(), "Adding a new product failed");
             return false;
         } else
         {
-            Toast.makeText(this, "Product added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.info_added_product, Toast.LENGTH_SHORT).show();
             return true;
         }
 

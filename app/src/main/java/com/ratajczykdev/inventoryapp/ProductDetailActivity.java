@@ -243,7 +243,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         if (cursor == null || cursor.getCount() < 1)
         {
             Log.e(ProductDetailActivity.class.getSimpleName(), "Error with loading existing product data from database");
-            Toast.makeText(this, "Error with loading product", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_loading_product, Toast.LENGTH_SHORT).show();
             return;
         }
 

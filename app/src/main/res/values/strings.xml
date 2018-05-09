@@ -22,4 +22,14 @@
     <string name="save">save</string>
     <string name="cancel">Cancel</string>
     <string name="change_photo">Change photo</string>
+    <string name="error_loading_product">Error with loading product</string>
+    <string name="failed_getting_image">Getting image failed</string>
+    <string name="failed_deleting_product">Deleting product failed</string>
+    <string name="failed_saving_product">Saving product failed</string>
+    <string name="failed_adding_product">Adding a new product failed</string>
+    <string name="info_not_picked_image">Image not picked</string>
+    <string name="info_deleted_product">Product deleted</string>
+    <string name="info_correct_name_enter">Enter correct name</string>
+    <string name="info_saved_product">Product saved</string>
+    <string name="info_added_product">Product added</string>
 </resources>
