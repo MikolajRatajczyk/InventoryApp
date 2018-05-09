@@ -28,8 +28,8 @@ public class OrderDialogFragment extends DialogFragment
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        builder.setTitle("How many do you want to order?");
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        builder.setTitle(R.string.order_dialog_title);
+        builder.setNegativeButton(R.string.order_dialog_cancel, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int id)
@@ -37,7 +37,7 @@ public class OrderDialogFragment extends DialogFragment
                 listener.onDialogNegativeClick(OrderDialogFragment.this);
             }
         });
-        builder.setPositiveButton("Make order", new DialogInterface.OnClickListener()
+        builder.setPositiveButton(R.string.order_dialog_make_order, new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int id)

@@ -174,12 +174,12 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         //  TODO: delete hardcoded Strings
         String productName = textName.getText().toString();
 
-        String subject = "Order - " + productName;
-        String body = "Dear Sir/Madam," +
-                "\n\nI would like to order " + productName + "." +
-                "\nNumber of items: " + String.valueOf(productQuantity)
-                + "\n\nYours faithfully,";
-        String chooserTitle = "Select an app to send message";
+        String subject = getString(R.string.email_order) + productName;
+        String body = getString(R.string.email_dear) +
+                getString(R.string.email_would_like) + productName + "." +
+                getString(R.string.email_number_of) + String.valueOf(productQuantity)
+                + getString(R.string.email_yours);
+        String chooserTitle = getString(R.string.select_app_title);
 
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"));
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);

@@ -32,4 +32,14 @@
     <string name="info_correct_name_enter">Enter correct name</string>
     <string name="info_saved_product">Product saved</string>
     <string name="info_added_product">Product added</string>
+    <string name="email_order">Order -</string>
+    <string name="email_dear">Dear Sir/Madam,</string>
+    <string name="email_would_like">I would like to order</string>
+    <string name="email_number_of">Number of items:</string>
+    <string name="email_yours">Yours faithfully,</string>
+    <string name="select_app_title">Select an app to send message</string>
+    <string name="order_dialog_title">How many do you want to order?</string>
+    <string name="order_dialog_cancel">Cancel</string>
+    <string name="order_dialog_make_order">Make order</string>
+    <string name="dollar_symbol">$</string>
 </resources>
