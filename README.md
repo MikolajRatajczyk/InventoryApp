@@ -10,6 +10,7 @@ This app helps you track your shop inventory.
  - Adding a new product with: name, quantity, price and image,
  - Editing added product,
  - Deleting a product
+ - Loading from database does not block UI thread,
  - Help making order for a new supply,
  - Showing the full list of products,
  - Fully translated
