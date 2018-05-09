@@ -25,7 +25,6 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
-    //  TODO: add adding new product feature
     /**
      * Identifier for product data loader
      */
