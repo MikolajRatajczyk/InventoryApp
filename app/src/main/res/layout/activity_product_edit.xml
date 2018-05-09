@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/add_photo"
+        android:text="@string/change_photo"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/product_edit_photo_icon"
         app:layout_constraintStart_toEndOf="@+id/product_edit_photo_icon"

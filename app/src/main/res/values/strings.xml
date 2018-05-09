@@ -21,4 +21,5 @@
     <string name="add">add</string>
     <string name="save">save</string>
     <string name="cancel">Cancel</string>
+    <string name="change_photo">Change photo</string>
 </resources>

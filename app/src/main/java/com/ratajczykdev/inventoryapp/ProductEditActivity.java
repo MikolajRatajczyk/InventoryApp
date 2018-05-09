@@ -30,9 +30,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private static final int EDITED_PRODUCT_LOADER_ID = 1;
     /**
-     * Add photo button
+     * Change photo button
      */
-    private Button buttonAddPhoto;
+    private Button buttonChangePhoto;
     /**
      * Name EditText
      */
@@ -68,7 +68,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
 
-        buttonAddPhoto = findViewById(R.id.product_edit_add_photo_button);
+        buttonChangePhoto = findViewById(R.id.product_edit_add_photo_button);
         editTextName = findViewById(R.id.product_edit_name);
         editTextQuantity = findViewById(R.id.product_edit_quantity);
         editTextPrice = findViewById(R.id.product_edit_price);
