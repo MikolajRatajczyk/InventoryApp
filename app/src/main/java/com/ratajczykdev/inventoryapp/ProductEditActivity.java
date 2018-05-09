@@ -68,7 +68,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
 
-        buttonChangePhoto = findViewById(R.id.product_edit_add_photo_button);
+        buttonChangePhoto = findViewById(R.id.product_edit_change_photo_button);
         editTextName = findViewById(R.id.product_edit_name);
         editTextQuantity = findViewById(R.id.product_edit_quantity);
         editTextPrice = findViewById(R.id.product_edit_price);
