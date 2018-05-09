@@ -228,14 +228,24 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             Toast.makeText(this, "Enter correct name", Toast.LENGTH_SHORT).show();
             return false;
         }
-        int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
+
+        String stringQuantity = editTextQuantity.getText().toString().trim();
+        if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals("."))
+        {
+            stringQuantity = "0";
+        }
+        int intQuantity = Integer.valueOf(stringQuantity);
 
         String stringPrice = editTextPrice.getText().toString().trim();
+        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals("."))
+        {
+            stringPrice = "0";
+        }
         float floatPrice = Float.valueOf(stringPrice);
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, intQuantity);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
 
 
