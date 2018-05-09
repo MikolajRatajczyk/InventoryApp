@@ -23,8 +23,6 @@ This app helps you track your shop inventory.
 ![enter image description here](https://i.imgur.com/rVhPiXZ.jpg)
 ![enter image description here](https://i.imgur.com/Wfn2dUT.jpg)
 
-![enter image description here](https://i.imgur.com/oOpkYtA.jpg)
-
 
 ## What platform?
 
