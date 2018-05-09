@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Zaplecze</string>
+    <string name="empty_list">Możesz dodać produkty klikając czerwony przycisk</string>
+    <string name="photo">zdjęcie</string>
+    <string name="product">produkt</string>
+    <string name="order">Zamów</string>
+    <string name="delete">Usuń</string>
+    <string name="price">Cena</string>
+    <string name="quantity">Ilość</string>
+    <string name="name">Nazwa</string>
+    <string name="add_photo">Dodaj zdjęcie</string>
+    <string name="edit_symbol">symbol zdjęcia</string>
+    <string name="name_symbol">symbol nazwy</string>
+    <string name="quantity_symbol">symbol ilości</string>
+    <string name="price_symbol">symbol ceny</string>
+    <string name="details_title">Szczegóły</string>
+    <string name="products_catalog_title">Katalog produktów</string>
+    <string name="edit_product_title">Edycja produktu</string>
+    <string name="dismiss">Zaniechaj</string>
+    <string name="add">Dodaj</string>
+    <string name="save">Zapisz</string>
+    <string name="cancel">Anuluj</string>
+    <string name="change_photo">Zmień zdjęcie</string>
+    <string name="error_loading_product">Błąd przy ładowaniu zdjęcia</string>
+    <string name="failed_getting_image">Niepowodzenie przy przechwtywaniu zdjęcia</string>
+    <string name="failed_deleting_product">Niepowodzenie przy usuwaniu produktu</string>
+    <string name="failed_saving_product">Niepowodzenie przy zapisywaniu produktu</string>
+    <string name="failed_adding_product">Niepowodzenie przy dodawniu nowego produktu</string>
+    <string name="info_not_picked_image">Nie wybrano zdjęcia</string>
+    <string name="info_deleted_product">Produkt usunięty</string>
+    <string name="info_correct_name_enter">Wpisz poprawne imię</string>
+    <string name="info_saved_product">Produkt zapisany</string>
+    <string name="info_added_product">Produkt dodany</string>
+    <string name="email_order">Zamówienie -</string>
+    <string name="email_dear">Szanowna Pani/Panie,</string>
+    <string name="email_would_like">Chciałbym zamówić</string>
+    <string name="email_number_of">Ilość produktów:</string>
+    <string name="email_yours">Pozdrawiam,</string>
+    <string name="select_app_title">Wybierz aplikację do wiadomości</string>
+    <string name="order_dialog_title">Jak wiele chciałbyś zamówić?</string>
+    <string name="order_dialog_cancel">Anuluj</string>
+    <string name="order_dialog_make_order">Złóż zamówienie</string>
+    <string name="dollar_symbol">$</string>
+</resources>
