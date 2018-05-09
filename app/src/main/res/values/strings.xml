@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Inventory App</string>
-    <string name="empty_list">You can add products by clicking the red floating button</string>
-    <string name="sale">Sale</string>
+    <string name="empty_list">You can add products by clicking the red button</string>
     <string name="photo">photo</string>
     <string name="product">product</string>
     <string name="order">Order</string>
@@ -10,7 +9,7 @@
     <string name="quantity">Quantity</string>
     <string name="name">Name</string>
     <string name="add_photo">Add photo</string>
-    <string name="edit_symbol">edit symbol</string>
+    <string name="photo_edit_symbol">edit symbol</string>
     <string name="name_symbol">name symbol</string>
     <string name="quantity_symbol">quantity symbol</string>
     <string name="price_symbol">price symbol</string>

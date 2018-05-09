@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:contentDescription="@string/edit_symbol"
+        android:contentDescription="@string/photo_edit_symbol"
         app:layout_constraintBottom_toBottomOf="@+id/product_edit_change_photo_button"
         app:layout_constraintEnd_toStartOf="@+id/product_edit_change_photo_button"
         app:layout_constraintTop_toTopOf="@+id/product_edit_change_photo_button"
