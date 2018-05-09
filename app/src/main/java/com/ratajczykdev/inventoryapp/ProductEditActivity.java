@@ -140,6 +140,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     {
         buttonDelete.setVisibility(View.INVISIBLE);
 
+        buttonChangePhoto.setText("Add photo");
         buttonSave.setText("Add");
         buttonSave.setOnClickListener(new View.OnClickListener()
         {
