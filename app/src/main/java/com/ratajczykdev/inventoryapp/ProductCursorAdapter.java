@@ -18,6 +18,8 @@ import java.util.Locale;
 /**
  * {@link ProductCursorAdapter} is an adapter for list or grid view
  * that uses a {@link Cursor} of product data as its data source.
+ *
+ * @author Mikołaj Ratajczyk
  */
 public class ProductCursorAdapter extends CursorAdapter
 {

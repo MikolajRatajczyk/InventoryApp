@@ -15,6 +15,8 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 /**
  * Helps interact with database
+ *
+ * @author Mikołaj Ratajczyk
  */
 public class ProductProvider extends ContentProvider
 {

@@ -6,6 +6,8 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * Helper class that handles photo conversion
+ *
+ * @author Mikołaj Ratajczyk
  */
 public final class PhotoConverter
 {

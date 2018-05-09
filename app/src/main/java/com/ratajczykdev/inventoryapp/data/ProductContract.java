@@ -6,6 +6,8 @@ import android.provider.BaseColumns;
 
 /**
  * Defines constants that help work with database content
+ *
+ * @author Mikołaj Ratajczyk
  */
 public final class ProductContract
 {

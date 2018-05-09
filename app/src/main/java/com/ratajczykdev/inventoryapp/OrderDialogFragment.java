@@ -12,6 +12,8 @@ import android.widget.EditText;
 
 /**
  * DialogFragment for making order
+ *
+ * @author Mikołaj Ratajczyk
  */
 public class OrderDialogFragment extends DialogFragment
 {

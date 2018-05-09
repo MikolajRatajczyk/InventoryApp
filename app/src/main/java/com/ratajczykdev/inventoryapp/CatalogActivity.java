@@ -23,6 +23,8 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 /**
  * Loads view with product list
+ *
+ * @author Mikołaj Ratajczyk
  */
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {

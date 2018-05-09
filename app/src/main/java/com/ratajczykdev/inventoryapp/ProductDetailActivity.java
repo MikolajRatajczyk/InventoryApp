@@ -26,6 +26,8 @@ import java.util.Locale;
 
 /**
  * Shows details about product and help with making order
+ *
+ * @author Mikołaj Ratajczyk
  */
 public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OrderDialogFragment.OrderDialogListener
 {
