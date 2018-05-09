@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:hint="@string/quantity"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/product_edit_quantity_icon"
         app:layout_constraintStart_toEndOf="@+id/product_edit_quantity_icon"

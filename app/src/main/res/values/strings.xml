@@ -9,7 +9,7 @@
     <string name="price">Price</string>
     <string name="quantity">Quantity</string>
     <string name="name">Name</string>
-    <string name="add_photo">add photo</string>
+    <string name="add_photo">Add photo</string>
     <string name="edit_symbol">edit symbol</string>
     <string name="name_symbol">name symbol</string>
     <string name="quantity_symbol">quantity symbol</string>
@@ -18,7 +18,7 @@
     <string name="products_catalog_title">Products catalog</string>
     <string name="edit_product_title">Edit product</string>
     <string name="dismiss">dismiss</string>
-    <string name="add">add</string>
+    <string name="add">Add</string>
     <string name="save">save</string>
     <string name="cancel">Cancel</string>
     <string name="change_photo">Change photo</string>
