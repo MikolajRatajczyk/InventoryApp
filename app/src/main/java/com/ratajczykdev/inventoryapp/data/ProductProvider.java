@@ -13,6 +13,9 @@ import android.util.Log;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+/**
+ * Helps interact with database
+ */
 public class ProductProvider extends ContentProvider
 {
     /**

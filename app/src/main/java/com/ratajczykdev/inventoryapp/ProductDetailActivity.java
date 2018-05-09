@@ -24,6 +24,9 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
 
+/**
+ * Shows details about product and help with making order
+ */
 public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OrderDialogFragment.OrderDialogListener
 {
     /**
@@ -171,7 +174,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      */
     private void sendOrder(int productQuantity)
     {
-        //  TODO: delete hardcoded Strings
         String productName = textName.getText().toString();
 
         String subject = getString(R.string.email_order) + " " + productName;

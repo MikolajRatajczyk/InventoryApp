@@ -21,6 +21,9 @@ import android.widget.Toast;
 import com.ratajczykdev.inventoryapp.data.PhotoConverter;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+/**
+ * Loads view with product list
+ */
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
 

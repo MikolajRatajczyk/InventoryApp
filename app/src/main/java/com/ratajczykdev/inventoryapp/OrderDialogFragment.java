@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * DialogFragment for making order
+ */
 public class OrderDialogFragment extends DialogFragment
 {
     /**

@@ -4,6 +4,9 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+/**
+ * Defines constants that help work with database content
+ */
 public final class ProductContract
 {
 

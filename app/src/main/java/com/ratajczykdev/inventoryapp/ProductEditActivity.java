@@ -26,7 +26,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 /**
- * This class allows to edit or add a new product to the database.
+ * This class allows to edit or add a new product to the database
  */
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {

@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
+/**
+ * Helps with accessing or creating database file
+ */
 public class ProductDbHelper extends SQLiteOpenHelper
 {
     /**

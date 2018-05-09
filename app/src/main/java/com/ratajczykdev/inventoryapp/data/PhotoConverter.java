@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Helper class handling photo conversion
+ * Helper class that handles photo conversion
  */
 public final class PhotoConverter
 {
