@@ -85,9 +85,14 @@ public class ProductCursorAdapter extends CursorAdapter
         float price = getPriceFromCursor(cursor);
         textPrice.setText(String.format(Locale.US, "%.2f", price));
 
-        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        int quantity = cursor.getInt(quantityColumnIndex);
+        int quantity = getQuantityFromCursor(cursor);
         textQuantity.setText(String.valueOf(quantity));
+    }
+
+    private int getQuantityFromCursor(Cursor cursor)
+    {
+        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        return cursor.getInt(quantityColumnIndex);
     }
 
     private float getPriceFromCursor(Cursor cursor)
