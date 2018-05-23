@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.PhotoConverter;
+import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
@@ -365,6 +366,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
         }
 
+        return insertProductFromContentValues(contentValues);
+    }
+
+    private boolean insertProductFromContentValues(ContentValues contentValues)
+    {
         Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
         if (newUri == null)
         {
@@ -376,8 +382,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             Toast.makeText(this, R.string.info_added_product, Toast.LENGTH_SHORT).show();
             return true;
         }
-
-
     }
 
     @Override
