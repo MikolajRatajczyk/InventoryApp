@@ -323,7 +323,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
             return false;
         }
-        int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
+        int quantity = getIntQuantityFromUi();
 
         float floatPrice = getFloatPriceFromUi();
 
@@ -351,12 +351,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             return false;
         }
 
-        String stringQuantity = editTextQuantity.getText().toString().trim();
-        if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals("."))
-        {
-            stringQuantity = "0";
-        }
-        int intQuantity = Integer.valueOf(stringQuantity);
+        int intQuantity = getIntQuantityFromUi();
 
         float floatPrice = getFloatPriceFromUi();
 
@@ -368,6 +363,16 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         putPhotoInContentValuesIfExists(contentValues);
 
         return insertProductFromContentValues(contentValues);
+    }
+
+    private int getIntQuantityFromUi()
+    {
+        String stringQuantity = editTextQuantity.getText().toString().trim();
+        if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals("."))
+        {
+            stringQuantity = "0";
+        }
+        return Integer.valueOf(stringQuantity);
     }
 
     private float getFloatPriceFromUi()
