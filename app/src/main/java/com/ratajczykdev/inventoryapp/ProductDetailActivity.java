@@ -270,21 +270,21 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
         if (cursor.moveToFirst())
         {
-            setPrice(cursor);
-            setQuantity(cursor);
-            setName(cursor);
-            setPhotoIfAvailable(cursor);
+            setPriceInUi(cursor);
+            setQuantityInUi(cursor);
+            setNameInUi(cursor);
+            setPhotoIfAvailableInUi(cursor);
         }
     }
 
-    private void setPrice(Cursor cursor)
+    private void setPriceInUi(Cursor cursor)
     {
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
         float price = cursor.getFloat(priceColumnIndex);
         textPrice.setText(String.format(Locale.US, "%.2f", price));
     }
 
-    private void setQuantity(Cursor cursor)
+    private void setQuantityInUi(Cursor cursor)
     {
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
         int quantity = cursor.getInt(quantityColumnIndex);
@@ -292,14 +292,14 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     }
 
 
-    private void setName(Cursor cursor)
+    private void setNameInUi(Cursor cursor)
     {
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         String name = cursor.getString(nameColumnIndex);
         textName.setText(name);
     }
 
-    private void setPhotoIfAvailable(Cursor cursor)
+    private void setPhotoIfAvailableInUi(Cursor cursor)
     {
         int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
         if (!(cursor.isNull(photoColumnIndex)))
