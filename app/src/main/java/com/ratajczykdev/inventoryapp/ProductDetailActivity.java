@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -84,17 +83,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         if (getIntent().getData() != null)
         {
             startProductLoader();
-
-            fabEditMode.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
-                    intent.setData(currentProductUri);
-                    startActivity(intent);
-                }
-            });
+            setFabListener();
         } else
         {
             //  if there is no correct data, so there is no point on editing - hide fab
@@ -118,6 +107,20 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             public void onClick(View view)
             {
                 showOrderDialog();
+            }
+        });
+    }
+
+    private void setFabListener()
+    {
+        fabEditMode.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
+                intent.setData(currentProductUri);
+                startActivity(intent);
             }
         });
     }
