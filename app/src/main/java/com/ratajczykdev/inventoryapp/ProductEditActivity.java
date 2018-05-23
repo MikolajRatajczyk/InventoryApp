@@ -83,13 +83,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
 
-        buttonChangePhoto = findViewById(R.id.product_edit_change_photo_button);
-        editTextName = findViewById(R.id.product_edit_name);
-        editTextQuantity = findViewById(R.id.product_edit_quantity);
-        editTextPrice = findViewById(R.id.product_edit_price);
-        buttonDelete = findViewById(R.id.product_edit_delete_button);
-        buttonCancel = findViewById(R.id.product_edit_cancel_button);
-        buttonSave = findViewById(R.id.product_edit_save_button);
+        setUiElementsReferences();
 
         buttonCancel.setOnClickListener(new View.OnClickListener()
         {
@@ -121,6 +115,17 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             setupButtonsForAdding();
         }
+    }
+
+    private void setUiElementsReferences()
+    {
+        buttonChangePhoto = findViewById(R.id.product_edit_change_photo_button);
+        editTextName = findViewById(R.id.product_edit_name);
+        editTextQuantity = findViewById(R.id.product_edit_quantity);
+        editTextPrice = findViewById(R.id.product_edit_price);
+        buttonDelete = findViewById(R.id.product_edit_delete_button);
+        buttonCancel = findViewById(R.id.product_edit_cancel_button);
+        buttonSave = findViewById(R.id.product_edit_save_button);
     }
 
     /**
