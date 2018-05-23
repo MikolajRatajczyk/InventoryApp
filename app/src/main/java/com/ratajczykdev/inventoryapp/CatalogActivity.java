@@ -49,16 +49,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         setContentView(R.layout.activity_catalog);
 
         fabNewProduct = findViewById(R.id.fab_new_product);
-
-        fabNewProduct.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
-                startActivity(intent);
-            }
-        });
+        setFabListener();
 
         //  loader will provide cursor, so now pass null for cursor
         productCursorAdapter = new ProductCursorAdapter(this, null);
@@ -83,6 +74,19 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //  start loader
         getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
 
+    }
+
+    private void setFabListener()
+    {
+        fabNewProduct.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
