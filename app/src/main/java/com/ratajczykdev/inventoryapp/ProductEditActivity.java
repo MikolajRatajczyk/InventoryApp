@@ -80,6 +80,10 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private Uri imageUri;
 
+    private String currentName;
+    private int currentQuantity;
+    private float currentFloatPrice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -308,27 +312,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         return PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
     }
 
-    /**
-     * Saves existing product with changes
-     *
-     * @return true if change was successful, false if failed
-     */
-    private boolean saveExistingProduct()
-    {
-        String name = editTextName.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name))
-        {
-            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        int quantity = getIntQuantityFromUi();
-        float floatPrice = getFloatPriceFromUi();
-
-        ContentValues contentValues = getContentValuesWithProductData(name, quantity, floatPrice);
-
-        return updateProductFromContentValues(contentValues);
-    }
 
     @NonNull
     private ContentValues getContentValuesWithProductData(String name, int quantity, float price)
@@ -341,6 +325,39 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         return contentValues;
     }
 
+
+    private boolean setCurrentProductDataFromUi()
+    {
+        currentQuantity = getIntQuantityFromUi();
+        currentFloatPrice = getFloatPriceFromUi();
+        currentName = editTextName.getText().toString().trim();
+
+        if (TextUtils.isEmpty(currentName))
+        {
+            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Saves existing product with changes
+     *
+     * @return true if change was successful, false if failed
+     */
+    private boolean saveExistingProduct()
+    {
+        if (setCurrentProductDataFromUi())
+        {
+            ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
+            return updateProductFromContentValues(contentValues);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     /**
      * Adds a new product to database
      *
@@ -348,19 +365,15 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private boolean addNewProduct()
     {
-        String name = editTextName.getText().toString().trim();
-        if (TextUtils.isEmpty(name))
+        if (setCurrentProductDataFromUi())
         {
-            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
+            ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
+            return insertProductFromContentValues(contentValues);
+        }
+        else
+        {
             return false;
         }
-
-        int intQuantity = getIntQuantityFromUi();
-        float floatPrice = getFloatPriceFromUi();
-
-        ContentValues contentValues = getContentValuesWithProductData(name, intQuantity, floatPrice);
-
-        return insertProductFromContentValues(contentValues);
     }
 
     private int getIntQuantityFromUi()
