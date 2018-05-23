@@ -102,36 +102,20 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void setButtonOrderListener()
+    private void setUiReferences()
     {
-        buttonOrder.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                showOrderDialog();
-            }
-        });
+        imagePhoto = findViewById(R.id.product_detail_photo);
+        fabEditMode = findViewById(R.id.product_detail_edit_fab);
+        textName = findViewById(R.id.product_detail_name);
+        textQuantity = findViewById(R.id.product_detail_quantity);
+        textPrice = findViewById(R.id.product_detail_price);
+        buttonOrder = findViewById(R.id.product_detail_order_button);
+        buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
     }
 
-    private void setButtonDismissListener()
+    private void startProductLoader()
     {
-        buttonDismiss.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                finish();
-            }
-        });
-    }
-
-    private void makeFabAndButtonOrderInvisible()
-    {
-        //  if there is no correct data, so there is no point on editing - hide fab
-        fabEditMode.setVisibility(View.INVISIBLE);
-        // also hide order button
-        buttonOrder.setVisibility(View.INVISIBLE);
+        getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER_ID, null, this);
     }
 
     private void setFabListener()
@@ -148,22 +132,36 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         });
     }
 
-    private void startProductLoader()
+    private void makeFabAndButtonOrderInvisible()
     {
-        getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER_ID, null, this);
+        //  if there is no correct data, so there is no point on editing - hide fab
+        fabEditMode.setVisibility(View.INVISIBLE);
+        // also hide order button
+        buttonOrder.setVisibility(View.INVISIBLE);
     }
 
-
-
-    private void setUiReferences()
+    private void setButtonDismissListener()
     {
-        imagePhoto = findViewById(R.id.product_detail_photo);
-        fabEditMode = findViewById(R.id.product_detail_edit_fab);
-        textName = findViewById(R.id.product_detail_name);
-        textQuantity = findViewById(R.id.product_detail_quantity);
-        textPrice = findViewById(R.id.product_detail_price);
-        buttonOrder = findViewById(R.id.product_detail_order_button);
-        buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
+        buttonDismiss.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+    }
+
+    private void setButtonOrderListener()
+    {
+        buttonOrder.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                showOrderDialog();
+            }
+        });
     }
 
     /**
@@ -174,7 +172,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         OrderDialogFragment orderDialog = new OrderDialogFragment();
         orderDialog.show(getFragmentManager(), "OrderDialogFragment");
     }
-
 
     /**
      * Triggered when user clicks positive button on OrderDialogFragment
@@ -190,21 +187,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     {
         int productQuantity = ((OrderDialogFragment) dialog).getQuantity();
         sendOrder(productQuantity);
-    }
-
-    /**
-     * Triggered when user clicks negative button on OrderDialogFragment
-     * <p>
-     * The dialog fragment receives a reference to this Activity through the
-     * Fragment.onAttach() callback, which it uses to call this  method
-     * defined by the NoticeDialogFragment.NoticeDialogListener interface
-     *
-     * @param dialog OrderDialogFragment object
-     */
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog)
-    {
-        dialog.dismiss();
     }
 
     /**
@@ -229,6 +211,20 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         startActivity(Intent.createChooser(emailIntent, chooserTitle));
     }
 
+    /**
+     * Triggered when user clicks negative button on OrderDialogFragment
+     * <p>
+     * The dialog fragment receives a reference to this Activity through the
+     * Fragment.onAttach() callback, which it uses to call this  method
+     * defined by the NoticeDialogFragment.NoticeDialogListener interface
+     *
+     * @param dialog OrderDialogFragment object
+     */
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog)
+    {
+        dialog.dismiss();
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
@@ -256,23 +252,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         setProductData(cursor);
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        releaseProductData();
-    }
-
-    /**
-     * Replace current product data with blank space
-     */
-    private void releaseProductData()
-    {
-        imagePhoto.setImageBitmap(null);
-        textName.setText("");
-        textQuantity.setText("");
-        textPrice.setText("");
-    }
-
     /**
      * Set current product data with provided ones from database
      *
@@ -296,11 +275,11 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void setName(Cursor cursor)
+    private void setPrice(Cursor cursor)
     {
-        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
-        String name = cursor.getString(nameColumnIndex);
-        textName.setText(name);
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+        float price = cursor.getFloat(priceColumnIndex);
+        textPrice.setText(String.format(Locale.US, "%.2f", price));
     }
 
     private void setQuantity(Cursor cursor)
@@ -310,11 +289,12 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         textQuantity.setText(String.valueOf(quantity));
     }
 
-    private void setPrice(Cursor cursor)
+
+    private void setName(Cursor cursor)
     {
-        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-        float price = cursor.getFloat(priceColumnIndex);
-        textPrice.setText(String.format(Locale.US, "%.2f", price));
+        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+        String name = cursor.getString(nameColumnIndex);
+        textName.setText(name);
     }
 
     private void setPhotoIfAvailable(Cursor cursor)
@@ -330,5 +310,20 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
     }
 
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader)
+    {
+        releaseProductData();
+    }
 
+    /**
+     * Replace current product data with blank space
+     */
+    private void releaseProductData()
+    {
+        imagePhoto.setImageBitmap(null);
+        textName.setText("");
+        textQuantity.setText("");
+        textPrice.setText("");
+    }
 }
