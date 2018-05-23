@@ -86,10 +86,8 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             setFabListener();
         } else
         {
-            //  if there is no correct data, so there is no point on editing - hide fab
-            fabEditMode.setVisibility(View.INVISIBLE);
-            // also hide order button
-            buttonOrder.setVisibility(View.INVISIBLE);
+            makeInvisibleFabAndButtonOrder();
+
         }
 
         buttonDismiss.setOnClickListener(new View.OnClickListener()
@@ -109,6 +107,14 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
                 showOrderDialog();
             }
         });
+    }
+
+    private void makeInvisibleFabAndButtonOrder()
+    {
+        //  if there is no correct data, so there is no point on editing - hide fab
+        fabEditMode.setVisibility(View.INVISIBLE);
+        // also hide order button
+        buttonOrder.setVisibility(View.INVISIBLE);
     }
 
     private void setFabListener()
