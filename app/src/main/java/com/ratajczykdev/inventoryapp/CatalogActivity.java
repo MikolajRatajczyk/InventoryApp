@@ -28,7 +28,6 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
  */
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
-
     /**
      * Identifier for product data loader
      */
@@ -66,9 +65,17 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         startProductLoader();
     }
 
-    private void startProductLoader()
+    private void setFabListener()
     {
-        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
+        fabNewProduct.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void configureViewProductList()
@@ -89,41 +96,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
     }
 
-    private void setFabListener()
+    private void startProductLoader()
     {
-        fabNewProduct.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    /**
-     * Helper method to insert hardcoded product data into the database.
-     * <p>
-     * Only for debugging.
-     */
-    private void insertFakeProduct()
-    {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
-
-        //  Drawable (PNG) to Bitmap
-        Bitmap bitmapPhoto = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.product_photo_placeholder_phone);
-        //  Bitmap to byte[]
-        byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(bitmapPhoto);
-        //  put byte[] in contentValues
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
-
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
-
-        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
-        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
+        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
     }
 
     @Override
@@ -159,4 +134,27 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         productCursorAdapter.swapCursor(null);
     }
 
+    /**
+     * Helper method to insert hardcoded product data into the database.
+     * <p>
+     * Only for debugging.
+     */
+    private void insertFakeProduct()
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
+
+        //  Drawable (PNG) to Bitmap
+        Bitmap bitmapPhoto = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.product_photo_placeholder_phone);
+        //  Bitmap to byte[]
+        byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(bitmapPhoto);
+        //  put byte[] in contentValues
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
+
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
+
+        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
+        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
+    }
 }
