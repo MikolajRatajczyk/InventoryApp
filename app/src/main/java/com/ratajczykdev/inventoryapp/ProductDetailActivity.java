@@ -78,7 +78,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         hideActionBar();
         setContentView(R.layout.activity_product_detail);
 
-        setUiReferences();
+        setUiElementsReferences();
 
         if (getIntent().getData() != null)
         {
@@ -104,7 +104,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
     }
 
-    private void setUiReferences()
+    private void setUiElementsReferences()
     {
         imagePhoto = findViewById(R.id.product_detail_photo);
         fabEditMode = findViewById(R.id.product_detail_edit_fab);
