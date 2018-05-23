@@ -23,10 +23,10 @@ import java.util.Locale;
  */
 public class ProductCursorAdapter extends CursorAdapter
 {
-    TextView textName;
-    ImageView imagePhoto;
-    TextView textPrice;
-    TextView textQuantity;
+    private TextView textName;
+    private ImageView imagePhoto;
+    private TextView textPrice;
+    private TextView textQuantity;
 
 
     /**
@@ -79,6 +79,32 @@ public class ProductCursorAdapter extends CursorAdapter
         setImageBitmapForImagePhotoIfNotNull(cursor);
     }
 
+    private void setLayoutElementsReferences(View view)
+    {
+        textName = view.findViewById(R.id.text_name);
+        imagePhoto = view.findViewById(R.id.image_photo);
+        textPrice = view.findViewById(R.id.text_price);
+        textQuantity = view.findViewById(R.id.text_quantity);
+    }
+
+    private String getNameFromCursor(Cursor cursor)
+    {
+        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+        return cursor.getString(nameColumnIndex);
+    }
+
+    private float getPriceFromCursor(Cursor cursor)
+    {
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+        return cursor.getFloat(priceColumnIndex);
+    }
+
+    private int getQuantityFromCursor(Cursor cursor)
+    {
+        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        return cursor.getInt(quantityColumnIndex);
+    }
+
     private void setImageBitmapForImagePhotoIfNotNull(Cursor cursor)
     {
         int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
@@ -90,31 +116,5 @@ public class ProductCursorAdapter extends CursorAdapter
             Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
             imagePhoto.setImageBitmap(photo);
         }
-    }
-
-    private int getQuantityFromCursor(Cursor cursor)
-    {
-        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        return cursor.getInt(quantityColumnIndex);
-    }
-
-    private float getPriceFromCursor(Cursor cursor)
-    {
-        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-        return cursor.getFloat(priceColumnIndex);
-    }
-
-    private String getNameFromCursor(Cursor cursor)
-    {
-        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
-        return cursor.getString(nameColumnIndex);
-    }
-
-    private void setLayoutElementsReferences(View view)
-    {
-        textName = view.findViewById(R.id.text_name);
-        imagePhoto = view.findViewById(R.id.image_photo);
-        textPrice = view.findViewById(R.id.text_price);
-        textQuantity = view.findViewById(R.id.text_quantity);
     }
 }
