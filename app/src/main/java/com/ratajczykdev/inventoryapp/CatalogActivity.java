@@ -42,6 +42,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      */
     private ProductCursorAdapter productCursorAdapter;
 
+    private ListView viewProductList;
+
+    private View viewEmptyHint;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -54,8 +58,18 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //  loader will provide cursor, so now pass null for cursor
         productCursorAdapter = new ProductCursorAdapter(this, null);
 
-        ListView viewProductList = findViewById(R.id.product_list);
-        View viewEmptyHint = findViewById(R.id.empty_view_hint);
+        viewProductList = findViewById(R.id.product_list);
+        viewEmptyHint = findViewById(R.id.empty_view_hint);
+
+        configureViewProductList();
+
+        //  start loader
+        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
+
+    }
+
+    private void configureViewProductList()
+    {
         viewProductList.setEmptyView(viewEmptyHint);
         viewProductList.setAdapter(productCursorAdapter);
         viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -70,10 +84,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 startActivity(intent);
             }
         });
-
-        //  start loader
-        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
-
     }
 
     private void setFabListener()
