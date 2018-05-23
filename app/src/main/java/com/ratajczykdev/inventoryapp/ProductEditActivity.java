@@ -88,7 +88,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         setButtonCancelListener();
         setButtonChangePhotoListener();
 
-        currentProductUri = getIntent().getData();
+        if(getIntent().getData()!=null)
+        {
+            currentProductUri = getIntent().getData();
+        }
+
         //  edit mode
         if (currentProductUri != null)
         {
