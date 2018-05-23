@@ -86,7 +86,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             setFabListener();
         } else
         {
-            makeInvisibleFabAndButtonOrder();
+            makeFabAndButtonOrderInvisible();
 
         }
 
@@ -118,7 +118,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         });
     }
 
-    private void makeInvisibleFabAndButtonOrder()
+    private void makeFabAndButtonOrderInvisible()
     {
         //  if there is no correct data, so there is no point on editing - hide fab
         fabEditMode.setVisibility(View.INVISIBLE);
