@@ -74,10 +74,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
-        if (getSupportActionBar() != null)
-        {
-            getSupportActionBar().hide();
-        }
+        hideActionBar();
         setContentView(R.layout.activity_product_detail);
 
         setUiReferences();
@@ -122,6 +119,14 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
                 showOrderDialog();
             }
         });
+    }
+
+    private void hideActionBar()
+    {
+        if (getSupportActionBar() != null)
+        {
+            getSupportActionBar().hide();
+        }
     }
 
     private void setUiReferences()
