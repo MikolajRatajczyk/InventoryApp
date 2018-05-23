@@ -88,15 +88,16 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         setButtonCancelListener();
         setButtonChangePhotoListener();
 
-        if(getIntent().getData()!=null)
+        if (getIntent().getData() != null)
         {
             currentProductUri = getIntent().getData();
+            startProductLoader();
         }
 
         //  edit mode
         if (currentProductUri != null)
         {
-            getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
+
             setupButtonsForEditing();
         }
 
@@ -105,6 +106,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             setupButtonsForAdding();
         }
+    }
+
+    private void startProductLoader()
+    {
+        getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
     }
 
     private void setButtonChangePhotoListener()
