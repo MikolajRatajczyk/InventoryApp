@@ -419,14 +419,19 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             setNameInUi(cursor);
 
-            int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-            float price = cursor.getFloat(priceColumnIndex);
-            editTextPrice.setText(String.format(Locale.US, "%.2f", price));
+            setPriceInUi(cursor);
 
             int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
             int quantity = cursor.getInt(quantityColumnIndex);
             editTextQuantity.setText(String.valueOf(quantity));
         }
+    }
+
+    private void setPriceInUi(Cursor cursor)
+    {
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+        float price = cursor.getFloat(priceColumnIndex);
+        editTextPrice.setText(String.format(Locale.US, "%.2f", price));
     }
 
     private void setNameInUi(Cursor cursor)
