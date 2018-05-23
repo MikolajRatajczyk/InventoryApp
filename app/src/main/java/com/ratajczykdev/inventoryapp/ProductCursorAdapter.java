@@ -82,13 +82,18 @@ public class ProductCursorAdapter extends CursorAdapter
             imagePhoto.setImageBitmap(photo);
         }
 
-        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-        float price = cursor.getFloat(priceColumnIndex);
+        float price = getPriceFromCursor(cursor);
         textPrice.setText(String.format(Locale.US, "%.2f", price));
 
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
         int quantity = cursor.getInt(quantityColumnIndex);
         textQuantity.setText(String.valueOf(quantity));
+    }
+
+    private float getPriceFromCursor(Cursor cursor)
+    {
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+        return cursor.getFloat(priceColumnIndex);
     }
 
     private String getNameFromCursor(Cursor cursor)
