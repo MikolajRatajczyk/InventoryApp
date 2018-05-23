@@ -35,6 +35,8 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      * Identifier for the existing product data loader
      */
     private static final int EXISTING_PRODUCT_LOADER_ID = 1;
+
+    private static final String EMPTY_STRING = "";
     /**
      * Floating action button for switching to edit mode
      */
@@ -322,8 +324,8 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     private void releaseProductData()
     {
         imagePhoto.setImageBitmap(null);
-        textName.setText("");
-        textQuantity.setText("");
-        textPrice.setText("");
+        textName.setText(EMPTY_STRING);
+        textQuantity.setText(EMPTY_STRING);
+        textPrice.setText(EMPTY_STRING);
     }
 }
