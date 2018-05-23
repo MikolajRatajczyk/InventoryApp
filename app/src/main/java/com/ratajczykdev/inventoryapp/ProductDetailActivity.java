@@ -90,14 +90,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
         }
 
-        buttonDismiss.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                finish();
-            }
-        });
+        setButtonDismissListener();
 
         buttonOrder.setOnClickListener(new View.OnClickListener()
         {
@@ -105,6 +98,18 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             public void onClick(View view)
             {
                 showOrderDialog();
+            }
+        });
+    }
+
+    private void setButtonDismissListener()
+    {
+        buttonDismiss.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
             }
         });
     }
