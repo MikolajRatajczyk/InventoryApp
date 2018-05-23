@@ -418,9 +418,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         if (cursor.moveToFirst())
         {
             setNameInUi(cursor);
-
             setPriceInUi(cursor);
-
             setQuantityInUi(cursor);
         }
     }
