@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.PhotoConverter;
+import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
@@ -416,18 +417,23 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
         if (cursor.moveToFirst())
         {
-            int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+            setNameInUi(cursor);
+
             int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-
-            String name = cursor.getString(nameColumnIndex);
             float price = cursor.getFloat(priceColumnIndex);
-            int quantity = cursor.getInt(quantityColumnIndex);
-
-            editTextName.setText(name);
             editTextPrice.setText(String.format(Locale.US, "%.2f", price));
+
+            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int quantity = cursor.getInt(quantityColumnIndex);
             editTextQuantity.setText(String.valueOf(quantity));
         }
+    }
+
+    private void setNameInUi(Cursor cursor)
+    {
+        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+        String name = cursor.getString(nameColumnIndex);
+        editTextName.setText(name);
     }
 
     /**
