@@ -80,13 +80,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
         setContentView(R.layout.activity_product_detail);
 
-        imagePhoto = findViewById(R.id.product_detail_photo);
-        fabEditMode = findViewById(R.id.product_detail_edit_fab);
-        textName = findViewById(R.id.product_detail_name);
-        textQuantity = findViewById(R.id.product_detail_quantity);
-        textPrice = findViewById(R.id.product_detail_price);
-        buttonOrder = findViewById(R.id.product_detail_order_button);
-        buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
+        setUiReferences();
 
         if (getIntent().getData() != null)
         {
@@ -128,6 +122,17 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
                 showOrderDialog();
             }
         });
+    }
+
+    private void setUiReferences()
+    {
+        imagePhoto = findViewById(R.id.product_detail_photo);
+        fabEditMode = findViewById(R.id.product_detail_edit_fab);
+        textName = findViewById(R.id.product_detail_name);
+        textQuantity = findViewById(R.id.product_detail_quantity);
+        textPrice = findViewById(R.id.product_detail_price);
+        buttonOrder = findViewById(R.id.product_detail_order_button);
+        buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
     }
 
     /**
