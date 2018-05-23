@@ -72,9 +72,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
-
         hideActionBar();
         setContentView(R.layout.activity_product_detail);
 
@@ -92,6 +90,15 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
         setButtonDismissListener();
         setButtonOrderListener();
+    }
+
+    private void hideActionBar()
+    {
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        if (getSupportActionBar() != null)
+        {
+            getSupportActionBar().hide();
+        }
     }
 
     private void setButtonOrderListener()
@@ -146,13 +153,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER_ID, null, this);
     }
 
-    private void hideActionBar()
-    {
-        if (getSupportActionBar() != null)
-        {
-            getSupportActionBar().hide();
-        }
-    }
+
 
     private void setUiReferences()
     {
