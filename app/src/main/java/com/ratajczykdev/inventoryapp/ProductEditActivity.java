@@ -19,11 +19,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.PhotoConverter;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Locale;
 
 /**
@@ -285,6 +285,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     private boolean saveExistingProduct()
     {
         String name = editTextName.getText().toString().trim();
+
         if (TextUtils.isEmpty(name))
         {
             Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
@@ -302,9 +303,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
         if (imageUri != null)
         {
-            Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
-            Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
-            byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
+            byte[] byteArrayPhoto = bitmapUriToByteArray(imageUri);
             contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
         }
 
@@ -319,6 +318,13 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             Toast.makeText(this, R.string.info_saved_product, Toast.LENGTH_SHORT).show();
             return true;
         }
+    }
+
+    private byte[] bitmapUriToByteArray(Uri imageUri)
+    {
+        Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
+        Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
+        return PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
     }
 
     /**
