@@ -67,6 +67,7 @@ public class ProductCursorAdapter extends CursorAdapter
     {
         setLayoutElementsReferences(view);
 
+        //  TODO: extract to new methods
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
