@@ -91,7 +91,11 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         }
 
         setButtonDismissListener();
+        setButtonOrderListener();
+    }
 
+    private void setButtonOrderListener()
+    {
         buttonOrder.setOnClickListener(new View.OnClickListener()
         {
             @Override
