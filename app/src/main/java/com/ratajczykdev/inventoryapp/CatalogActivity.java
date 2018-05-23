@@ -63,9 +63,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         configureViewProductList();
 
-        //  start loader
-        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
+        startProductLoader();
+    }
 
+    private void startProductLoader()
+    {
+        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
     }
 
     private void configureViewProductList()
