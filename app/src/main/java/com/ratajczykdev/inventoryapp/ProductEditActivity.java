@@ -276,34 +276,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     }
 
 
-    /**
-     * Saves existing product with changes
-     *
-     * @return true if change was successful, false if failed
-     */
-    private boolean saveExistingProduct()
-    {
-        String name = editTextName.getText().toString().trim();
 
-        if (TextUtils.isEmpty(name))
-        {
-            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
-
-        String stringPrice = editTextPrice.getText().toString().trim();
-        float floatPrice = Float.valueOf(stringPrice);
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
-
-        putPhotoInContentValuesIfExists(contentValues);
-
-        return updateProductFromContentValues(contentValues);
-    }
 
     private void putPhotoInContentValuesIfExists(ContentValues contentValues)
     {
@@ -334,6 +307,34 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
         Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
         return PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
+    }
+
+    /**
+     * Saves existing product with changes
+     *
+     * @return true if change was successful, false if failed
+     */
+    private boolean saveExistingProduct()
+    {
+        String name = editTextName.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name))
+        {
+            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        int quantity = Integer.valueOf(editTextQuantity.getText().toString().trim());
+
+        float floatPrice = getFloatPriceFromUi();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
+
+        putPhotoInContentValuesIfExists(contentValues);
+
+        return updateProductFromContentValues(contentValues);
     }
 
     /**
