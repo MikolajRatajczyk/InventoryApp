@@ -85,14 +85,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
         setUiElementsReferences();
 
-        buttonCancel.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                finish();
-            }
-        });
+        setButtonCancelListener();
         buttonChangePhoto.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -115,6 +108,18 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             setupButtonsForAdding();
         }
+    }
+
+    private void setButtonCancelListener()
+    {
+        buttonCancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
     }
 
     private void setUiElementsReferences()
