@@ -86,14 +86,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         setUiElementsReferences();
 
         setButtonCancelListener();
-        buttonChangePhoto.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                requestBitmapUriFromUser();
-            }
-        });
+        setButtonChangePhotoListener();
 
         currentProductUri = getIntent().getData();
         //  edit mode
@@ -108,6 +101,18 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             setupButtonsForAdding();
         }
+    }
+
+    private void setButtonChangePhotoListener()
+    {
+        buttonChangePhoto.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                requestBitmapUriFromUser();
+            }
+        });
     }
 
     private void setButtonCancelListener()
