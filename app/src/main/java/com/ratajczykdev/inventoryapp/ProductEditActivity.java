@@ -81,8 +81,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     private Uri imageUri;
 
     private String currentName;
+
     private int currentQuantity;
+
     private float currentFloatPrice;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -106,21 +109,15 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         }
     }
 
-    private void startProductLoader()
+    private void setUiElementsReferences()
     {
-        getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
-    }
-
-    private void setButtonChangePhotoListener()
-    {
-        buttonChangePhoto.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                requestBitmapUriFromUser();
-            }
-        });
+        buttonChangePhoto = findViewById(R.id.product_edit_change_photo_button);
+        editTextName = findViewById(R.id.product_edit_name);
+        editTextQuantity = findViewById(R.id.product_edit_quantity);
+        editTextPrice = findViewById(R.id.product_edit_price);
+        buttonDelete = findViewById(R.id.product_edit_delete_button);
+        buttonCancel = findViewById(R.id.product_edit_cancel_button);
+        buttonSave = findViewById(R.id.product_edit_save_button);
     }
 
     private void setButtonCancelListener()
@@ -135,15 +132,16 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         });
     }
 
-    private void setUiElementsReferences()
+    private void setButtonChangePhotoListener()
     {
-        buttonChangePhoto = findViewById(R.id.product_edit_change_photo_button);
-        editTextName = findViewById(R.id.product_edit_name);
-        editTextQuantity = findViewById(R.id.product_edit_quantity);
-        editTextPrice = findViewById(R.id.product_edit_price);
-        buttonDelete = findViewById(R.id.product_edit_delete_button);
-        buttonCancel = findViewById(R.id.product_edit_cancel_button);
-        buttonSave = findViewById(R.id.product_edit_save_button);
+        buttonChangePhoto.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                requestBitmapUriFromUser();
+            }
+        });
     }
 
     /**
@@ -156,51 +154,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         startActivityForResult(photoPickerIntent, PHOTO_REQUEST_ID);
     }
 
-    /**
-     * This method is called when request finishes in other app
-     *
-     * @param requestCode request code passed when starting activity
-     * @param resultCode  result code
-     * @param data        carries the result data
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    private void startProductLoader()
     {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PHOTO_REQUEST_ID)
-        {
-            if (resultCode == RESULT_OK && data != null)
-            {
-                imageUri = data.getData();
-
-            } else
-            {
-                Toast.makeText(this, R.string.info_not_picked_image, Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    /**
-     * Makes InputStream from the photo's URI
-     *
-     * @param photoUri photo URI
-     * @return InputStream with the photo
-     */
-    private InputStream photoUriToInputStream(Uri photoUri)
-    {
-        InputStream photoStream = null;
-        try
-        {
-            photoStream = getContentResolver().openInputStream(photoUri);
-        }
-        catch (FileNotFoundException e)
-        {
-            e.printStackTrace();
-            Toast.makeText(this, R.string.failed_getting_image, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Getting image failed for URI: " + photoUri.toString());
-        }
-
-        return photoStream;
+        getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
     }
 
     /**
@@ -237,6 +193,142 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     }
 
     /**
+     * Deletes existing product from database
+     *
+     * @return true if deletion was successful, false if failed
+     */
+    private boolean deleteProduct()
+    {
+        int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
+        if (rowsDeleted == 0)
+        {
+            Toast.makeText(this, R.string.failed_deleting_product, Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductUri.toString());
+            return false;
+        } else
+        {
+            Toast.makeText(this, R.string.info_deleted_product, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+    }
+
+    /**
+     * Saves existing product with changes
+     *
+     * @return true if change was successful, false if failed
+     */
+    private boolean saveExistingProduct()
+    {
+        if (setCurrentProductDataFromUi())
+        {
+            ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
+            return updateProductFromContentValues(contentValues);
+        } else
+        {
+            return false;
+        }
+    }
+
+    private boolean setCurrentProductDataFromUi()
+    {
+        currentQuantity = getIntQuantityFromUi();
+        currentFloatPrice = getFloatPriceFromUi();
+        currentName = editTextName.getText().toString().trim();
+
+        if (TextUtils.isEmpty(currentName))
+        {
+            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private float getFloatPriceFromUi()
+    {
+        String stringPrice = editTextPrice.getText().toString().trim();
+        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals("."))
+        {
+            stringPrice = "0";
+        }
+        return Float.valueOf(stringPrice);
+    }
+
+    private int getIntQuantityFromUi()
+    {
+        String stringQuantity = editTextQuantity.getText().toString().trim();
+        if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals("."))
+        {
+            stringQuantity = "0";
+        }
+        return Integer.valueOf(stringQuantity);
+    }
+
+    @NonNull
+    private ContentValues getContentValuesWithProductData(String name, int quantity, float price)
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
+        putPhotoInContentValuesIfExists(contentValues);
+        return contentValues;
+    }
+
+    private void putPhotoInContentValuesIfExists(ContentValues contentValues)
+    {
+        if (imageUri != null)
+        {
+            byte[] byteArrayPhoto = bitmapUriToByteArray(imageUri);
+            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
+        }
+    }
+
+    private byte[] bitmapUriToByteArray(Uri imageUri)
+    {
+        Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
+        Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
+        return PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
+    }
+
+    /**
+     * Makes InputStream from the photo's URI
+     *
+     * @param photoUri photo URI
+     * @return InputStream with the photo
+     */
+    private InputStream photoUriToInputStream(Uri photoUri)
+    {
+        InputStream photoStream = null;
+        try
+        {
+            photoStream = getContentResolver().openInputStream(photoUri);
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, R.string.failed_getting_image, Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Getting image failed for URI: " + photoUri.toString());
+        }
+
+        return photoStream;
+    }
+
+    private boolean updateProductFromContentValues(ContentValues contentValues)
+    {
+        int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
+        if (rowsAffected == 0)
+        {
+            Toast.makeText(this, R.string.failed_saving_product, Toast.LENGTH_SHORT).show();
+            Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed for URI: " + currentProductUri.toString());
+            return false;
+        } else
+        {
+            Toast.makeText(this, R.string.info_saved_product, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+    }
+
+    /**
      * Setups all buttons in order to add a new product to database
      */
     private void setupButtonsForAdding()
@@ -261,104 +353,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     }
 
     /**
-     * Deletes existing product from database
-     *
-     * @return true if deletion was successful, false if failed
-     */
-    private boolean deleteProduct()
-    {
-        int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
-        if (rowsDeleted == 0)
-        {
-            Toast.makeText(this, R.string.failed_deleting_product, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductUri.toString());
-            return false;
-        } else
-        {
-            Toast.makeText(this, R.string.info_deleted_product, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-    }
-
-
-    private void putPhotoInContentValuesIfExists(ContentValues contentValues)
-    {
-        if (imageUri != null)
-        {
-            byte[] byteArrayPhoto = bitmapUriToByteArray(imageUri);
-            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
-        }
-    }
-
-    private boolean updateProductFromContentValues(ContentValues contentValues)
-    {
-        int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
-        if (rowsAffected == 0)
-        {
-            Toast.makeText(this, R.string.failed_saving_product, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed for URI: " + currentProductUri.toString());
-            return false;
-        } else
-        {
-            Toast.makeText(this, R.string.info_saved_product, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-    }
-
-    private byte[] bitmapUriToByteArray(Uri imageUri)
-    {
-        Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
-        Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
-        return PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
-    }
-
-
-
-    @NonNull
-    private ContentValues getContentValuesWithProductData(String name, int quantity, float price)
-    {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
-        putPhotoInContentValuesIfExists(contentValues);
-        return contentValues;
-    }
-
-
-    private boolean setCurrentProductDataFromUi()
-    {
-        currentQuantity = getIntQuantityFromUi();
-        currentFloatPrice = getFloatPriceFromUi();
-        currentName = editTextName.getText().toString().trim();
-
-        if (TextUtils.isEmpty(currentName))
-        {
-            Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Saves existing product with changes
-     *
-     * @return true if change was successful, false if failed
-     */
-    private boolean saveExistingProduct()
-    {
-        if (setCurrentProductDataFromUi())
-        {
-            ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
-            return updateProductFromContentValues(contentValues);
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    /**
      * Adds a new product to database
      *
      * @return true if adding was successful, false if failed
@@ -369,31 +363,10 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
             return insertProductFromContentValues(contentValues);
-        }
-        else
+        } else
         {
             return false;
         }
-    }
-
-    private int getIntQuantityFromUi()
-    {
-        String stringQuantity = editTextQuantity.getText().toString().trim();
-        if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals("."))
-        {
-            stringQuantity = "0";
-        }
-        return Integer.valueOf(stringQuantity);
-    }
-
-    private float getFloatPriceFromUi()
-    {
-        String stringPrice = editTextPrice.getText().toString().trim();
-        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals("."))
-        {
-            stringPrice = "0";
-        }
-        return Float.valueOf(stringPrice);
     }
 
     private boolean insertProductFromContentValues(ContentValues contentValues)
@@ -408,6 +381,30 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             Toast.makeText(this, R.string.info_added_product, Toast.LENGTH_SHORT).show();
             return true;
+        }
+    }
+
+    /**
+     * This method is called when request finishes in other app
+     *
+     * @param requestCode request code passed when starting activity
+     * @param resultCode  result code
+     * @param data        carries the result data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PHOTO_REQUEST_ID)
+        {
+            if (resultCode == RESULT_OK && data != null)
+            {
+                imageUri = data.getData();
+
+            } else
+            {
+                Toast.makeText(this, R.string.info_not_picked_image, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -428,12 +425,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
     {
         setProductData(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        releaseProductData();
     }
 
     /**
@@ -476,6 +467,12 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         String name = cursor.getString(nameColumnIndex);
         editTextName.setText(name);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader)
+    {
+        releaseProductData();
     }
 
     /**
