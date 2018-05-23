@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -74,6 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
+
         hideActionBar();
         setContentView(R.layout.activity_product_detail);
 
@@ -264,7 +266,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         if (cursor.moveToFirst())
         {
             int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
-            int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
             int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
 
@@ -276,14 +277,20 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             textPrice.setText(String.format(Locale.US, "%.2f", price));
             textQuantity.setText(String.valueOf(quantity));
 
-            if (!(cursor.isNull(photoColumnIndex)))
-            {
-                // get photo as byte array
-                byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
-                //  convert byte array to Bitmap
-                Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
-                imagePhoto.setImageBitmap(photo);
-            }
+            setPhotoIfAvailable(cursor);
+        }
+    }
+
+    private void setPhotoIfAvailable(Cursor cursor)
+    {
+        int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
+        if (!(cursor.isNull(photoColumnIndex)))
+        {
+            // get photo as byte array
+            byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
+            //  convert byte array to Bitmap
+            Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
+            imagePhoto.setImageBitmap(photo);
         }
     }
 
