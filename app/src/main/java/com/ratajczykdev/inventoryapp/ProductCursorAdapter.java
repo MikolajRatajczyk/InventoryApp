@@ -11,6 +11,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -68,19 +69,10 @@ public class ProductCursorAdapter extends CursorAdapter
         setLayoutElementsReferences(view);
 
         //  TODO: extract to new methods
-        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
-        int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
-        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-
-        String name = cursor.getString(nameColumnIndex);
-        float price = cursor.getFloat(priceColumnIndex);
-        int quantity = cursor.getInt(quantityColumnIndex);
-
+        String name = getNameFromCursor(cursor);
         textName.setText(name);
-        textPrice.setText(String.format(Locale.US, "%.2f", price));
-        textQuantity.setText(String.valueOf(quantity));
 
+        int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
         if (!(cursor.isNull(photoColumnIndex)))
         {
             // get photo as byte array
@@ -89,6 +81,20 @@ public class ProductCursorAdapter extends CursorAdapter
             Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
             imagePhoto.setImageBitmap(photo);
         }
+
+        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
+        float price = cursor.getFloat(priceColumnIndex);
+        textPrice.setText(String.format(Locale.US, "%.2f", price));
+
+        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        int quantity = cursor.getInt(quantityColumnIndex);
+        textQuantity.setText(String.valueOf(quantity));
+    }
+
+    private String getNameFromCursor(Cursor cursor)
+    {
+        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
+        return cursor.getString(nameColumnIndex);
     }
 
     private void setLayoutElementsReferences(View view)
