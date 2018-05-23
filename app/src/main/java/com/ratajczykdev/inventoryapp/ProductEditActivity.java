@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.PhotoConverter;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
@@ -358,12 +357,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         }
         int intQuantity = Integer.valueOf(stringQuantity);
 
-        String stringPrice = editTextPrice.getText().toString().trim();
-        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals("."))
-        {
-            stringPrice = "0";
-        }
-        float floatPrice = Float.valueOf(stringPrice);
+        float floatPrice = getFloatPriceFromUi();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
@@ -373,6 +367,16 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         putPhotoInContentValuesIfExists(contentValues);
 
         return insertProductFromContentValues(contentValues);
+    }
+
+    private float getFloatPriceFromUi()
+    {
+        String stringPrice = editTextPrice.getText().toString().trim();
+        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals("."))
+        {
+            stringPrice = "0";
+        }
+        return Float.valueOf(stringPrice);
     }
 
     private boolean insertProductFromContentValues(ContentValues contentValues)
