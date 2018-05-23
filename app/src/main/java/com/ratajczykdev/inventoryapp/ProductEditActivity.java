@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -276,8 +277,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     }
 
 
-
-
     private void putPhotoInContentValuesIfExists(ContentValues contentValues)
     {
         if (imageUri != null)
@@ -324,17 +323,22 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             return false;
         }
         int quantity = getIntQuantityFromUi();
-
         float floatPrice = getFloatPriceFromUi();
 
+        ContentValues contentValues = getContentValuesWithProductData(name, quantity, floatPrice);
+
+        return updateProductFromContentValues(contentValues);
+    }
+
+    @NonNull
+    private ContentValues getContentValuesWithProductData(String name, int quantity, float price)
+    {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
-
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
         putPhotoInContentValuesIfExists(contentValues);
-
-        return updateProductFromContentValues(contentValues);
+        return contentValues;
     }
 
     /**
@@ -352,15 +356,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         }
 
         int intQuantity = getIntQuantityFromUi();
-
         float floatPrice = getFloatPriceFromUi();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, intQuantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, floatPrice);
-
-        putPhotoInContentValuesIfExists(contentValues);
+        ContentValues contentValues = getContentValuesWithProductData(name, intQuantity, floatPrice);
 
         return insertProductFromContentValues(contentValues);
     }
