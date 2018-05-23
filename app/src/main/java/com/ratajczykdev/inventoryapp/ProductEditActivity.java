@@ -421,10 +421,15 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
             setPriceInUi(cursor);
 
-            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-            int quantity = cursor.getInt(quantityColumnIndex);
-            editTextQuantity.setText(String.valueOf(quantity));
+            setQuantityInUi(cursor);
         }
+    }
+
+    private void setQuantityInUi(Cursor cursor)
+    {
+        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+        int quantity = cursor.getInt(quantityColumnIndex);
+        editTextQuantity.setText(String.valueOf(quantity));
     }
 
     private void setPriceInUi(Cursor cursor)
