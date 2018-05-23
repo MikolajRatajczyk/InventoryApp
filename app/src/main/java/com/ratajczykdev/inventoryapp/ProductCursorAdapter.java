@@ -11,7 +11,6 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -68,10 +67,20 @@ public class ProductCursorAdapter extends CursorAdapter
     {
         setLayoutElementsReferences(view);
 
-        //  TODO: extract to new methods
         String name = getNameFromCursor(cursor);
         textName.setText(name);
 
+        float price = getPriceFromCursor(cursor);
+        textPrice.setText(String.format(Locale.US, "%.2f", price));
+
+        int quantity = getQuantityFromCursor(cursor);
+        textQuantity.setText(String.valueOf(quantity));
+
+        setImageBitmapForImagePhotoIfNotNull(cursor);
+    }
+
+    private void setImageBitmapForImagePhotoIfNotNull(Cursor cursor)
+    {
         int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
         if (!(cursor.isNull(photoColumnIndex)))
         {
@@ -81,12 +90,6 @@ public class ProductCursorAdapter extends CursorAdapter
             Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
             imagePhoto.setImageBitmap(photo);
         }
-
-        float price = getPriceFromCursor(cursor);
-        textPrice.setText(String.format(Locale.US, "%.2f", price));
-
-        int quantity = getQuantityFromCursor(cursor);
-        textQuantity.setText(String.valueOf(quantity));
     }
 
     private int getQuantityFromCursor(Cursor cursor)
