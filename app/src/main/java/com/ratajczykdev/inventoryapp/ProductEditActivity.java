@@ -23,7 +23,6 @@ import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.Locale;
 
 /**
@@ -362,9 +361,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
         if (imageUri != null)
         {
-            Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
-            Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
-            byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
+            byte[] byteArrayPhoto = bitmapUriToByteArray(imageUri);
             contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
         }
 
