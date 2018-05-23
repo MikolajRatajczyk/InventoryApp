@@ -92,17 +92,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             currentProductUri = getIntent().getData();
             startProductLoader();
-        }
-
-        //  edit mode
-        if (currentProductUri != null)
-        {
-
             setupButtonsForEditing();
-        }
-
-        //  adding a new product mode
-        if (currentProductUri == null)
+        } else if (currentProductUri == null)
         {
             setupButtonsForAdding();
         }
