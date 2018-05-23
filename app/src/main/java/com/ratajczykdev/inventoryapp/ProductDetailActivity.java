@@ -80,6 +80,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
         if (getIntent().getData() != null)
         {
+            currentProductUri = getIntent().getData();
             startProductLoader();
             setFabListener();
         } else
@@ -149,7 +150,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
     private void startProductLoader()
     {
-        currentProductUri = getIntent().getData();
         getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER_ID, null, this);
     }
 
