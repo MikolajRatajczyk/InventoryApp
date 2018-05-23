@@ -40,6 +40,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      * Request code that identifies photo request from user
      */
     private static final int PHOTO_REQUEST_ID = 2;
+
+    private static final String EMPTY_STRING = "";
     /**
      * Change photo button
      */
@@ -433,8 +435,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private void releaseProductData()
     {
-        editTextName.setText("");
-        editTextQuantity.setText("");
-        editTextPrice.setText("");
+        editTextName.setText(EMPTY_STRING);
+        editTextQuantity.setText(EMPTY_STRING);
+        editTextPrice.setText(EMPTY_STRING);
     }
 }
