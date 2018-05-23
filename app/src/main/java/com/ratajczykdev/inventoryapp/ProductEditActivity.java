@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.PhotoConverter;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
@@ -307,6 +306,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
         }
 
+        return updateProductFromContentValues(contentValues);
+    }
+
+    private boolean updateProductFromContentValues(ContentValues contentValues)
+    {
         int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
         if (rowsAffected == 0)
         {
