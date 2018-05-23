@@ -23,6 +23,12 @@ import java.util.Locale;
  */
 public class ProductCursorAdapter extends CursorAdapter
 {
+    TextView textName;
+    ImageView imagePhoto;
+    TextView textPrice;
+    TextView textQuantity;
+
+
     /**
      * Constructs a new {@link ProductCursorAdapter}
      *
@@ -59,10 +65,7 @@ public class ProductCursorAdapter extends CursorAdapter
     @Override
     public void bindView(View view, Context context, Cursor cursor)
     {
-        TextView textName = view.findViewById(R.id.text_name);
-        ImageView imagePhoto = view.findViewById(R.id.image_photo);
-        TextView textPrice = view.findViewById(R.id.text_price);
-        TextView textQuantity = view.findViewById(R.id.text_quantity);
+        setLayoutElementsReferences(view);
 
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
@@ -85,5 +88,13 @@ public class ProductCursorAdapter extends CursorAdapter
             Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
             imagePhoto.setImageBitmap(photo);
         }
+    }
+
+    private void setLayoutElementsReferences(View view)
+    {
+        textName = view.findViewById(R.id.text_name);
+        imagePhoto = view.findViewById(R.id.image_photo);
+        textPrice = view.findViewById(R.id.text_price);
+        textQuantity = view.findViewById(R.id.text_quantity);
     }
 }
