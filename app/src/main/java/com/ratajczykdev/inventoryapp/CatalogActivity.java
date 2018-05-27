@@ -13,6 +13,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -46,6 +49,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private View viewEmptyHint;
 
+    private String loaderSqlSortOrder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -63,7 +68,37 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         configureViewProductList();
 
+        //  TODO: finish methods
+        setLoaderSqlSortOrder(getSortOrderFromUi());
         startProductLoader();
+    }
+
+    /**
+     * Modify App Bar to have actions
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.activity_catalog_appbar_actions, menu);
+        return true;
+    }
+
+    /**
+     * Triggers a method for the specified action on the app bar
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int currentItemId = item.getItemId();
+        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
+        {
+            //  TODO: call proper method
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
+        {
+            //  TODO: call proper method
+        }
+        return true;
     }
 
     private void setFabListener()
@@ -97,6 +132,17 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
     }
 
+    private void setLoaderSqlSortOrder(String sortOrderFromUi)
+    {
+        //  TODO: finish setting loaderSqlSortOrder
+    }
+
+    private String getSortOrderFromUi()
+    {
+        //  TODO: finish getting loaderSqlSortOrder from UI
+        return null;
+    }
+
     private void startProductLoader()
     {
         getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
@@ -112,6 +158,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY};
 
+        //  TODO: finish getting loaderSqlSortOrder from class variable (need of reload?)
         return new CursorLoader(
                 this,
                 ProductEntry.CONTENT_URI,

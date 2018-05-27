@@ -75,6 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        //  TODO: change name to hideAppbar
         hideActionBar();
         setContentView(R.layout.activity_product_detail);
 
