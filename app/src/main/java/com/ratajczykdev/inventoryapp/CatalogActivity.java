@@ -41,6 +41,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      */
     private ProductCursorAdapter productCursorAdapter;
 
+    //  TODO: change entire behaviour to RecyclerView
     private ListView viewProductList;
 
     private View viewEmptyHint;
