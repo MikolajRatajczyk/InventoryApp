@@ -75,8 +75,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //  TODO: change name to hideAppbar
-        hideActionBar();
+        hideAppBar();
         setContentView(R.layout.activity_product_detail);
 
         setUiElementsReferences();
@@ -96,7 +95,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         setButtonOrderListener();
     }
 
-    private void hideActionBar()
+    private void hideAppBar()
     {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         if (getSupportActionBar() != null)
