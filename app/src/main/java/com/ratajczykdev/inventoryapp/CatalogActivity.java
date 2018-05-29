@@ -49,7 +49,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private View viewEmptyHint;
 
-    private String loaderSqlSortOrder;
+    private String loaderSqlSortOrder = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -91,12 +91,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         int currentItemId = item.getItemId();
         if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
         {
-            //  TODO: call proper method
+            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_NAME + " ASC";
+            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
         {
             //  TODO: call proper method
-        }
-        else if(currentItemId==R.id.activity_catalog_appbar_actions_sort_by_id)
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id)
         {
             //  TODO: call proper method
         }
@@ -134,17 +134,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
     }
 
-    private void setLoaderSqlSortOrder(String sortOrderFromUi)
-    {
-        //  TODO: finish setting loaderSqlSortOrder
-    }
-
-    private String getSortOrderFromUi()
-    {
-        //  TODO: finish getting loaderSqlSortOrder from UI
-        return null;
-    }
-
     private void startProductLoader()
     {
         getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
@@ -167,7 +156,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 projection,
                 null,
                 null,
-                null);
+                loaderSqlSortOrder);
     }
 
     @Override
