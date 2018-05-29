@@ -83,7 +83,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
     /**
-     * Triggers a method for the specified action on the app bar
+     * Triggers methods for the specified action on the app bar
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
