@@ -8,6 +8,7 @@ This app helps you track your shop inventory.
  - Based on SQLite 3,
  - Sweet Material Design,
  - Adding a new product with: name, quantity, price and image,
+ - Sorting products by: name, price, ID and quantity,
  - Editing added product,
  - Deleting a product
  - Loading from database does not block UI thread,
@@ -51,7 +52,6 @@ In the past I was learning C, later C++, then Java and I thought "I love Android
  - Rewritten in Kotlin,
  - Synchronization with Google,
  - As I mentioned before: **Norsk Bokmål** translation,
- - Sort by: name, creation date,
  - Calling to supplier,
  - Sound effects,
  - Totally new UI,
