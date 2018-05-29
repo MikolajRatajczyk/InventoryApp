@@ -99,7 +99,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id)
         {
-            //  TODO: call proper method
+            loaderSqlSortOrder = ProductEntry._ID + " ASC";
+            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity)
+        {
+            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " ASC";
+            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
         }
         return true;
     }
