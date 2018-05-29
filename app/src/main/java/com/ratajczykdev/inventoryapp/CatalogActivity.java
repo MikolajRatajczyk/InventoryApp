@@ -68,8 +68,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         configureViewProductList();
 
-        //  TODO: finish methods
-        setLoaderSqlSortOrder(getSortOrderFromUi());
         startProductLoader();
     }
 
@@ -95,6 +93,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         {
             //  TODO: call proper method
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
+        {
+            //  TODO: call proper method
+        }
+        else if(currentItemId==R.id.activity_catalog_appbar_actions_sort_by_id)
         {
             //  TODO: call proper method
         }

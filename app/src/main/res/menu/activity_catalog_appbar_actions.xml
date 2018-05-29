@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--TODO: change actions' icons-->
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_name"
         android:icon="@drawable/plus_sign"
@@ -11,6 +12,11 @@
         android:id="@+id/activity_catalog_appbar_actions_sort_by_price"
         android:icon="@drawable/edit_mode_icon"
         android:title="Sort by price"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_id"
+        android:icon="@drawable/product_quantity_icon_grey"
+        android:title="Sort by ID"
         app:showAsAction="never" />
 
 </menu>
