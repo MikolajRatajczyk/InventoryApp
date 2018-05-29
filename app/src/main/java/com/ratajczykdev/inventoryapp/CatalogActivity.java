@@ -155,7 +155,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY};
 
-        //  TODO: finish getting loaderSqlSortOrder from class variable (need of reload?)
         return new CursorLoader(
                 this,
                 ProductEntry.CONTENT_URI,
