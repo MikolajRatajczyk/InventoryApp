@@ -44,7 +44,7 @@ App is fully translated into:
 
 ## Why?
 
-In the past I was learning C, later C++, then Java and I thought "I love Android and the mobile market so why do not create something for it?" and here I am ;).
+In the past I was learning C, later C++, then Java and I thought "I love Android and the mobile market so why do not create something for it?"
 
 
 ## What in the future?
