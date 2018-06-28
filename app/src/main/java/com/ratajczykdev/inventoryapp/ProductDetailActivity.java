@@ -42,23 +42,13 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      * Floating action button for switching to edit mode
      */
     private FloatingActionButton fabEditMode;
-    /**
-     * Product photo
-     */
+
     private ImageView imagePhoto;
-    /**
-     * Product name
-     */
     private TextView textName;
     private ImageView imageNameIcon;
-    /**
-     * Product quantity
-     */
     private TextView textQuantity;
-    /**
-     * Product price
-     */
     private TextView textPrice;
+
     /**
      * Button for finishing activity
      */
