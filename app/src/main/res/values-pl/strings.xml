@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Zaplecze</string>
-    <string name="empty_list">Możesz dodać produkty klikając czerwony przycisk</string>
+    <string name="empty_list">Możesz dodać produkty klikając przycisk \"+\"</string>
     <string name="photo">zdjęcie</string>
     <string name="product">produkt</string>
     <string name="order">Zamów</string>
