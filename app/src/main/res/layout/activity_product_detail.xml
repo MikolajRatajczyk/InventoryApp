@@ -130,6 +130,7 @@
                 android:layout_height="@dimen/icon_height"
                 android:layout_marginStart="16dp"
                 android:contentDescription="@string/name_symbol"
+                android:transitionName="product_name_icon_to_transition"
                 app:srcCompat="@drawable/product_name_icon_black"
                 card_view:layout_constraintBottom_toTopOf="@+id/product_detail_quantity_icon"
                 card_view:layout_constraintStart_toStartOf="parent"

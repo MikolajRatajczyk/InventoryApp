@@ -38,6 +38,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/name_symbol"
+        android:transitionName="product_name_icon_to_transition"
         app:layout_constraintBottom_toTopOf="@+id/product_edit_quantity_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_edit_change_photo_button"

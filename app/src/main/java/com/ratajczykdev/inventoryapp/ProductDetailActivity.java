@@ -1,5 +1,6 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.app.ActivityOptions;
 import android.app.DialogFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -49,6 +50,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
      * Product name
      */
     private TextView textName;
+    private ImageView imageNameIcon;
     /**
      * Product quantity
      */
@@ -107,6 +109,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     private void setUiElementsReferences()
     {
         imagePhoto = findViewById(R.id.product_detail_photo);
+        imageNameIcon = findViewById(R.id.product_detail_name_icon);
         fabEditMode = findViewById(R.id.product_detail_edit_fab);
         textName = findViewById(R.id.product_detail_name);
         textQuantity = findViewById(R.id.product_detail_quantity);
@@ -128,8 +131,9 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             public void onClick(View view)
             {
                 Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ProductDetailActivity.this, imageNameIcon, imageNameIcon.getTransitionName()).toBundle();
                 intent.setData(currentProductUri);
-                startActivity(intent);
+                startActivity(intent, bundle);
             }
         });
     }
