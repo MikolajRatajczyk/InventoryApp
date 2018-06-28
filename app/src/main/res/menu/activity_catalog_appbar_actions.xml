@@ -15,12 +15,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_id"
-        android:icon="@drawable/product_photo_icon_grey"
+        android:icon="@drawable/product_photo_icon_black"
         android:title="Sort by ID"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity"
-        android:icon="@drawable/product_quantity_icon_grey"
+        android:icon="@drawable/product_quantity_icon_black"
         android:title="Sort by quantity"
         app:showAsAction="never" />
 </menu>
