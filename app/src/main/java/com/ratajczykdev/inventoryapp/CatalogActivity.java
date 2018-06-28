@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -69,6 +70,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         configureViewProductList();
 
         startProductLoader();
+
+        animateFabNewProduct();
     }
 
     /**
@@ -176,6 +179,15 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     {
         //  when data needs to be deleted
         productCursorAdapter.swapCursor(null);
+    }
+
+    private void animateFabNewProduct()
+    {
+        fabNewProduct.animate()
+                .rotation(360)
+                .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
+                .setDuration(700)
+                .start();
     }
 
     /**
