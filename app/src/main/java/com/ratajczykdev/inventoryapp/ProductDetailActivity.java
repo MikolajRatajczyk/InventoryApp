@@ -125,14 +125,14 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
-
                 Pair pairNameIcon = Pair.create(imageNameIcon, imageNameIcon.getTransitionName());
                 Pair pairQuantityIcon = Pair.create(imageQuantityIcon, imageQuantityIcon.getTransitionName());
                 Pair pairPriceIcon = Pair.create(imagePriceIcon, imagePriceIcon.getTransitionName());
                 Pair[] sharedElementsPairs = {pairNameIcon, pairQuantityIcon, pairPriceIcon};
 
                 Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ProductDetailActivity.this, sharedElementsPairs).toBundle();
+
+                Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
                 intent.setData(currentProductUri);
                 startActivity(intent, bundle);
             }
