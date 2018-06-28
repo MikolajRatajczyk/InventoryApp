@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -47,7 +48,9 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
     private TextView textName;
     private ImageView imageNameIcon;
     private TextView textQuantity;
+    private ImageView imageQuantityIcon;
     private TextView textPrice;
+    private ImageView imagePriceIcon;
 
     /**
      * Button for finishing activity
@@ -103,7 +106,9 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         fabEditMode = findViewById(R.id.product_detail_edit_fab);
         textName = findViewById(R.id.product_detail_name);
         textQuantity = findViewById(R.id.product_detail_quantity);
+        imageQuantityIcon = findViewById(R.id.product_detail_quantity_icon);
         textPrice = findViewById(R.id.product_detail_price);
+        imagePriceIcon = findViewById(R.id.product_detail_price_icon);
         buttonOrder = findViewById(R.id.product_detail_order_button);
         buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
     }
@@ -121,7 +126,13 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             public void onClick(View view)
             {
                 Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
-                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ProductDetailActivity.this, imageNameIcon, imageNameIcon.getTransitionName()).toBundle();
+
+                Pair pairNameIcon = Pair.create(imageNameIcon, imageNameIcon.getTransitionName());
+                Pair pairQuantityIcon = Pair.create(imageQuantityIcon, imageQuantityIcon.getTransitionName());
+                Pair pairPriceIcon = Pair.create(imagePriceIcon, imagePriceIcon.getTransitionName());
+                Pair[] sharedElementsPairs = {pairNameIcon, pairQuantityIcon, pairPriceIcon};
+
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ProductDetailActivity.this, sharedElementsPairs).toBundle();
                 intent.setData(currentProductUri);
                 startActivity(intent, bundle);
             }
