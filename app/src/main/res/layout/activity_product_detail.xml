@@ -89,7 +89,7 @@
                 card_view:layout_constraintBottom_toBottomOf="@+id/product_detail_price_icon"
                 card_view:layout_constraintStart_toEndOf="@+id/product_detail_price_icon"
                 card_view:layout_constraintTop_toTopOf="@+id/product_detail_price_icon"
-                tools:text="3€" />
+                tools:text="$3" />
 
             <ImageView
                 android:id="@+id/product_detail_price_icon"
