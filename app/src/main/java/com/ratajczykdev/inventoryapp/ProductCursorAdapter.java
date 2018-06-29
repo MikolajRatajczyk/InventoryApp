@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,8 +77,7 @@ public class ProductCursorAdapter extends CursorAdapter
         int quantity = getQuantityFromCursor(cursor);
         textQuantity.setText(String.valueOf(quantity));
 
-        Uri photoUri = getPhotoUriFromCursor(cursor);
-        imagePhoto.setImageBitmap(ImageHelper.getBitmapFromUri(photoUri, context));
+        setImageIfExists(cursor, context);
     }
 
     private void setLayoutElementsReferences(View view)
@@ -106,10 +106,14 @@ public class ProductCursorAdapter extends CursorAdapter
         return cursor.getInt(quantityColumnIndex);
     }
 
-    private Uri getPhotoUriFromCursor(Cursor cursor)
+    private void setImageIfExists(Cursor cursor, Context context)
     {
         int photoUriColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO_URI);
-        String photoUriString = ImageHelper.getStringFromCursor(cursor, photoUriColumnIndex);
-        return Uri.parse(photoUriString);
+        if (!(cursor.isNull(photoUriColumnIndex)))
+        {
+            Uri photoUri = ImageHelper.getUriFromCursor(cursor, photoUriColumnIndex);
+            Bitmap photoBitmap = ImageHelper.getBitmapFromUri(photoUri, context);
+            imagePhoto.setImageBitmap(photoBitmap);
+        }
     }
 }
