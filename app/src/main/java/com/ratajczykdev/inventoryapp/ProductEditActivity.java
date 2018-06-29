@@ -218,7 +218,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     {
         if (setCurrentProductDataFromUi())
         {
-            ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
+            ContentValues contentValues = getContentValuesWithProductData();
             return updateProductFromContentValues(contentValues);
         } else
         {
@@ -261,14 +261,12 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     }
 
     @NonNull
-    private ContentValues getContentValuesWithProductData(String name, int quantity, float price)
+    private ContentValues getContentValuesWithProductData()
     {
-        //  TODO: use class variables instead of method's arguments
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
-        putPhotoUriInContentValuesIfExists(contentValues);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, currentName);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, currentQuantity);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, currentFloatPrice);
         return contentValues;
     }
 
@@ -353,7 +351,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     {
         if (setCurrentProductDataFromUi())
         {
-            ContentValues contentValues = getContentValuesWithProductData(currentName, currentQuantity, currentFloatPrice);
+            ContentValues contentValues = getContentValuesWithProductData();
             return insertProductFromContentValues(contentValues);
         } else
         {
