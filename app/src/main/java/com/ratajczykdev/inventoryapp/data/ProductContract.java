@@ -28,6 +28,17 @@ public final class ProductContract
     public static final String PATH_PRODUCTS = "products";
 
     /**
+     * Full projection array containing all database columns' names
+     * use example: new CursorLoader(arguments..., projection, arguments...)
+     */
+    public static final String[] FULL_PROJECTION_ARRAY = {
+            ProductEntry._ID,
+            ProductEntry.COLUMN_PRODUCT_NAME,
+            ProductEntry.COLUMN_PRODUCT_PHOTO_URI,
+            ProductEntry.COLUMN_PRODUCT_PRICE,
+            ProductEntry.COLUMN_PRODUCT_QUANTITY};
+
+    /**
      * Empty private constructor to prevent from instantiating the class
      */
     private ProductContract()
