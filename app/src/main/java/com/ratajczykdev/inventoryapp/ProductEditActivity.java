@@ -267,6 +267,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, currentName);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, currentQuantity);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, currentFloatPrice);
+        putPhotoUriInContentValuesIfExists(contentValues);
         return contentValues;
     }
 
