@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp;
 
 import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -17,7 +18,9 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 /**
@@ -185,27 +188,24 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 .start();
     }
 
-//    /**
-//     * Helper method to insert hardcoded product data into the database.
-//     * <p>
-//     * Only for debugging.
-//     */
-//    private void insertFakeProduct()
-//    {
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
-//
-//        //  Drawable (PNG) to Bitmap
-//        Bitmap bitmapPhoto = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.product_photo_placeholder_phone);
-//        //  Bitmap to byte[]
-//        byte[] byteArrayPhoto = PhotoConverter.bitmapToByteArray(bitmapPhoto);
-//        //  put byte[] in contentValues
-//        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, byteArrayPhoto);
-//
-//        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
-//        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
-//
-//        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
-//        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
-//    }
+    /**
+     * Helper method to insert hardcoded product data into the database.
+     * <p>
+     * Only for debugging.
+     */
+    private void insertFakeProduct()
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
+
+        Uri productPlaceholderImageUri = ImageHelper.getUriForResourceId(R.drawable.product_photo_placeholder_phone, getApplicationContext());
+        String productPlaceHolderImageUriString = productPlaceholderImageUri.toString();
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, productPlaceHolderImageUriString);
+
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
+        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
+
+        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
+        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
+    }
 }

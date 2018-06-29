@@ -1,6 +1,8 @@
 package com.ratajczykdev.inventoryapp.data;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -57,6 +59,17 @@ public final class ImageHelper
             }
         }
         return retrievedBitmap;
+    }
+
+    public static Uri getUriForResourceId(int resourceId, Context context)
+    {
+        Resources appResources = context.getResources();
+        //  for example: "android.resource://your.package/drawable/image_name"
+        Uri resourceUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + appResources.getResourcePackageName(resourceId)
+                + "/" + appResources.getResourceTypeName(resourceId)
+                + "/" + appResources.getResourceEntryName(resourceId));
+        return resourceUri;
     }
 
 
