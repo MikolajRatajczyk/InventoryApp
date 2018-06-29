@@ -7,6 +7,7 @@ import com.ratajczykdev.inventoryapp.R;
 
 public class StatisticsActivity extends AppCompatActivity
 {
+    //  TODO: implement entire database statistics
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

@@ -22,4 +22,9 @@
         android:icon="@drawable/quantity_sorting_black_icon"
         android:title="Sort by quantity"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_statistics"
+        android:icon="@drawable/statistics_icon_black"
+        android:title="Statistics"
+        app:showAsAction="never" />
 </menu>

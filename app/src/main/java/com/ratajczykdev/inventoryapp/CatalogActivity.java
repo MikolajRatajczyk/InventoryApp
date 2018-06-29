@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
+import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
 
 /**
  * Loads view with product list
@@ -107,6 +108,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         {
             loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " DESC";
             getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics)
+        {
+            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
+            startActivity(intent);
         }
         return true;
     }
