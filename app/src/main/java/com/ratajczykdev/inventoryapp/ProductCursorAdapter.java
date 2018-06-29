@@ -2,8 +2,7 @@ package com.ratajczykdev.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -76,7 +76,8 @@ public class ProductCursorAdapter extends CursorAdapter
         int quantity = getQuantityFromCursor(cursor);
         textQuantity.setText(String.valueOf(quantity));
 
-        setImageBitmapForImagePhotoIfNotNull(cursor);
+        Uri photoUri = getPhotoUriFromCursor(cursor);
+        imagePhoto.setImageBitmap(ImageHelper.getBitmapFromUri(photoUri, context));
     }
 
     private void setLayoutElementsReferences(View view)
@@ -105,16 +106,10 @@ public class ProductCursorAdapter extends CursorAdapter
         return cursor.getInt(quantityColumnIndex);
     }
 
-    private void setImageBitmapForImagePhotoIfNotNull(Cursor cursor)
+    private Uri getPhotoUriFromCursor(Cursor cursor)
     {
-        int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
-        if (!(cursor.isNull(photoColumnIndex)))
-        {
-            // get photo as byte array
-            byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
-            //  convert byte array to Bitmap
-            Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
-            imagePhoto.setImageBitmap(photo);
-        }
+        int photoUriColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO_URI);
+        String photoUriString = ImageHelper.getStringFromCursor(cursor, photoUriColumnIndex);
+        return Uri.parse(photoUriString);
     }
 }

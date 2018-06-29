@@ -70,9 +70,9 @@ public final class ProductContract
         public static final String COLUMN_PRODUCT_NAME = "name";
 
         /**
-         * Photo of the product
+         * Uri to the photo of the product
          */
-        public static final String COLUMN_PRODUCT_PHOTO = "photo";
+        public static final String COLUMN_PRODUCT_PHOTO_URI = "photoUri";
 
         /**
          * Price of the product

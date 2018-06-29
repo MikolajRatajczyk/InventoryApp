@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -239,7 +239,7 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         String[] projection = {
                 ProductEntry._ID,
                 ProductEntry.COLUMN_PRODUCT_NAME,
-                ProductEntry.COLUMN_PRODUCT_PHOTO,
+                ProductEntry.COLUMN_PRODUCT_PHOTO_URI,
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY};
 
@@ -306,14 +306,12 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
 
     private void setPhotoIfAvailableInUi(Cursor cursor)
     {
-        int photoColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO);
-        if (!(cursor.isNull(photoColumnIndex)))
+        int photoUriColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO_URI);
+        if (!(cursor.isNull(photoUriColumnIndex)))
         {
-            // get photo as byte array
-            byte[] byteArrayPhoto = cursor.getBlob(photoColumnIndex);
-            //  convert byte array to Bitmap
-            Bitmap photo = BitmapFactory.decodeByteArray(byteArrayPhoto, 0, byteArrayPhoto.length);
-            imagePhoto.setImageBitmap(photo);
+            Uri photoUri = ImageHelper.getUriFromCursor(cursor, photoUriColumnIndex);
+            Bitmap photoBitmap = ImageHelper.getBitmapFromUri(photoUri, getApplicationContext());
+            imagePhoto.setImageBitmap(photoBitmap);
         }
     }
 

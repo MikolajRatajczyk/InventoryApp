@@ -6,8 +6,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.ratajczykdev.inventoryapp.data.PhotoConverter;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.FileNotFoundException;
@@ -266,28 +263,23 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
     @NonNull
     private ContentValues getContentValuesWithProductData(String name, int quantity, float price)
     {
+        //  TODO: use class variables instead of method's arguments
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, name);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantity);
         contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, price);
-        putPhotoInContentValuesIfExists(contentValues);
+        putPhotoUriInContentValuesIfExists(contentValues);
         return contentValues;
     }
 
-    private void putPhotoInContentValuesIfExists(ContentValues contentValues)
+    private void putPhotoUriInContentValuesIfExists(ContentValues contentValues)
     {
         if (imageUri != null)
         {
-            byte[] byteArrayPhoto = bitmapUriToByteArray(imageUri);
-            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO, byteArrayPhoto);
+            String imageUriString = imageUri.toString();
+            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, imageUriString);
+            Toast.makeText(this, "path: " + imageUriString, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private byte[] bitmapUriToByteArray(Uri imageUri)
-    {
-        Bitmap photoBitmap = BitmapFactory.decodeStream(photoUriToInputStream(imageUri));
-        Bitmap reducedPhotoBitmap = PhotoConverter.getResizedBitmap(photoBitmap);
-        return PhotoConverter.bitmapToByteArray(reducedPhotoBitmap);
     }
 
     /**
@@ -414,7 +406,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         String[] projection = {
                 ProductEntry._ID,
                 ProductEntry.COLUMN_PRODUCT_NAME,
-                ProductEntry.COLUMN_PRODUCT_PHOTO,
+                ProductEntry.COLUMN_PRODUCT_PHOTO_URI,
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY};
 
