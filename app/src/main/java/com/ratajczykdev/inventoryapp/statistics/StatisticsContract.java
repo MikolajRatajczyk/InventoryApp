@@ -11,6 +11,8 @@ public final class StatisticsContract
 {
     public static final String STATISTICS_MAP_NAME = "STATISTICS_MAP";
     public static final String PRODUCTS_NUMBER_KEY = "PRODUCTS_NUMBER";
+    public static final String PRODUCTS_MAX_PRICE_KEY = "MAX_PRODUCTS_PRICE";
+    public static final String PRODUCTS_MIN_PRICE_KEY = "MIN_PRODUCTS_PRICE";
 
     private StatisticsContract()
     {

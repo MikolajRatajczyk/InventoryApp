@@ -20,9 +20,12 @@ public class GraphsActivity extends AppCompatActivity
 {
     //  TODO: make more usable graphs
 
-    private GraphView graphViewStatistics;
+    private GraphView graphProductsNumber;
+    private GraphView graphMaxMinPrice;
     private HashMap<String, Float> statistics;
     private float productsNumber;
+    private float productsMaxPrice;
+    private float productsMinPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,24 +40,36 @@ public class GraphsActivity extends AppCompatActivity
             Intent intent = getIntent();
             statistics = (HashMap<String, Float>) intent.getSerializableExtra(StatisticsContract.STATISTICS_MAP_NAME);
             productsNumber = statistics.get(StatisticsContract.PRODUCTS_NUMBER_KEY);
-            configureGraphViewStatistics();
+            productsMaxPrice = statistics.get(StatisticsContract.PRODUCTS_MAX_PRICE_KEY);
+            productsMinPrice = statistics.get(StatisticsContract.PRODUCTS_MIN_PRICE_KEY);
+            configureGraphProductsNumber();
+            configureGraphMaxMinPrice();
         }
     }
 
     private void setUiReferences()
     {
-        graphViewStatistics = findViewById(R.id.activity_graphs_statistics_graphview);
+        graphProductsNumber = findViewById(R.id.activity_graphs_products_number_graphview);
+        graphMaxMinPrice = findViewById(R.id.activity_graphs_maxmin_price_graphview);
     }
 
-    private void configureGraphViewStatistics()
+    private void configureGraphProductsNumber()
     {
-        //  TODO: when there will be more statistics data - delete placeholder DataPoint s
-        DataPoint[] dataPointsArray = {
-                new DataPoint(0, -1),
-                new DataPoint(1, productsNumber),
-                new DataPoint(2, 3)};
+        //  TODO: fix UI
+        DataPoint[] dataPointsArray = {new DataPoint(0, productsNumber)};
         BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<>(dataPointsArray);
-        graphViewStatistics.addSeries(barGraphSeries);
+        barGraphSeries.setAnimated(true);
+        graphProductsNumber.addSeries(barGraphSeries);
+    }
+
+    private void configureGraphMaxMinPrice()
+    {
+        DataPoint[] dataPointsArray = {
+                new DataPoint(0, productsMaxPrice),
+                new DataPoint(1, productsMinPrice)};
+        BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<>(dataPointsArray);
+        barGraphSeries.setAnimated(true);
+        graphMaxMinPrice.addSeries(barGraphSeries);
     }
 
 }
