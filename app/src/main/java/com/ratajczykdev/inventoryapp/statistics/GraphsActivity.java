@@ -11,6 +11,11 @@ import com.ratajczykdev.inventoryapp.R;
 
 import java.util.HashMap;
 
+/**
+ * Shows graphs with statistics data about products
+ *
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ */
 public class GraphsActivity extends AppCompatActivity
 {
     //  TODO: make more usable graphs

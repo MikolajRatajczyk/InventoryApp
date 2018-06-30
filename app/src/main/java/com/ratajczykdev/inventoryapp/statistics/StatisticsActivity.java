@@ -21,6 +21,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Shows statistics data about products in numbers
+ *
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ */
 public class StatisticsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
     private TextView textViewProductsNumber;
