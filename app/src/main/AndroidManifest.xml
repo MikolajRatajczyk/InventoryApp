@@ -34,7 +34,8 @@
         <activity
             android:name=".ProductEditActivity"
             android:label="@string/edit_product_title" />
-        <activity android:name=".statistics.StatisticsActivity"></activity>
+        <activity android:name=".statistics.StatisticsActivity" />
+        <activity android:name=".statistics.GraphsActivity"></activity>
     </application>
 
 </manifest>
