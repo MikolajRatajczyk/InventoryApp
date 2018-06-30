@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.R;
@@ -46,6 +47,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
         setUiReferences();
         setUiListeners();
+        animateFabGraphs();
         startProductsLoader();
     }
 
@@ -188,5 +190,14 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         textViewProductsNumber.setText("no data");
         textViewMaxPrice.setText("no data");
         textViewMinPrice.setText("no data");
+    }
+
+    private void animateFabGraphs()
+    {
+        fabGraphs.animate()
+                .rotation(360)
+                .setInterpolator(AnimationUtils.loadInterpolator(StatisticsActivity.this, android.R.interpolator.accelerate_decelerate))
+                .setDuration(700)
+                .start();
     }
 }
