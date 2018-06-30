@@ -24,7 +24,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_statistics"
-        android:icon="@drawable/statistics_icon_accent"
+        android:icon="@drawable/statistics_icon_dark_orange"
         android:title="Statistics"
         app:showAsAction="always" />
 </menu>
