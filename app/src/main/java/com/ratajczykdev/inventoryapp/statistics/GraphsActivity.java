@@ -57,8 +57,11 @@ public class GraphsActivity extends AppCompatActivity
     {
         final DataPoint FIX_UI_DATAPOINT = new DataPoint(1, 0);
         DataPoint[] dataPointsArray = {new DataPoint(0, productsNumber), FIX_UI_DATAPOINT};
+
         BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<>(dataPointsArray);
         barGraphSeries.setAnimated(true);
+        barGraphSeries.setColor(getColor(R.color.colorAccent));
+
         graphProductsNumber.addSeries(barGraphSeries);
     }
 
@@ -67,8 +70,11 @@ public class GraphsActivity extends AppCompatActivity
         DataPoint[] dataPointsArray = {
                 new DataPoint(0, productsMaxPrice),
                 new DataPoint(1, productsMinPrice)};
+
         BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<>(dataPointsArray);
         barGraphSeries.setAnimated(true);
+        barGraphSeries.setColor(getColor(R.color.colorPrimary));
+
         graphMaxMinPrice.addSeries(barGraphSeries);
     }
 
