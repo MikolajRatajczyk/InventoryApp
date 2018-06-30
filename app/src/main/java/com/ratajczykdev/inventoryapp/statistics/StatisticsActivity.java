@@ -17,6 +17,7 @@ import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,9 +60,18 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
             public void onClick(View view)
             {
                 Intent intent = new Intent(StatisticsActivity.this, GraphsActivity.class);
+                //  add statistics Map to Intent for GraphActivity
+                intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap());
                 startActivity(intent);
             }
         });
+    }
+
+    private HashMap<String, Float> getStatisticsMap()
+    {
+        HashMap<String, Float> statisticsMap = new HashMap<>();
+        statisticsMap.put(StatisticsContract.PRODUCTS_NUMBER_KEY, (float) getProductsNumber());
+        return statisticsMap;
     }
 
     private void startProductsLoader()
