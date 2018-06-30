@@ -55,8 +55,8 @@ public class GraphsActivity extends AppCompatActivity
 
     private void configureGraphProductsNumber()
     {
-        //  TODO: fix UI
-        DataPoint[] dataPointsArray = {new DataPoint(0, productsNumber)};
+        final DataPoint FIX_UI_DATAPOINT = new DataPoint(1, 0);
+        DataPoint[] dataPointsArray = {new DataPoint(0, productsNumber), FIX_UI_DATAPOINT};
         BarGraphSeries<DataPoint> barGraphSeries = new BarGraphSeries<>(dataPointsArray);
         barGraphSeries.setAnimated(true);
         graphProductsNumber.addSeries(barGraphSeries);
