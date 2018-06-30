@@ -26,6 +26,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
     private Cursor productsCursor;
 
     private static final int PRODUCTS_LOADER_ID = 0;
+    private static final int PRODUCTS_NUMBER_IF_ERROR = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -34,21 +35,19 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         setContentView(R.layout.activity_statistics);
 
         setUiReferences();
-
         startProductsLoader();
     }
-
-    private void startProductsLoader()
-    {
-        getLoaderManager().initLoader(PRODUCTS_LOADER_ID, null, this);
-    }
-
 
     private void setUiReferences()
     {
         textViewProductsNumber = findViewById(R.id.activity_statistics_products_number_textview);
         textViewMaxPrice = findViewById(R.id.activity_statistics_max_price_textview);
         textViewMinPrice = findViewById(R.id.activity_statistics_min_price_textview);
+    }
+
+    private void startProductsLoader()
+    {
+        getLoaderManager().initLoader(PRODUCTS_LOADER_ID, null, this);
     }
 
     @Override
@@ -72,19 +71,6 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         updateStatisticsNumbersInUi();
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        releaseStatisticsData();
-    }
-
-    private void releaseStatisticsData()
-    {
-        textViewProductsNumber.setText("no data");
-        textViewMaxPrice.setText("no data");
-        textViewMinPrice.setText("no data");
-    }
-
     private void updateStatisticsNumbersInUi()
     {
         if (productsCursor == null || productsCursor.getCount() < 1)
@@ -96,18 +82,6 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
             updateMaxPriceInUi();
             updateMinPriceInUi();
         }
-    }
-
-    private void updateMinPriceInUi()
-    {
-        String minimalPriceString = String.valueOf(getProductsMinPrice());
-        textViewMinPrice.setText(minimalPriceString);
-    }
-
-    private void updateMaxPriceInUi()
-    {
-        String maximumPriceString = String.valueOf(getProductsMaxPrice());
-        textViewMaxPrice.setText(maximumPriceString);
     }
 
     private void updateProductsNumberInUi()
@@ -123,14 +97,14 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
             return productsCursor.getCount();
         } else
         {
-            return 0;
+            return PRODUCTS_NUMBER_IF_ERROR;
         }
     }
 
-    private float getProductsMinPrice()
+    private void updateMaxPriceInUi()
     {
-        Set<Float> pricesSet = getPricesSet();
-        return Collections.min(pricesSet);
+        String maximumPriceString = String.valueOf(getProductsMaxPrice());
+        textViewMaxPrice.setText(maximumPriceString);
     }
 
     private float getProductsMaxPrice()
@@ -152,5 +126,30 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         productsCursor.moveToFirst();
 
         return pricesSet;
+    }
+
+    private void updateMinPriceInUi()
+    {
+        String minimalPriceString = String.valueOf(getProductsMinPrice());
+        textViewMinPrice.setText(minimalPriceString);
+    }
+
+    private float getProductsMinPrice()
+    {
+        Set<Float> pricesSet = getPricesSet();
+        return Collections.min(pricesSet);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader)
+    {
+        releaseStatisticsData();
+    }
+
+    private void releaseStatisticsData()
+    {
+        textViewProductsNumber.setText("no data");
+        textViewMaxPrice.setText("no data");
+        textViewMinPrice.setText("no data");
     }
 }
