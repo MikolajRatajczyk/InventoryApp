@@ -74,8 +74,11 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private HashMap<String, Float> getStatisticsMap()
     {
+        //  TODO: add more data
         HashMap<String, Float> statisticsMap = new HashMap<>();
         statisticsMap.put(StatisticsContract.PRODUCTS_NUMBER_KEY, (float) getProductsNumber());
+        statisticsMap.put(StatisticsContract.PRODUCTS_MAX_PRICE_KEY, getProductsMaxPrice());
+        statisticsMap.put(StatisticsContract.PRODUCTS_MIN_PRICE_KEY, getProductsMinPrice());
         return statisticsMap;
     }
 
