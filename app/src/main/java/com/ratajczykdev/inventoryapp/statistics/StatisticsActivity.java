@@ -2,11 +2,14 @@ package com.ratajczykdev.inventoryapp.statistics;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.R;
@@ -22,6 +25,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
     private TextView textViewProductsNumber;
     private TextView textViewMaxPrice;
     private TextView textViewMinPrice;
+    private FloatingActionButton fabGraphs;
 
     private Cursor productsCursor;
 
@@ -35,6 +39,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         setContentView(R.layout.activity_statistics);
 
         setUiReferences();
+        setUiListeners();
         startProductsLoader();
     }
 
@@ -43,6 +48,20 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         textViewProductsNumber = findViewById(R.id.activity_statistics_products_number_textview);
         textViewMaxPrice = findViewById(R.id.activity_statistics_max_price_textview);
         textViewMinPrice = findViewById(R.id.activity_statistics_min_price_textview);
+        fabGraphs = findViewById(R.id.activity_statistics_graphs_fab);
+    }
+
+    private void setUiListeners()
+    {
+        fabGraphs.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(StatisticsActivity.this, GraphsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void startProductsLoader()
