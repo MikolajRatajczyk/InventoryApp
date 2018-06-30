@@ -47,8 +47,8 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
     {
         textViewProductsNumber.setText(String.valueOf(getProductsNumber()));
 
-        //  TODO: implement max price
-        textViewMaxPrice.setText("to be implemented");
+        String maximumPriceString = String.valueOf(getProductsMaxPrice());
+        textViewMaxPrice.setText(maximumPriceString);
 
         String minimalPriceString = String.valueOf(getProductsMinPrice());
         textViewMinPrice.setText(minimalPriceString);
@@ -124,14 +124,20 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private float getProductsMinPrice()
     {
-        //  TODO: change logic in order to not use fix
-        //  fix: for position (moveToFirst() called already in setStatisticsData())
         Set<Float> pricesSet = getPricesSet();
         return Collections.min(pricesSet);
     }
 
+    private float getProductsMaxPrice()
+    {
+        Set<Float> pricesSet = getPricesSet();
+        return Collections.max(pricesSet);
+    }
+
     private Set<Float> getPricesSet()
     {
+        //  TODO: change logic in order to not use fix
+        //  fix: for position (moveToFirst() called already in setStatisticsData())
         productsCursor.moveToPrevious();
         Set<Float> pricesSet = new HashSet<Float>();
         while (productsCursor.moveToNext())
@@ -140,7 +146,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
             float price = productsCursor.getFloat(priceColumnIndex);
             pricesSet.add(price);
         }
-        productsCursor.close();
+        productsCursor.moveToFirst();
 
         return pricesSet;
     }
