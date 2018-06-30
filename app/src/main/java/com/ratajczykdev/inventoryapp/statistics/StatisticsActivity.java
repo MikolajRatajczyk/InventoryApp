@@ -43,16 +43,6 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         getLoaderManager().initLoader(PRODUCTS_LOADER_ID, null, this);
     }
 
-    private void updateStatisticsNumbersInUi()
-    {
-        textViewProductsNumber.setText(String.valueOf(getProductsNumber()));
-
-        String maximumPriceString = String.valueOf(getProductsMaxPrice());
-        textViewMaxPrice.setText(maximumPriceString);
-
-        String minimalPriceString = String.valueOf(getProductsMinPrice());
-        textViewMinPrice.setText(minimalPriceString);
-    }
 
     private void setUiReferences()
     {
@@ -79,7 +69,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
     {
         productsCursor = cursor;
-        setStatisticsData();
+        updateStatisticsNumbersInUi();
     }
 
     @Override
@@ -95,20 +85,35 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         textViewMinPrice.setText("no data");
     }
 
-    private void setStatisticsData()
+    private void updateStatisticsNumbersInUi()
     {
         if (productsCursor == null || productsCursor.getCount() < 1)
         {
             Log.e(StatisticsActivity.class.getSimpleName(), "Error with loading products data from database");
-            return;
-        }
-
-        if (productsCursor.moveToFirst())
+        } else if (productsCursor.moveToFirst())
         {
-            getProductsNumber();
-            updateStatisticsNumbersInUi();
+            updateProductsNumberInUi();
+            updateMaxPriceInUi();
+            updateMinPriceInUi();
         }
+    }
 
+    private void updateMinPriceInUi()
+    {
+        String minimalPriceString = String.valueOf(getProductsMinPrice());
+        textViewMinPrice.setText(minimalPriceString);
+    }
+
+    private void updateMaxPriceInUi()
+    {
+        String maximumPriceString = String.valueOf(getProductsMaxPrice());
+        textViewMaxPrice.setText(maximumPriceString);
+    }
+
+    private void updateProductsNumberInUi()
+    {
+        String productsNumberString = String.valueOf(getProductsNumber());
+        textViewProductsNumber.setText(productsNumberString);
     }
 
     private int getProductsNumber()
