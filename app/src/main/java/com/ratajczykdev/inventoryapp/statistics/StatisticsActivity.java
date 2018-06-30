@@ -136,16 +136,14 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private Set<Float> getPricesSet()
     {
-        //  TODO: change logic in order to not use fix
-        //  fix: for position (moveToFirst() called already in setStatisticsData())
-        productsCursor.moveToPrevious();
         Set<Float> pricesSet = new HashSet<Float>();
-        while (productsCursor.moveToNext())
+        do
         {
             int priceColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
             float price = productsCursor.getFloat(priceColumnIndex);
             pricesSet.add(price);
-        }
+        } while (productsCursor.moveToNext());
+
         productsCursor.moveToFirst();
 
         return pricesSet;
