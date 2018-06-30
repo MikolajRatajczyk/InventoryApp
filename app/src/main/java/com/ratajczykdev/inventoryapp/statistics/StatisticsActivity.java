@@ -124,14 +124,9 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private float getProductsMinPrice()
     {
-        //  TODO: make return statement
         //  TODO: change logic in order to not use fix
-        //  fix for position (moveToFirst() called already in setStatisticsData())
+        //  fix: for position (moveToFirst() called already in setStatisticsData())
         Set<Float> pricesSet = getPricesSet();
-        //  TODO: delete Log.e
-        Log.e("pricesSet: ", pricesSet.toString());
-        Log.e("min: ", String.valueOf(Collections.min(pricesSet)));
-
         return Collections.min(pricesSet);
     }
 
@@ -143,8 +138,6 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         {
             int priceColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
             float price = productsCursor.getFloat(priceColumnIndex);
-            //  TODO: delete Log.e
-            Log.e("getPriceSet: ", "price: " + String.valueOf(price));
             pricesSet.add(price);
         }
         productsCursor.close();
