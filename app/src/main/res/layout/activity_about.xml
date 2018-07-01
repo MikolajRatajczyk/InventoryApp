@@ -17,6 +17,7 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginBottom="16dp"
+            android:contentDescription="big app icon"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
