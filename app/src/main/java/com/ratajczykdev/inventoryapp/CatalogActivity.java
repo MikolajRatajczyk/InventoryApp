@@ -1,5 +1,6 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -115,7 +116,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_about)
         {
             Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
-            startActivity(intent);
+            //  to start content transition in AboutActivity
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
+            startActivity(intent, bundle);
         }
         return true;
     }
