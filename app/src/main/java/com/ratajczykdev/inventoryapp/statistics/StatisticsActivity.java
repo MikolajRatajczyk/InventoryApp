@@ -29,6 +29,7 @@ import java.util.Set;
  */
 public class StatisticsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
+
     private TextView textViewItemsNumber;
     private TextView textViewProductsNumber;
     private TextView textViewMaxPrice;
@@ -37,8 +38,10 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private Cursor productsCursor;
 
+    //  TODO: do not use error return codes
     private static final int PRODUCTS_LOADER_ID = 0;
     private static final int PRODUCTS_NUMBER_IF_ERROR = -1;
+    private static final int ITEMS_NUMBER_IF_ERROR = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -78,8 +81,8 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private HashMap<String, Float> getStatisticsMap()
     {
-        //  TODO: add more data
         HashMap<String, Float> statisticsMap = new HashMap<>();
+        statisticsMap.put(StatisticsContract.ITEMS_NUMBER_KEY, (float) getItemsNumber());
         statisticsMap.put(StatisticsContract.PRODUCTS_NUMBER_KEY, (float) getProductsNumber());
         statisticsMap.put(StatisticsContract.PRODUCTS_MAX_PRICE_KEY, getProductsMaxPrice());
         statisticsMap.put(StatisticsContract.PRODUCTS_MIN_PRICE_KEY, getProductsMinPrice());
@@ -119,16 +122,41 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
             Log.e(StatisticsActivity.class.getSimpleName(), "Error with loading products data from database");
         } else if (productsCursor.moveToFirst())
         {
+            updateItemsNumberInUi();
             updateProductsNumberInUi();
             updateMaxPriceInUi();
             updateMinPriceInUi();
         }
     }
 
+    private void updateItemsNumberInUi()
+    {
+        String itemsNumberString = String.valueOf(getItemsNumber());
+        textViewItemsNumber.setText(itemsNumberString);
+    }
+
     private void updateProductsNumberInUi()
     {
         String productsNumberString = String.valueOf(getProductsNumber());
         textViewProductsNumber.setText(productsNumberString);
+    }
+
+    private int getItemsNumber()
+    {
+        if (productsCursor != null)
+        {
+            int itemsNumber = 0;
+            do
+            {
+                int productQuantityColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+                itemsNumber = itemsNumber + productsCursor.getInt(productQuantityColumnIndex);
+            } while (productsCursor.moveToNext());
+            productsCursor.moveToFirst();
+            return itemsNumber;
+        } else
+        {
+            return ITEMS_NUMBER_IF_ERROR;
+        }
     }
 
     private int getProductsNumber()
