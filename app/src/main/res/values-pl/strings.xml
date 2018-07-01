@@ -10,7 +10,6 @@
     <string name="quantity">Ilość</string>
     <string name="name">Nazwa</string>
     <string name="add_photo">Dodaj zdjęcie</string>
-    <string name="edit_symbol">symbol zdjęcia</string>
     <string name="name_symbol">symbol nazwy</string>
     <string name="quantity_symbol">symbol ilości</string>
     <string name="price_symbol">symbol ceny</string>
