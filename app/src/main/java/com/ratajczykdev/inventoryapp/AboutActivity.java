@@ -7,6 +7,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Shows info about the app
+ *
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ */
 public class AboutActivity extends AppCompatActivity
 {
     private ImageView imageViewStore;
