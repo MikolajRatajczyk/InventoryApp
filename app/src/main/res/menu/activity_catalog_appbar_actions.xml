@@ -23,13 +23,14 @@
         android:title="@string/sort_by_quantity"
         app:showAsAction="never" />
     <item
-        android:id="@+id/activity_catalog_appbar_actions_statistics"
-        android:icon="@drawable/statistics_icon_dark_orange"
-        android:title="@string/statistics"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/activity_catalog_appbar_actions_about"
         android:icon="@drawable/ic_info"
         android:title="@string/about_the_app"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_statistics"
+        android:icon="@drawable/statistics_icon_dark_orange"
+        android:title="@string/statistics"
+        app:showAsAction="always" />
+
 </menu>
