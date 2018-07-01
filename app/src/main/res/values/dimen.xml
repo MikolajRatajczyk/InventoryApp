@@ -2,4 +2,9 @@
 <resources>
     <dimen name="icon_width">32dp</dimen>
     <dimen name="icon_height">32dp</dimen>
+    <dimen name="surface_elevation">4dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
+
+    <dimen name="surface_title_text_size">20sp</dimen>
+    <dimen name="surface_singe_content_text_size">18sp</dimen>
 </resources>
