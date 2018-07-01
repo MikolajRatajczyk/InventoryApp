@@ -64,6 +64,7 @@ public class GraphsActivity extends AppCompatActivity
         barGraphSeries.setColor(getColor(R.color.colorAccent));
 
         graphItemsAndProductsNumber.addSeries(barGraphSeries);
+        graphItemsAndProductsNumber.setTitle("Items and products number");
     }
 
     private void configureGraphMaxAndMinPrice()
@@ -77,6 +78,7 @@ public class GraphsActivity extends AppCompatActivity
         barGraphSeries.setColor(getColor(R.color.colorPrimary));
 
         graphMaxAndMinPrice.addSeries(barGraphSeries);
+        graphMaxAndMinPrice.setTitle("Maximum and minimum price");
     }
 
 }
