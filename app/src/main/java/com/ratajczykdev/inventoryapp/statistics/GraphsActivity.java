@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.ratajczykdev.inventoryapp.R;
@@ -65,6 +66,7 @@ public class GraphsActivity extends AppCompatActivity
 
         graphItemsAndProductsNumber.addSeries(barGraphSeries);
         graphItemsAndProductsNumber.setTitle("Items and products number");
+        hideGraphXLabels(graphItemsAndProductsNumber);
     }
 
     private void configureGraphMaxAndMinPrice()
@@ -79,6 +81,17 @@ public class GraphsActivity extends AppCompatActivity
 
         graphMaxAndMinPrice.addSeries(barGraphSeries);
         graphMaxAndMinPrice.setTitle("Maximum and minimum price");
+        hideGraphXLabels(graphMaxAndMinPrice);
+    }
+
+    private static void hideGraphXLabels(GraphView graph)
+    {
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        //  must have more than one element, if not it will cause crash
+        final String[] EMPTY_LABEL_ARRAY = new String[]{"", ""};
+        staticLabelsFormatter.setHorizontalLabels(EMPTY_LABEL_ARRAY);
+
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
     }
 
 }
