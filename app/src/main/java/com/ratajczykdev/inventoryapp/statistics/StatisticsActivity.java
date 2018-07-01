@@ -29,6 +29,7 @@ import java.util.Set;
  */
 public class StatisticsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    private TextView textViewItemsNumber;
     private TextView textViewProductsNumber;
     private TextView textViewMaxPrice;
     private TextView textViewMinPrice;
@@ -53,6 +54,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private void setUiReferences()
     {
+        textViewItemsNumber = findViewById(R.id.activity_statistics_items_number_textview);
         textViewProductsNumber = findViewById(R.id.activity_statistics_products_number_textview);
         textViewMaxPrice = findViewById(R.id.activity_statistics_max_price_textview);
         textViewMinPrice = findViewById(R.id.activity_statistics_min_price_textview);
