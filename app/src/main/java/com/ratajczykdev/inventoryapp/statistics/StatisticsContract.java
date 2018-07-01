@@ -7,7 +7,7 @@ package com.ratajczykdev.inventoryapp.statistics;
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-public final class StatisticsContract
+final class StatisticsContract
 {
     public static final String STATISTICS_MAP_NAME = "STATISTICS_MAP";
     public static final String ITEMS_NUMBER_KEY = "ITEMS_NUMBER";
