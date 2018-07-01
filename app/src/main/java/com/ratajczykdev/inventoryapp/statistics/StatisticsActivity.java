@@ -184,7 +184,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private Set<Float> getPricesSet()
     {
-        Set<Float> pricesSet = new HashSet<Float>();
+        Set<Float> pricesSet = new HashSet<>();
         do
         {
             int priceColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
