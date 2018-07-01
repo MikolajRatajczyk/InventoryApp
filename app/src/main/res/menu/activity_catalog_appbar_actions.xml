@@ -5,31 +5,31 @@
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_name"
         android:icon="@drawable/name_sorting_icon_black"
-        android:title="Sort by name"
+        android:title="@string/sort_by_name"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_price"
         android:icon="@drawable/price_sorting_black_icon"
-        android:title="Sort by price"
+        android:title="@string/sort_by_price"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_id"
         android:icon="@drawable/id_sorting_black_icon"
-        android:title="Sort by ID"
+        android:title="@string/sort_by_id"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity"
         android:icon="@drawable/quantity_sorting_black_icon"
-        android:title="Sort by quantity"
+        android:title="@string/sort_by_quantity"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_statistics"
         android:icon="@drawable/statistics_icon_dark_orange"
-        android:title="Statistics"
+        android:title="@string/statistics"
         app:showAsAction="always" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_about"
         android:icon="@drawable/ic_info"
-        android:title="About the app"
+        android:title="@string/about_the_app"
         app:showAsAction="always" />
 </menu>

@@ -217,9 +217,9 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
 
     private void releaseStatisticsData()
     {
-        textViewProductsNumber.setText("no data");
-        textViewMaxPrice.setText("no data");
-        textViewMinPrice.setText("no data");
+        textViewProductsNumber.setText(getString(R.string.number_no_data));
+        textViewMaxPrice.setText(getString(R.string.number_no_data));
+        textViewMinPrice.setText(getString(R.string.number_no_data));
     }
 
     private void animateFabGraphs()

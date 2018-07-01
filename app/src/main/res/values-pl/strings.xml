@@ -42,4 +42,5 @@
     <string name="order_dialog_make_order">Złóż zamówienie</string>
     <string name="dollar_symbol">$</string>
     <string name="photo_edit_symbol">symbol edycji</string>
+    <string name="number_no_data">brak danych</string>
 </resources>
