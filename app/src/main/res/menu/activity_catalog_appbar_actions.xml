@@ -27,4 +27,9 @@
         android:icon="@drawable/statistics_icon_dark_orange"
         android:title="Statistics"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_about"
+        android:icon="@drawable/ic_info"
+        android:title="About the app"
+        app:showAsAction="always" />
 </menu>

@@ -112,6 +112,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         {
             Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
             startActivity(intent);
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about)
+        {
+            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
+            startActivity(intent);
         }
         return true;
     }
