@@ -36,7 +36,7 @@
             android:label="@string/edit_product_title" />
         <activity android:name=".statistics.StatisticsActivity" />
         <activity android:name=".statistics.GraphsActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
     </application>
 
 </manifest>
