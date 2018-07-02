@@ -72,8 +72,11 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
             public void onClick(View view)
             {
                 Intent intent = new Intent(StatisticsActivity.this, GraphsActivity.class);
-                //  add statistics Map to Intent for GraphActivity
-                intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap());
+                if (!(productsCursor == null || productsCursor.getCount() < 1))
+                {
+                    //  add statistics Map to Intent for GraphActivity
+                    intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap());
+                }
                 startActivity(intent);
             }
         });
