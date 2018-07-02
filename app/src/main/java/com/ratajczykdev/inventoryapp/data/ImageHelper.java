@@ -76,6 +76,7 @@ public final class ImageHelper
 
     public static Uri saveImageAndGetUri(Uri directImageUri, Context context)
     {
+        //  TODO: save image to different path
         final int COMPRESSION_QUALITY_IN_PER = 90;
         Bitmap directImageBitmap = getBitmapFromUri(directImageUri, context);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
