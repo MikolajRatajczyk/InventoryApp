@@ -34,9 +34,15 @@
         <activity
             android:name=".ProductEditActivity"
             android:label="@string/edit_product_title" />
-        <activity android:name=".statistics.StatisticsActivity" />
-        <activity android:name=".statistics.GraphsActivity" />
-        <activity android:name=".AboutActivity" />
+        <activity
+            android:name=".statistics.StatisticsActivity"
+            android:label="@string/statistics_title" />
+        <activity
+            android:name=".statistics.GraphsActivity"
+            android:label="@string/graphs_title" />
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/about_title" />
     </application>
 
 </manifest>
