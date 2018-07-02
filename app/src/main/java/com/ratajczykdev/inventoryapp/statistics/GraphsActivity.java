@@ -65,7 +65,7 @@ public class GraphsActivity extends AppCompatActivity
         barGraphSeries.setColor(getColor(R.color.colorAccent));
 
         graphItemsAndProductsNumber.addSeries(barGraphSeries);
-        graphItemsAndProductsNumber.setTitle("Items and products number");
+        graphItemsAndProductsNumber.setTitle(getString(R.string.items_products_graph_title));
         hideGraphXLabels(graphItemsAndProductsNumber);
     }
 
@@ -80,7 +80,7 @@ public class GraphsActivity extends AppCompatActivity
         barGraphSeries.setColor(getColor(R.color.colorPrimary));
 
         graphMaxAndMinPrice.addSeries(barGraphSeries);
-        graphMaxAndMinPrice.setTitle("Maximum and minimum price");
+        graphMaxAndMinPrice.setTitle(getString(R.string.max_min_price_graph_title));
         hideGraphXLabels(graphMaxAndMinPrice);
     }
 

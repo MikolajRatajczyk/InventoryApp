@@ -60,4 +60,6 @@
     <string name="statistics_title">Statystyki</string>
     <string name="graphs_title">Wykresy</string>
     <string name="about_title">O aplikacji</string>
+    <string name="items_products_graph_title">Ilość przedmiotów i produktów</string>
+    <string name="max_min_price_graph_title">Maksymalna i minimalna cena</string>
 </resources>

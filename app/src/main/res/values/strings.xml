@@ -59,4 +59,6 @@
     <string name="statistics_title">Statistics</string>
     <string name="graphs_title">Graphs</string>
     <string name="about_title">About</string>
+    <string name="items_products_graph_title">Items and products number</string>
+    <string name="max_min_price_graph_title">Maximum and minimum price</string>
 </resources>
