@@ -3,6 +3,7 @@ package com.ratajczykdev.inventoryapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class AboutActivity extends AppCompatActivity
 
         //  ...ActivityOptions.makeSceneTransitionAnimation... must be called in previous activity
         getWindow().setEnterTransition(getCustomExplodeAnimation());
+
+        setEasterEgg();
     }
 
     private void setUiReferences()
@@ -52,5 +55,24 @@ public class AboutActivity extends AppCompatActivity
         explode.addTarget(textViewEmail);
 
         return explode;
+    }
+
+    private void setEasterEgg()
+    {
+        final int FULL_ROTATION_IN_DEGREES = 360;
+        final int ROTATION_ANIMATION_DURATION_IN_MS = 5000;
+        imageViewStore.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View view)
+            {
+                imageViewStore.animate()
+                        .rotation(imageViewStore.getRotation() + FULL_ROTATION_IN_DEGREES)
+                        .setInterpolator(AnimationUtils.loadInterpolator(AboutActivity.this, android.R.interpolator.cycle))
+                        .setDuration(ROTATION_ANIMATION_DURATION_IN_MS)
+                        .start();
+                return true;
+            }
+        });
     }
 }
