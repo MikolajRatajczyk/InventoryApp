@@ -43,4 +43,21 @@
     <string name="dollar_symbol">$</string>
     <string name="photo_edit_symbol">symbol edycji</string>
     <string name="number_no_data">brak danych</string>
+    <string name="sort_by_name">Sortuj nazwą</string>
+    <string name="sort_by_price">Sortuj ceną</string>
+    <string name="sort_by_id">Sortuj ID</string>
+    <string name="sort_by_quantity">Sortuj ilością</string>
+    <string name="statistics">Statystyki</string>
+    <string name="about_the_app">O aplikacji</string>
+    <string name="content_description_big_app_icon">duża ikona aplikacji</string>
+    <string name="created_by">Stworzono przez:</string>
+    <string name="mikolaj_ratajczyk">Mikołaj Ratajczyk</string>
+    <string name="mikolaj_ratajczyk_at_gmail">mikolaj.ratajczyk@gmail.com</string>
+    <string name="number_of_items">Ilość przedmiotów</string>
+    <string name="number_of_products">Ilość produktów</string>
+    <string name="maximum_price">Cena maksymalna</string>
+    <string name="minimum_price">Cena minimalna</string>
+    <string name="statistics_title">Statystyki</string>
+    <string name="graphs_title">Wykresy</string>
+    <string name="about_title">O aplikacji</string>
 </resources>
