@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
@@ -74,9 +75,14 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private Uri currentProductUri;
     /**
-     * URI to product photo from user
+     * URI to product photo received directly from user
      */
-    private Uri imageUri;
+    private Uri directImageUri;
+
+    /**
+     * URI to product photo saved by app
+     */
+    private Uri savedImageUri;
 
     private String currentName;
 
@@ -276,11 +282,11 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
     private void putPhotoUriInContentValuesIfExists(ContentValues contentValues)
     {
-        if (imageUri != null)
+        if (savedImageUri != null)
         {
-            String imageUriString = imageUri.toString();
-            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, imageUriString);
-            Toast.makeText(this, "path: " + imageUriString, Toast.LENGTH_SHORT).show();
+            String savedImageUriString = savedImageUri.toString();
+            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, savedImageUriString);
+            Toast.makeText(this, "path: " + savedImageUriString, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -393,7 +399,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             if (resultCode == RESULT_OK && data != null)
             {
-                imageUri = data.getData();
+                directImageUri = data.getData();
+                savedImageUri = ImageHelper.saveImageAndGetUri(directImageUri, getApplicationContext());
 
             } else
             {

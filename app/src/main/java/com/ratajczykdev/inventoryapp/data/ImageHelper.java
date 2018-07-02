@@ -9,10 +9,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Helper class that handles retrieving images from memory
+ * Helper class that handles retrieving/saving images from/to memory
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
@@ -70,6 +71,15 @@ public final class ImageHelper
                 + "/" + appResources.getResourceTypeName(resourceId)
                 + "/" + appResources.getResourceEntryName(resourceId));
         return resourceUri;
+    }
+
+    public static Uri saveImageAndGetUri(Uri directImageUri, Context context)
+    {
+        Bitmap directImageBitmap = getBitmapFromUri(directImageUri, context);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        directImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        String savedImageStringPath = MediaStore.Images.Media.insertImage(context.getContentResolver(), directImageBitmap, "title", null);
+        return Uri.parse(savedImageStringPath);
     }
 
 

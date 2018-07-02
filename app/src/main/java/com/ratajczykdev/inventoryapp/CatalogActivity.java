@@ -41,10 +41,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     private static final int PRODUCT_LOADER_ID = 0;
 
     /**
-     * Identifier for permissions ask
+     * Identifier for WRITE permissions request
      * The callback method gets the result of the request
      */
-    private static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID = 111;
+    private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 1000;
 
     /**
      * Floating action button for adding a new product
@@ -68,7 +68,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        askReadStoragePermission();
+        askWriteStoragePermission();
 
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
@@ -134,18 +134,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         return true;
     }
 
-    private void askReadStoragePermission()
+    private void askWriteStoragePermission()
     {
-        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
-
-            // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE))
             {
-                //  TODO: add explanation for user (asynchronously)
+                //  TODO: add explanation for a user (asynchronously)
             }
 
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID);
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID);
         }
     }
 
