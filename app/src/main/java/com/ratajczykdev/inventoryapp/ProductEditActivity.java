@@ -286,7 +286,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         {
             String savedImageUriString = savedImageUri.toString();
             contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, savedImageUriString);
-            Toast.makeText(this, "path: " + savedImageUriString, Toast.LENGTH_SHORT).show();
         }
     }
 
