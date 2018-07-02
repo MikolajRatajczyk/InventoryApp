@@ -144,6 +144,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
 
     /**
      * Starts activity to receive image URI from user
+     * <p>
+     * Data will be received by onActivityResult method
      */
     private void requestBitmapUriFromUser()
     {
