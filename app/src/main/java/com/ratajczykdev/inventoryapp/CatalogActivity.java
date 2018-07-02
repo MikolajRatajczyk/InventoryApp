@@ -40,7 +40,11 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      */
     private static final int PRODUCT_LOADER_ID = 0;
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 111;
+    /**
+     * Identifier for permissions ask
+     * The callback method gets the result of the request
+     */
+    private static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID = 111;
 
     /**
      * Floating action button for adding a new product
@@ -64,7 +68,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        askForPermissions();
+        askReadStoragePermission();
 
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
@@ -130,7 +134,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         return true;
     }
 
-    private void askForPermissions()
+    private void askReadStoragePermission()
     {
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
@@ -138,14 +142,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             // Should we show an explanation?
             if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE))
             {
-                // Explain to the user why we need to read the contacts
+                //  TODO: add explanation for user (asynchronously)
             }
 
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-
-            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-            // app-defined int constant that should be quite unique
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE_ID);
         }
     }
 
