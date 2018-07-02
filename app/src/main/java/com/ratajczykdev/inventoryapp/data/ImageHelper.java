@@ -11,6 +11,7 @@ import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Helper class that handles retrieving/saving images from/to memory
@@ -75,11 +76,20 @@ public final class ImageHelper
 
     public static Uri saveImageAndGetUri(Uri directImageUri, Context context)
     {
+        final int COMPRESSION_QUALITY_IN_PER = 90;
         Bitmap directImageBitmap = getBitmapFromUri(directImageUri, context);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        directImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        String savedImageStringPath = MediaStore.Images.Media.insertImage(context.getContentResolver(), directImageBitmap, "title", null);
+        directImageBitmap.compress(Bitmap.CompressFormat.JPEG, COMPRESSION_QUALITY_IN_PER, byteArrayOutputStream);
+
+        final String randomUuid = getRandomUuid();
+        String savedImageStringPath = MediaStore.Images.Media.insertImage(context.getContentResolver(), directImageBitmap, randomUuid, null);
+
         return Uri.parse(savedImageStringPath);
+    }
+
+    public static String getRandomUuid()
+    {
+        return UUID.randomUUID().toString();
     }
 
 
