@@ -1,3 +1,5 @@
+<p align="center"> <img src="https://i.imgur.com/J2cgY9x.png"> </p>
+
 # Welcome to InventoryApp!
 
 This app helps you track your shop inventory.
@@ -7,23 +9,25 @@ This app helps you track your shop inventory.
 
  - Based on SQLite 3,
  - Sweet Material Design,
- - Adding a new product with: name, quantity, price and image,
+ - Statistics,
+ - Drawing graphs,
+ - Adding a new product with: name, quantity, price and photo,
  - Sorting products by: name, price, ID and quantity,
  - Editing added product,
  - Deleting a product
  - Loading from database does not block UI thread,
  - Help making order for a new supply,
- - Showing the full list of products,
+ - Showing the full list of products with photos,
  - Fully translated
+ 
  
  
 ## Screenshots
 
-![enter image description here](https://i.imgur.com/3JGhUnyl.jpg) ![enter image description here](https://i.imgur.com/P7xFHz4l.jpg)
-
-![enter image description here](https://i.imgur.com/rVhPiXZl.jpg) ![enter image description here](https://i.imgur.com/Wfn2dUTl.jpg)
-
-
+![enter image description here](https://i.imgur.com/MaNMKHYl.jpg) ![enter image description here](https://i.imgur.com/t9mcoSpl.jpg)
+![enter image description here](https://i.imgur.com/JGZHBDtl.jpg) ![enter image description here](https://i.imgur.com/X9cXo56l.jpg)
+![enter image description here](https://i.imgur.com/VM8vVmMl.jpg) ![enter image description here](https://i.imgur.com/OQWd6Ukl.jpg)
+![enter image description here](https://i.imgur.com/DAImMd7l.jpg) ![enter image description here](https://i.imgur.com/NMJvwq9l.jpg)
 ## What platform?
 
 InventoryApp is created from scratch for Android.
@@ -61,6 +65,3 @@ In the past I was learning C, later C++, then Java and I thought "I love Android
 ## Cheers!
 
 ## Mikołaj Ratajczyk
-
-
-
