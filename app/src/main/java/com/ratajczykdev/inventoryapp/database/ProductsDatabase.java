@@ -19,7 +19,7 @@ public abstract class ProductsDatabase extends RoomDatabase {
 
     public static ProductsDatabase getProductsDatabaseInstance(Context context) {
         if (productsDatabaseInstance == null) {
-            productsDatabaseInstance = Room.databaseBuilder(context, ProductsDatabase.class, "products")
+            productsDatabaseInstance = Room.databaseBuilder(context, ProductsDatabase.class, "productsDb")
                     .fallbackToDestructiveMigration()
                     .build();
             return productsDatabaseInstance;
