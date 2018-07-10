@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 /**
  * Data model class for the database
@@ -11,6 +12,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity(tableName = "products")
 public class Product {
 
+    @NonNull
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
