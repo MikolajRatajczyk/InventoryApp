@@ -1,11 +1,8 @@
 package com.ratajczykdev.inventoryapp;
 
-import android.app.LoaderManager;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentValues;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +16,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
@@ -33,7 +29,7 @@ import java.util.Locale;
  *
  * @author Mikołaj Ratajczyk
  */
-public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ProductEditActivity extends AppCompatActivity {
     //  TODO: implement editing existing product with Room
 
     /**
@@ -41,10 +37,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private ProductViewModel productViewModel;
 
-    /**
-     * Identifier for product data loader
-     */
-    private static final int EDITED_PRODUCT_LOADER_ID = 1;
     /**
      * Request code that identifies photo request from user
      */
@@ -113,8 +105,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         setButtonChangePhotoListener();
 
         if (getIntent().getData() != null) {
+            //  TODO: modify for Room implementation
             currentProductUri = getIntent().getData();
-            startProductLoader();
             setupButtonsForEditing();
         } else if (currentProductUri == null) {
             setupButtonsForAdding();
@@ -160,9 +152,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         startActivityForResult(photoPickerIntent, PHOTO_REQUEST_ID);
     }
 
-    private void startProductLoader() {
-        getLoaderManager().initLoader(EDITED_PRODUCT_LOADER_ID, null, this);
-    }
 
     /**
      * Setups all buttons in order to edit existing product
@@ -371,18 +360,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        String[] projection = ProductContract.FULL_PROJECTION_ARRAY;
-
-        return new CursorLoader(this, currentProductUri, projection, null, null, null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        setProductData(cursor);
-    }
-
     /**
      * Set current product data with provided ones from database
      *
@@ -419,10 +396,6 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         editTextName.setText(name);
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        releaseProductData();
-    }
 
     /**
      * Replace current product data with blank space
