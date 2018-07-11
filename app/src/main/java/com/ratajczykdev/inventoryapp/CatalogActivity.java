@@ -3,7 +3,6 @@ package com.ratajczykdev.inventoryapp;
 import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,8 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
@@ -36,6 +33,7 @@ import java.util.List;
  * @author Mikołaj Ratajczyk
  */
 public class CatalogActivity extends AppCompatActivity {
+    //  TODO: add activity request behaviour when adding new Product
 
     /**
      * Identifier for WRITE permissions request
@@ -43,21 +41,11 @@ public class CatalogActivity extends AppCompatActivity {
      */
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 1000;
 
-    /**
-     * Floating action button for adding a new product
-     */
     private FloatingActionButton fabNewProduct;
 
-    private View viewEmptyHint;
-
-    //****************************************************************************************
-    //  TODO: delete stars, Room implementation place
     private ProductViewModel productViewModel;
-    ProductListRecyclerAdapter productListRecyclerAdapter;
     private RecyclerView recyclerProductList;
-
-    //  TODO: add activity request behaviour when adding new Product
-    //****************************************************************************************
+    ProductListRecyclerAdapter productListRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +70,6 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-
         recyclerProductList = findViewById(R.id.product_list_recyclerview);
         productListRecyclerAdapter = new ProductListRecyclerAdapter(this);
         recyclerProductList.setAdapter(productListRecyclerAdapter);
@@ -90,10 +77,6 @@ public class CatalogActivity extends AppCompatActivity {
 
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
-
-
-        //  TODO: use later
-        viewEmptyHint = findViewById(R.id.empty_view_hint);
 
         animateFabNewProduct();
     }
@@ -180,7 +163,6 @@ public class CatalogActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-
 
     private void animateFabNewProduct() {
         fabNewProduct.animate()
