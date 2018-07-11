@@ -35,11 +35,11 @@ public interface ProductDao {
     LiveData<List<Product>> getAll();
 
     @Query("SELECT * FROM products_table WHERE id IN (:ids)")
-    LiveData<List<Product>> findAllByIds(int[] ids);
+    LiveData<List<Product>> findMultipleByIds(int[] ids);
 
     @Query("SELECT * FROM products_table WHERE name LIKE :searchName LIMIT 1")
-    LiveData<Product> findByName(String searchName);
+    LiveData<Product> findSingleByName(String searchName);
 
     @Query("SELECT * FROM products_table WHERE id = :searchId")
-    LiveData<Product> findById(int searchId);
+    LiveData<Product> findSingleById(int searchId);
 }
