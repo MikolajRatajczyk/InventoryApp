@@ -38,7 +38,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
         }
     }
 
-    ProductListRecyclerAdapter(Context context) {
+    public ProductListRecyclerAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
     }
 
