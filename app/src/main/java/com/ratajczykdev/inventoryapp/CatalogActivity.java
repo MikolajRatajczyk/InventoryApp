@@ -1,22 +1,21 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.Manifest;
-import android.app.ActivityOptions;
-import android.app.LoaderManager;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -24,9 +23,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
-import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
+import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter;
+import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+
+import java.util.List;
 
 /**
  * Loads view with product list
@@ -34,10 +36,6 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
  * @author Mikołaj Ratajczyk
  */
 public class CatalogActivity extends AppCompatActivity {
-    /**
-     * Identifier for product data loader
-     */
-    private static final int PRODUCT_LOADER_ID = 0;
 
     /**
      * Identifier for WRITE permissions request
@@ -49,19 +47,16 @@ public class CatalogActivity extends AppCompatActivity {
      * Floating action button for adding a new product
      */
     private FloatingActionButton fabNewProduct;
-    /**
-     * Adapter for list view
-     */
-    private ProductCursorAdapter productCursorAdapter;
-
-    //  TODO: change entire behaviour to RecyclerView
-    private ListView viewProductList;
 
     private View viewEmptyHint;
 
     //****************************************************************************************
     //  TODO: delete stars, Room implementation place
+    private ProductViewModel productViewModel;
+    ProductListRecyclerAdapter productListRecyclerAdapter;
+    private RecyclerView recyclerProductList;
 
+    //  TODO: add activity request behaviour when adding new Product
     //****************************************************************************************
 
     @Override
@@ -71,16 +66,34 @@ public class CatalogActivity extends AppCompatActivity {
 
         askWriteStoragePermission();
 
+        //  Use ViewModelProviders to associate your ViewModel with your UI controller.
+        //  When your app first starts, the ViewModelProviders will create the ViewModel.
+        //  When the activity is destroyed, for example through a configuration change, the ViewModel persists.
+        //  When the activity is re-created, the ViewModelProviders return the existing ViewModel
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        //  Add an observer for the LiveData returned by getAll().
+        //  The onChanged() method fires when the observed data changes
+        //  and the activity is in the foreground.
+        productViewModel.getAll().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(@Nullable List<Product> productsList) {
+                // Update the cached copy of the products in the adapter.
+                productListRecyclerAdapter.setProducts(productsList);
+            }
+        });
+
+
+        recyclerProductList = findViewById(R.id.product_list_recyclerview);
+        productListRecyclerAdapter = new ProductListRecyclerAdapter(this);
+        recyclerProductList.setAdapter(productListRecyclerAdapter);
+        recyclerProductList.setLayoutManager(new LinearLayoutManager(this));
+
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
 
-        //  loader will provide cursor, so now pass null for cursor
-        productCursorAdapter = new ProductCursorAdapter(this, null);
 
-        viewProductList = findViewById(R.id.product_list);
+        //  TODO: use later
         viewEmptyHint = findViewById(R.id.empty_view_hint);
-
-        configureViewProductList();
 
         animateFabNewProduct();
     }
@@ -153,20 +166,20 @@ public class CatalogActivity extends AppCompatActivity {
         });
     }
 
-    private void configureViewProductList() {
-        viewProductList.setEmptyView(viewEmptyHint);
-        viewProductList.setAdapter(productCursorAdapter);
-        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Intent intent = new Intent(CatalogActivity.this, ProductDetailActivity.class);
-                //  create the content URI that represents the specific product that was clicked on
-                Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
-                intent.setData(currentProductUri);
-                startActivity(intent);
-            }
-        });
-    }
+//    private void configureViewProductList() {
+//        viewProductList.setEmptyView(viewEmptyHint);
+//        viewProductList.setAdapter(productCursorAdapter);
+//        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                Intent intent = new Intent(CatalogActivity.this, ProductDetailActivity.class);
+//                //  create the content URI that represents the specific product that was clicked on
+//                Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
+//                intent.setData(currentProductUri);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 
 
     private void animateFabNewProduct() {
@@ -181,6 +194,7 @@ public class CatalogActivity extends AppCompatActivity {
      * Helper method to insert hardcoded product data into the database.
      * <p>
      * Only for debugging.
+     * TODO: not usable for Room
      */
     private void insertFakeProduct() {
         ContentValues contentValues = new ContentValues();
