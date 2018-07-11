@@ -32,6 +32,9 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
 {
+    //  TODO: implement editing existing product with Room
+    //  TODO: implement adding new product with Room
+
     /**
      * Identifier for product data loader
      */
