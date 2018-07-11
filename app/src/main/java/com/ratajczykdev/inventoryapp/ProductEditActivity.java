@@ -36,6 +36,9 @@ import java.util.Locale;
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //  TODO: implement editing existing product with Room
 
+    /**
+     * Activity gets its own ViewModel, but with the same repository as {@link CatalogActivity}
+     */
     private ProductViewModel productViewModel;
 
     /**
