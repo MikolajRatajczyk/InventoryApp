@@ -59,7 +59,7 @@ public abstract class ProductDatabase extends RoomDatabase {
      * Only for debugging purposes
      */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-        //  TODO: only temporary method
+        //  TODO: only temporary class, delete later
         private final ProductDao productDao;
 
         PopulateDbAsync(ProductDatabase productDatabase) {
