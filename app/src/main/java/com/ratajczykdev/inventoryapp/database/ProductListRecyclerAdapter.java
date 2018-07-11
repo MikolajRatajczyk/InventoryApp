@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp.database;
 //  TODO: move outside package
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.ProductEditActivity;
 import com.ratajczykdev.inventoryapp.R;
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
 
@@ -24,6 +26,8 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
     private final LayoutInflater layoutInflater;
     private List<Product> productList;
     private Context context;
+
+    public static final String DATA_SELECTED_PRODUCT_ID = "DATA_SELECTED_PRODUCT_ID";
 
     /**
      * ViewHolder class
@@ -60,7 +64,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, final int position) {
         if (productList != null) {
-            Product currentProduct = productList.get(position);
+            final Product currentProduct = productList.get(position);
             holder.textName.setText(currentProduct.getName());
             holder.textPrice.setText(String.format(Locale.US, "%.2f", currentProduct.getPrice()));
             holder.textQuantity.setText(String.valueOf(currentProduct.getQuantity()));
@@ -71,6 +75,9 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
                 public void onClick(View view) {
                     //  TODO: delete Toast
                     Toast.makeText(context, "Clicked on position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ProductEditActivity.class);
+                    intent.putExtra(DATA_SELECTED_PRODUCT_ID, currentProduct.getId());
+                    context.startActivity(intent);
                 }
             });
         } else {
