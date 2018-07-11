@@ -3,10 +3,8 @@ package com.ratajczykdev.inventoryapp;
 import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -17,10 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
-import com.ratajczykdev.inventoryapp.data.ImageHelper;
-import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
@@ -170,26 +165,5 @@ public class CatalogActivity extends AppCompatActivity {
                 .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
                 .setDuration(700)
                 .start();
-    }
-
-    /**
-     * Helper method to insert hardcoded product data into the database.
-     * <p>
-     * Only for debugging.
-     * TODO: not usable for Room
-     */
-    private void insertFakeProduct() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
-
-        Uri productPlaceholderImageUri = ImageHelper.getUriForResourceId(R.drawable.product_photo_placeholder_phone, getApplicationContext());
-        String productPlaceHolderImageUriString = productPlaceholderImageUri.toString();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, productPlaceHolderImageUriString);
-
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
-
-        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
-        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
     }
 }
