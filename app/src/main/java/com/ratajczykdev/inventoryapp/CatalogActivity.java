@@ -33,8 +33,7 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
  *
  * @author Mikołaj Ratajczyk
  */
-public class CatalogActivity extends AppCompatActivity
-{
+public class CatalogActivity extends AppCompatActivity {
     /**
      * Identifier for product data loader
      */
@@ -61,8 +60,7 @@ public class CatalogActivity extends AppCompatActivity
     private View viewEmptyHint;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
@@ -86,8 +84,7 @@ public class CatalogActivity extends AppCompatActivity
      * Modify App Bar to have actions
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.activity_catalog_appbar_actions, menu);
         return true;
@@ -131,12 +128,9 @@ public class CatalogActivity extends AppCompatActivity
 //        return true;
 //    }
 
-    private void askWriteStoragePermission()
-    {
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            {
+    private void askWriteStoragePermission() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 //  TODO: add explanation for a user (asynchronously)
             }
 
@@ -144,28 +138,22 @@ public class CatalogActivity extends AppCompatActivity
         }
     }
 
-    private void setFabListener()
-    {
-        fabNewProduct.setOnClickListener(new View.OnClickListener()
-        {
+    private void setFabListener() {
+        fabNewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void configureViewProductList()
-    {
+    private void configureViewProductList() {
         viewProductList.setEmptyView(viewEmptyHint);
         viewProductList.setAdapter(productCursorAdapter);
-        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(CatalogActivity.this, ProductDetailActivity.class);
                 //  create the content URI that represents the specific product that was clicked on
                 Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
@@ -176,8 +164,7 @@ public class CatalogActivity extends AppCompatActivity
     }
 
 
-    private void animateFabNewProduct()
-    {
+    private void animateFabNewProduct() {
         fabNewProduct.animate()
                 .rotation(360)
                 .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
@@ -190,8 +177,7 @@ public class CatalogActivity extends AppCompatActivity
      * <p>
      * Only for debugging.
      */
-    private void insertFakeProduct()
-    {
+    private void insertFakeProduct() {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
 
