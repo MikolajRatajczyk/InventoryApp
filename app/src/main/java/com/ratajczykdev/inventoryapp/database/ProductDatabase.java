@@ -11,20 +11,20 @@ import android.content.Context;
  * Uses Singleton design pattern
  */
 @Database(entities = {Product.class}, version = 1, exportSchema = false)
-public abstract class ProductsDatabase extends RoomDatabase {
+public abstract class ProductDatabase extends RoomDatabase {
 
-    private static ProductsDatabase productsDatabaseInstance;
+    private static ProductDatabase productDatabaseInstance;
 
     public abstract ProductDao productDao();
 
-    public static ProductsDatabase getProductsDatabaseInstance(Context context) {
-        if (productsDatabaseInstance == null) {
-            productsDatabaseInstance = Room.databaseBuilder(context, ProductsDatabase.class, "products_database")
+    public static ProductDatabase getProductsDatabaseInstance(Context context) {
+        if (productDatabaseInstance == null) {
+            productDatabaseInstance = Room.databaseBuilder(context, ProductDatabase.class, "products_database")
                     .fallbackToDestructiveMigration()
                     .build();
-            return productsDatabaseInstance;
+            return productDatabaseInstance;
         } else {
-            return productsDatabaseInstance;
+            return productDatabaseInstance;
         }
     }
 }
