@@ -59,6 +59,11 @@ public class CatalogActivity extends AppCompatActivity {
 
     private View viewEmptyHint;
 
+    //****************************************************************************************
+    //  TODO: delete stars, Room implementation place
+
+    //****************************************************************************************
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
