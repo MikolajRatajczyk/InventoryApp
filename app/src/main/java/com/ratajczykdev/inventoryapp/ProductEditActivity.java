@@ -1,6 +1,7 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.app.LoaderManager;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
+import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -32,7 +35,8 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     //  TODO: implement editing existing product with Room
-    //  TODO: implement adding new product with Room
+
+    private ProductViewModel productViewModel;
 
     /**
      * Identifier for product data loader
@@ -98,6 +102,8 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
 
+        //  Activity gets its own ViewModel, but with the same repository
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         setUiElementsReferences();
 
         setButtonCancelListener();
@@ -205,8 +211,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private boolean saveExistingProduct() {
         if (setCurrentProductDataFromUi()) {
-            ContentValues contentValues = getContentValuesWithProductData();
-            return updateProductFromContentValues(contentValues);
+            //ContentValues contentValues = getProductWithCurrentData();
+            //return updateProductFromContentValues(contentValues);
+            return true;
         } else {
             return false;
         }
@@ -240,20 +247,27 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
         return Integer.valueOf(stringQuantity);
     }
 
+    /**
+     * Create new product with current data
+     */
     @NonNull
-    private ContentValues getContentValuesWithProductData() {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, currentName);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, currentQuantity);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, currentFloatPrice);
-        putPhotoUriInContentValuesIfExists(contentValues);
-        return contentValues;
+    private Product getProductWithCurrentData() {
+        Product product = new Product();
+        product.setName(currentName);
+        product.setQuantity(currentQuantity);
+        product.setPrice(currentFloatPrice);
+        setPhotoUriInProduct(product);
+
+        return product;
     }
 
-    private void putPhotoUriInContentValuesIfExists(ContentValues contentValues) {
+    /**
+     * Set photo URI in product if available
+     */
+    private void setPhotoUriInProduct(Product product) {
         if (savedImageUri != null) {
             String savedImageUriString = savedImageUri.toString();
-            contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, savedImageUriString);
+            product.setPhotoUri(savedImageUriString);
         }
     }
 
@@ -316,8 +330,9 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
      */
     private boolean addNewProduct() {
         if (setCurrentProductDataFromUi()) {
-            ContentValues contentValues = getContentValuesWithProductData();
-            return insertProductFromContentValues(contentValues);
+            Product newProduct = getProductWithCurrentData();
+            productViewModel.insertSingle(newProduct);
+            return true;
         } else {
             return false;
         }
