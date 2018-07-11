@@ -14,6 +14,19 @@ import java.util.List;
 @Dao
 public interface ProductDao {
 
+
+    @Insert
+    void insertSingleProduct(Product product);
+
+    @Insert
+    void insertMultipleProducts(List<Product> productsList);
+
+    @Update
+    void updateProduct(Product product);
+
+    @Delete
+    void deleteProduct(Product product);
+
     @Query("SELECT * FROM products")
     List<Product> getAll();
 
@@ -25,13 +38,4 @@ public interface ProductDao {
 
     @Query("SELECT * FROM products WHERE id = :searchId")
     Product findById(int searchId);
-
-    @Insert
-    void insertMultipleProducts(List<Product> productsList);
-
-    @Update
-    void updateProduct(Product product);
-
-    @Delete
-    void deleteProduct(Product product);
 }
