@@ -31,7 +31,7 @@ public interface ProductDao {
     @Query("DELETE FROM products_table")
     void deleteAll();
 
-    @Query("SELECT * FROM products_table ORDER BY name ASC")
+    @Query("SELECT * FROM products_table ORDER BY id ASC")
     LiveData<List<Product>> getAll();
 
     @Query("SELECT * FROM products_table WHERE id IN (:ids)")
