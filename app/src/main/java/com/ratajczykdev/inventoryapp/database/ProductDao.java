@@ -16,26 +16,29 @@ public interface ProductDao {
 
 
     @Insert
-    void insertSingleProduct(Product product);
+    void insertSingle(Product product);
 
     @Insert
-    void insertMultipleProducts(List<Product> productsList);
+    void insertMultiple(List<Product> productsList);
 
     @Update
-    void updateProduct(Product product);
+    void updateSingle(Product product);
 
     @Delete
-    void deleteProduct(Product product);
+    void deleteSingle(Product product);
 
-    @Query("SELECT * FROM products")
+    @Query("DELETE FROM products_table")
+    void deleteAll();
+
+    @Query("SELECT * FROM products_table ORDER BY name ASC")
     List<Product> getAll();
 
-    @Query("SELECT * FROM products WHERE id IN (:ids)")
+    @Query("SELECT * FROM products_table WHERE id IN (:ids)")
     List<Product> findAllByIds(int[] ids);
 
-    @Query("SELECT * FROM products WHERE name LIKE :searchName LIMIT 1")
+    @Query("SELECT * FROM products_table WHERE name LIKE :searchName LIMIT 1")
     Product findByName(String searchName);
 
-    @Query("SELECT * FROM products WHERE id = :searchId")
+    @Query("SELECT * FROM products_table WHERE id = :searchId")
     Product findById(int searchId);
 }
