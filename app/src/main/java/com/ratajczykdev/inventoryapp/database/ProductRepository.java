@@ -40,6 +40,14 @@ public class ProductRepository {
     }
 
     /**
+     * Wrapper for updateSingle()
+     * Call this on a non-UI thread or app will crash.
+     */
+    public void updateSingle(Product product) {
+        new updateSingleAsyncTask(productDao).execute(product);
+    }
+
+    /**
      * Static class for insertSingle
      */
     private static class insertSingleAsyncTask extends AsyncTask<Product, Void, Void> {
@@ -56,4 +64,20 @@ public class ProductRepository {
         }
     }
 
+    /**
+     * Static class for updateSingle
+     */
+    private static class updateSingleAsyncTask extends AsyncTask<Product, Void, Void> {
+        private ProductDao productDao;
+
+        updateSingleAsyncTask(ProductDao productDao) {
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected Void doInBackground(Product... products) {
+            productDao.updateSingle(products[0]);
+            return null;
+        }
+    }
 }
