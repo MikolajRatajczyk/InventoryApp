@@ -2,6 +2,8 @@ package com.ratajczykdev.inventoryapp.database;
 //  TODO: move outside package
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.R;
+import com.ratajczykdev.inventoryapp.data.ImageHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +22,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
 
     private final LayoutInflater layoutInflater;
     private List<Product> productList;
+    private Context context;
 
     /**
      * ViewHolder class
@@ -40,6 +44,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
 
     public ProductListRecyclerAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @NonNull
@@ -54,9 +59,10 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
         if (productList != null) {
             Product currentProduct = productList.get(position);
             holder.textName.setText(currentProduct.getName());
-            //  TODO: make photo set method
             holder.textPrice.setText(String.format(Locale.US, "%.2f", currentProduct.getPrice()));
             holder.textQuantity.setText(String.valueOf(currentProduct.getQuantity()));
+            //  TODO: check if working
+            setProductPhotoFromUri(holder, currentProduct);
         } else {
             //  TODO: add empty list view, delete this
             holder.textName.setText("No product available");
@@ -78,6 +84,18 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
     public void setProducts(List<Product> productList) {
         this.productList = productList;
         notifyDataSetChanged();
+    }
+
+    /**
+     * Helper method
+     */
+    private void setProductPhotoFromUri(ProductViewHolder holder, Product currentProduct) {
+        if (currentProduct.getPhotoUri() != null) {
+            String stringPhotoUri = currentProduct.getPhotoUri();
+            Uri photoUri = Uri.parse(stringPhotoUri);
+            Bitmap photoBitmap = ImageHelper.getBitmapFromUri(photoUri, context);
+            holder.imagePhoto.setImageBitmap(photoBitmap);
+        }
     }
 
 }
