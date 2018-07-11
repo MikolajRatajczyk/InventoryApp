@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".CatalogActivity">
 
-    <ListView
-        android:id="@+id/product_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/product_list_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:listitem="@layout/product_list_item">
 
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 
     <!--Empty view for the list-->
     <android.support.constraint.ConstraintLayout
@@ -22,7 +23,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/product_list"
+        app:layout_constraintBottom_toBottomOf="@+id/product_list_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
