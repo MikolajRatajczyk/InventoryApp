@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
  * <p>
  * Represents single product and products table name
  */
-@Entity(tableName = "products")
+@Entity(tableName = "products_table")
 public class Product {
 
     @NonNull
