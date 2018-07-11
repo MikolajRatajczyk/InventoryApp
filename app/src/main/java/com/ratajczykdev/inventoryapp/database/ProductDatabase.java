@@ -28,6 +28,7 @@ public abstract class ProductDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             ProductDatabase.class,
                             "products_database")
+                            .addCallback(roomDatabaseCallback)  //  custom callback, TODO: only temporary
                             .build();
                 }
             }
