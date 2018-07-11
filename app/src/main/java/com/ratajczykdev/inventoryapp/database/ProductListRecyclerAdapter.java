@@ -76,7 +76,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
                     //  TODO: delete Toast
                     Toast.makeText(context, "Clicked on item with database id: " + currentProduct.getId(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, ProductEditActivity.class);
-                    intent.putExtra(DATA_SELECTED_PRODUCT_ID, currentProduct.getId());
+                    intent.putExtra(DATA_SELECTED_PRODUCT_ID, String.valueOf(currentProduct.getId()));
                     context.startActivity(intent);
                 }
             });
