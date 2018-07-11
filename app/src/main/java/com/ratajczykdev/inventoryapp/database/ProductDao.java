@@ -1,5 +1,6 @@
 package com.ratajczykdev.inventoryapp.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -31,14 +32,14 @@ public interface ProductDao {
     void deleteAll();
 
     @Query("SELECT * FROM products_table ORDER BY name ASC")
-    List<Product> getAll();
+    LiveData<List<Product>> getAll();
 
     @Query("SELECT * FROM products_table WHERE id IN (:ids)")
-    List<Product> findAllByIds(int[] ids);
+    LiveData<List<Product>> findAllByIds(int[] ids);
 
     @Query("SELECT * FROM products_table WHERE name LIKE :searchName LIMIT 1")
-    Product findByName(String searchName);
+    LiveData<Product> findByName(String searchName);
 
     @Query("SELECT * FROM products_table WHERE id = :searchId")
-    Product findById(int searchId);
+    LiveData<Product> findById(int searchId);
 }
