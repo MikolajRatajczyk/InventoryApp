@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.AsyncTask;
 
 /**
  * Products database abstract class
@@ -31,4 +32,35 @@ public abstract class ProductDatabase extends RoomDatabase {
         }
         return productDatabaseInstance;
     }
+
+    /**
+     * AsyncTask that deletes the contents of the database,
+     * then populates it with the two products.
+     * <p>
+     * Only for debugging purposes
+     */
+    private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+        //  TODO: only temporary method
+        private final ProductDao productDao;
+
+        PopulateDbAsync(ProductDatabase productDatabase) {
+            productDao = productDatabase.productDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            productDao.deleteAll();
+
+            Product productPhone = new Product();
+            productPhone.setName("OnePlus 3T");
+            productDao.insertSingle(productPhone);
+
+            Product productLaptop = new Product();
+            productLaptop.setName("MacBook Pro");
+            productDao.insertSingle(productLaptop);
+
+            return null;
+        }
+    }
+
 }
