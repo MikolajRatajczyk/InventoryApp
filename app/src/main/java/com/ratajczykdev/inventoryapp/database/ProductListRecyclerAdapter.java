@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.R;
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
@@ -32,6 +33,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
         private final ImageView imagePhoto;
         private final TextView textPrice;
         private final TextView textQuantity;
+        private final View listItemRootView;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -39,6 +41,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
             imagePhoto = itemView.findViewById(R.id.image_photo);
             textPrice = itemView.findViewById(R.id.text_price);
             textQuantity = itemView.findViewById(R.id.text_quantity);
+            listItemRootView = itemView.findViewById(R.id.product_list_item_root_linearlayout);
         }
     }
 
@@ -55,7 +58,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, final int position) {
         if (productList != null) {
             Product currentProduct = productList.get(position);
             holder.textName.setText(currentProduct.getName());
@@ -63,6 +66,13 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
             holder.textQuantity.setText(String.valueOf(currentProduct.getQuantity()));
             //  TODO: check if working
             setProductPhotoFromUri(holder, currentProduct);
+            holder.listItemRootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //  TODO: delete Toast
+                    Toast.makeText(context, "Clicked on position: " + String.valueOf(position), Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             //  TODO: add empty list view, delete this
             holder.textName.setText("No product available");
