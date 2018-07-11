@@ -1,10 +1,12 @@
 package com.ratajczykdev.inventoryapp.database;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 /**
  * Products database abstract class
@@ -32,6 +34,22 @@ public abstract class ProductDatabase extends RoomDatabase {
         }
         return productDatabaseInstance;
     }
+
+    /**
+     * To delete all content and repopulate the database whenever the app is started,
+     * create a RoomDatabase.Callback and override onOpen().
+     * Because you cannot do Room database operations on the UI thread,
+     * onOpen() creates and executes an AsyncTask to add content to the database.
+     */
+    private static RoomDatabase.Callback roomDatabaseCallback =
+            //  TODO: only temporary field
+            new RoomDatabase.Callback() {
+                @Override
+                public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                    super.onOpen(db);
+                    new PopulateDbAsync(productDatabaseInstance).execute();
+                }
+            };
 
     /**
      * AsyncTask that deletes the contents of the database,
