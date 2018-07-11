@@ -33,7 +33,7 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
  *
  * @author Mikołaj Ratajczyk
  */
-public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
+public class CatalogActivity extends AppCompatActivity
 {
     /**
      * Identifier for product data loader
@@ -60,8 +60,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     private View viewEmptyHint;
 
-    private String loaderSqlSortOrder = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -81,8 +79,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         configureViewProductList();
 
-        startProductLoader();
-
         animateFabNewProduct();
     }
 
@@ -97,42 +93,43 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         return true;
     }
 
-    /**
-     * Triggers methods for the specified action on the app bar
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int currentItemId = item.getItemId();
-        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
-        {
-            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_NAME + " ASC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
-        {
-            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_PRICE + " DESC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id)
-        {
-            loaderSqlSortOrder = ProductEntry._ID + " ASC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity)
-        {
-            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " DESC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics)
-        {
-            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
-            startActivity(intent);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about)
-        {
-            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
-            //  to start content transition in AboutActivity
-            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
-            startActivity(intent, bundle);
-        }
-        return true;
-    }
+//    /**
+//     * Triggers methods for the specified action on the app bar
+//     */
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+//        //  TODO: modify to not use Loaders
+//        int currentItemId = item.getItemId();
+//        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
+//        {
+//            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_NAME + " ASC";
+//            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
+//        {
+//            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_PRICE + " DESC";
+//            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id)
+//        {
+//            loaderSqlSortOrder = ProductEntry._ID + " ASC";
+//            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity)
+//        {
+//            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " DESC";
+//            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics)
+//        {
+//            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
+//            startActivity(intent);
+//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about)
+//        {
+//            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
+//            //  to start content transition in AboutActivity
+//            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
+//            startActivity(intent, bundle);
+//        }
+//        return true;
+//    }
 
     private void askWriteStoragePermission()
     {
@@ -178,38 +175,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
     }
 
-    private void startProductLoader()
-    {
-        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
-    {
-        String[] projection = ProductContract.FULL_PROJECTION_ARRAY;
-
-        return new CursorLoader(
-                this,
-                ProductEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                loaderSqlSortOrder);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
-    {
-        //  update adapter with new data
-        productCursorAdapter.swapCursor(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        //  when data needs to be deleted
-        productCursorAdapter.swapCursor(null);
-    }
 
     private void animateFabNewProduct()
     {
