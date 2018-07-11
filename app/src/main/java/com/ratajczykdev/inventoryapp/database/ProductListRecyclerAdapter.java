@@ -75,7 +75,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
     /**
      * Use of notifyDataSetChanged()
      */
-    void setProducts(List<Product> productList) {
+    public void setProducts(List<Product> productList) {
         this.productList = productList;
         notifyDataSetChanged();
     }
