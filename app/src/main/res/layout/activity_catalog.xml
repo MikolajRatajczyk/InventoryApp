@@ -15,6 +15,7 @@
     </android.support.v7.widget.RecyclerView>
 
     <!--Empty view for the list-->
+    <!--TODO: now is temporary GONE-->
     <android.support.constraint.ConstraintLayout
         android:id="@+id/empty_product_list"
         android:layout_width="match_parent"
@@ -23,6 +24,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/product_list_recyclerview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
