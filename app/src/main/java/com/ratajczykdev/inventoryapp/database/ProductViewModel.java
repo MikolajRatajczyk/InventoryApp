@@ -35,4 +35,11 @@ public class ProductViewModel extends AndroidViewModel {
     public void insertSingle(Product product) {
         productRepository.insertSingle(product);
     }
+
+    /**
+     * This way implementation of updateSingle() is completely hidden from UI
+     */
+    public void updateSingle(Product product) {
+        productRepository.updateSingle(product);
+    }
 }
