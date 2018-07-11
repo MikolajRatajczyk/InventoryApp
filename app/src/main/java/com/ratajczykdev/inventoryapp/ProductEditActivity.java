@@ -171,8 +171,6 @@ public class ProductEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (deleteProduct()) {
-                    Intent intent = new Intent(ProductEditActivity.this, CatalogActivity.class);
-                    startActivity(intent);
                     finish();
                 }
             }
