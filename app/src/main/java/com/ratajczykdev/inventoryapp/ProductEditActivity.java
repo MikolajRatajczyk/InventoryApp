@@ -300,6 +300,7 @@ public class ProductEditActivity extends AppCompatActivity implements LoaderMana
             @Override
             public void onClick(View view) {
                 if (addNewProduct()) {
+                    //  TODO: delete Intent... and start... (?)
                     Intent intent = new Intent(ProductEditActivity.this, CatalogActivity.class);
                     startActivity(intent);
                     finish();
