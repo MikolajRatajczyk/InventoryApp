@@ -72,10 +72,14 @@ public abstract class ProductDatabase extends RoomDatabase {
 
             Product productPhone = new Product();
             productPhone.setName("OnePlus 3T");
+            productPhone.setPrice(519.99f);
+            productPhone.setQuantity(12);
             productDao.insertSingle(productPhone);
 
             Product productLaptop = new Product();
             productLaptop.setName("MacBook Pro");
+            productLaptop.setPrice(999);
+            productLaptop.setQuantity(34);
             productDao.insertSingle(productLaptop);
 
             return null;
