@@ -14,8 +14,7 @@ import java.util.concurrent.ExecutionException;
  * but is a suggested best practice for code separation and architecture.
  */
 public class ProductRepository {
-    //  TODO: add more methods wrappers
-    //  TODO: change class names to Big letter
+    //  TODO: change class names to Big letter (?)
 
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts;
@@ -120,6 +119,31 @@ public class ProductRepository {
         @Override
         protected void onPostExecute(Product product) {
             super.onPostExecute(product);
+        }
+    }
+
+    /**
+     * Wrapper for deleteSingle
+     * Call this on a non-UI thread or app will crash.
+     */
+    public void deleteSingle(Product product) {
+        new deleteSingleAsyncTask(productDao).execute(product);
+    }
+
+    /**
+     * Static class for deleteSingle
+     */
+    private static class deleteSingleAsyncTask extends AsyncTask<Product, Void, Void> {
+        private ProductDao productDao;
+
+        public deleteSingleAsyncTask(ProductDao productDao) {
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected Void doInBackground(Product... products) {
+            productDao.deleteSingle(products[0]);
+            return null;
         }
     }
 

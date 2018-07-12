@@ -48,4 +48,12 @@ public class ProductViewModel extends AndroidViewModel {
     public Product findSingleById(int searchId) {
         return productRepository.findSingleById(searchId);
     }
+
+    /**
+     * This way implementation of deleteSingle() is completely hidden from UI
+     */
+    public void deleteSingle(Product product) {
+        productRepository.deleteSingle(product);
+    }
+
 }

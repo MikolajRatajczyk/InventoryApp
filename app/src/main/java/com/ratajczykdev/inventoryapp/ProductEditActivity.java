@@ -25,7 +25,6 @@ import java.util.Locale;
  * @author Mikołaj Ratajczyk
  */
 public class ProductEditActivity extends AppCompatActivity {
-    //  TODO: implement editing existing product with Room
 
     /**
      * Activity gets its own ViewModel, but with the same repository as {@link CatalogActivity}
@@ -167,12 +166,16 @@ public class ProductEditActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  TODO: implement for Room
-//                if (deleteProduct()) {
-//                    finish();
-//                }
+                if (deleteProduct()) {
+                    finish();
+                }
             }
         });
+    }
+
+    private boolean deleteProduct() {
+        productViewModel.deleteSingle(currentProduct);
+        return true;
     }
 
     /**
