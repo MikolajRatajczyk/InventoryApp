@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.ProductEditActivity;
 import com.ratajczykdev.inventoryapp.R;
@@ -21,6 +20,11 @@ import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Provides {@link RecyclerView} with data from list of {@link Product}
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ */
 public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductListRecyclerAdapter.ProductViewHolder> {
 
     private final LayoutInflater layoutInflater;
