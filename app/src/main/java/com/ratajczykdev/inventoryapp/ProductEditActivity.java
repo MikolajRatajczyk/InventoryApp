@@ -25,6 +25,7 @@ import java.util.Locale;
  * @author Mikołaj Ratajczyk
  */
 public class ProductEditActivity extends AppCompatActivity {
+    //  TODO: do not store rest of the data here, create ViewModel
 
     /**
      * Activity gets its own ViewModel, but with the same repository as {@link CatalogActivity}
