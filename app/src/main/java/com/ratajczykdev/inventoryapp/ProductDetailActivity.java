@@ -2,10 +2,7 @@ package com.ratajczykdev.inventoryapp;
 
 import android.app.ActivityOptions;
 import android.app.DialogFragment;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -22,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Locale;
@@ -32,14 +28,10 @@ import java.util.Locale;
  *
  * @author Mikołaj Ratajczyk
  */
-public class ProductDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OrderDialogFragment.OrderDialogListener
+public class ProductDetailActivity extends AppCompatActivity implements OrderDialogFragment.OrderDialogListener
 {
-    /**
-     * Identifier for the existing product data loader
-     */
-    private static final int EXISTING_PRODUCT_LOADER_ID = 1;
+    //  TODO: add the Room Persistence Library implementation
 
-    private static final String EMPTY_STRING = "";
     /**
      * Floating action button for switching to edit mode
      */
@@ -79,7 +71,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         if (getIntent().getData() != null)
         {
             currentProductUri = getIntent().getData();
-            startProductLoader();
             setFabListener();
         } else
         {
@@ -114,10 +105,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
     }
 
-    private void startProductLoader()
-    {
-        getLoaderManager().initLoader(EXISTING_PRODUCT_LOADER_ID, null, this);
-    }
 
     private void setFabListener()
     {
@@ -234,27 +221,6 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
         dialog.dismiss();
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
-    {
-        String[] projection = ProductContract.FULL_PROJECTION_ARRAY;
-
-        return new CursorLoader(
-                this,
-                currentProductUri,
-                projection,
-                null,
-                null,
-                null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
-    {
-        //  update with new data
-        setProductData(cursor);
-    }
-
     /**
      * Set current product data with provided ones from database
      *
@@ -309,22 +275,5 @@ public class ProductDetailActivity extends AppCompatActivity implements LoaderMa
             Bitmap photoBitmap = ImageHelper.getBitmapFromUri(photoUri, getApplicationContext());
             imagePhoto.setImageBitmap(photoBitmap);
         }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        releaseProductData();
-    }
-
-    /**
-     * Replace current product data with blank space
-     */
-    private void releaseProductData()
-    {
-        imagePhoto.setImageBitmap(null);
-        textName.setText(EMPTY_STRING);
-        textQuantity.setText(EMPTY_STRING);
-        textPrice.setText(EMPTY_STRING);
     }
 }
