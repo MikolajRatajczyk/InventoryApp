@@ -24,11 +24,12 @@ import java.util.List;
 
 /**
  * Loads view with product list
+ * <p>
+ * Gets data from own {@link ProductViewModel}
  *
  * @author Mikołaj Ratajczyk
  */
 public class CatalogActivity extends AppCompatActivity {
-    //  TODO: add activity request behaviour when adding new Product
 
     /**
      * Identifier for WRITE permissions request
@@ -76,8 +77,38 @@ public class CatalogActivity extends AppCompatActivity {
         animateFabNewProduct();
     }
 
+    private void askWriteStoragePermission() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                //  TODO: add explanation for a user (asynchronously)
+            }
+
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID);
+        }
+    }
+
+    private void setFabListener() {
+        fabNewProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void animateFabNewProduct() {
+        final int FULL_ANGLE_IN_DEG = 360;
+        final int ANIMATION_DURATION_IN_MS = 700;
+        fabNewProduct.animate()
+                .rotation(FULL_ANGLE_IN_DEG)
+                .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
+                .setDuration(ANIMATION_DURATION_IN_MS)
+                .start();
+    }
+
     /**
-     * Modify App Bar to have actions
+     * Modifies App Bar to have actions
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -92,7 +123,7 @@ public class CatalogActivity extends AppCompatActivity {
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item)
 //    {
-//        //  TODO: modify to not use Loaders
+//        //  TODO: do implementation for the Room
 //        int currentItemId = item.getItemId();
 //        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
 //        {
@@ -123,32 +154,4 @@ public class CatalogActivity extends AppCompatActivity {
 //        }
 //        return true;
 //    }
-
-    private void askWriteStoragePermission() {
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                //  TODO: add explanation for a user (asynchronously)
-            }
-
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID);
-        }
-    }
-
-    private void setFabListener() {
-        fabNewProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void animateFabNewProduct() {
-        fabNewProduct.animate()
-                .rotation(360)
-                .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
-                .setDuration(700)
-                .start();
-    }
 }
