@@ -41,5 +41,5 @@ public interface ProductDao {
     LiveData<Product> findSingleByName(String searchName);
 
     @Query("SELECT * FROM products_table WHERE id = :searchId")
-    LiveData<Product> findSingleById(int searchId);
+    Product findSingleById(int searchId);
 }

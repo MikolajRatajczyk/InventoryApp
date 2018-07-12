@@ -1,27 +1,22 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
-import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Locale;
 
 /**
@@ -72,9 +67,9 @@ public class ProductEditActivity extends AppCompatActivity {
      */
     private Button buttonSave;
     /**
-     * Content URI for the existing product
+     * ID of the existing product
      */
-    private Uri currentProductUri;
+    private int currentProductId;
     /**
      * URI to product photo received directly from user
      */
@@ -91,6 +86,8 @@ public class ProductEditActivity extends AppCompatActivity {
 
     private float currentFloatPrice;
 
+    private Product currentProduct;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,11 +101,12 @@ public class ProductEditActivity extends AppCompatActivity {
         setButtonCancelListener();
         setButtonChangePhotoListener();
 
-        if (getIntent().getData() != null) {
-            //  TODO: modify for Room implementation
-            currentProductUri = getIntent().getData();
+        if (getIntent().hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
+            String stringCurrentProductId = getIntent().getStringExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID);
+            currentProductId = Integer.parseInt(stringCurrentProductId);
+            setExistingProductDataInUi();
             setupButtonsForEditing();
-        } else if (currentProductUri == null) {
+        } else {
             setupButtonsForAdding();
         }
     }
@@ -183,15 +181,16 @@ public class ProductEditActivity extends AppCompatActivity {
      * @return true if deletion was successful, false if failed
      */
     private boolean deleteProduct() {
-        int rowsDeleted = getContentResolver().delete(currentProductUri, null, null);
-        if (rowsDeleted == 0) {
-            Toast.makeText(this, R.string.failed_deleting_product, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductUri.toString());
-            return false;
-        } else {
-            Toast.makeText(this, R.string.info_deleted_product, Toast.LENGTH_SHORT).show();
-            return true;
-        }
+//        int rowsDeleted = getContentResolver().delete(currentProductId, null, null);
+//        if (rowsDeleted == 0) {
+//            Toast.makeText(this, R.string.failed_deleting_product, Toast.LENGTH_SHORT).show();
+//            Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductId.toString());
+//            return false;
+//        } else {
+//            Toast.makeText(this, R.string.info_deleted_product, Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
+        return true;
     }
 
     /**
@@ -201,8 +200,9 @@ public class ProductEditActivity extends AppCompatActivity {
      */
     private boolean saveExistingProduct() {
         if (setCurrentProductDataFromUi()) {
-            //ContentValues contentValues = getProductWithCurrentData();
-            //return updateProductFromContentValues(contentValues);
+            Product editedProduct = getProductWithCurrentData();
+            editedProduct.setId(currentProductId);
+            productViewModel.updateSingle(editedProduct);
             return true;
         } else {
             return false;
@@ -262,37 +262,6 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     /**
-     * Makes InputStream from the photo's URI
-     *
-     * @param photoUri photo URI
-     * @return InputStream with the photo
-     */
-    private InputStream photoUriToInputStream(Uri photoUri) {
-        InputStream photoStream = null;
-        try {
-            photoStream = getContentResolver().openInputStream(photoUri);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, R.string.failed_getting_image, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Getting image failed for URI: " + photoUri.toString());
-        }
-
-        return photoStream;
-    }
-
-    private boolean updateProductFromContentValues(ContentValues contentValues) {
-        int rowsAffected = getContentResolver().update(currentProductUri, contentValues, null, null);
-        if (rowsAffected == 0) {
-            Toast.makeText(this, R.string.failed_saving_product, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Saving product failed for URI: " + currentProductUri.toString());
-            return false;
-        } else {
-            Toast.makeText(this, R.string.info_saved_product, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-    }
-
-    /**
      * Setups all buttons in order to add a new product to database
      */
     private void setupButtonsForAdding() {
@@ -325,18 +294,6 @@ public class ProductEditActivity extends AppCompatActivity {
         }
     }
 
-    private boolean insertProductFromContentValues(ContentValues contentValues) {
-        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
-        if (newUri == null) {
-            Toast.makeText(this, R.string.failed_adding_product, Toast.LENGTH_SHORT).show();
-            Log.e(ProductEditActivity.class.getSimpleName(), "Adding a new product failed");
-            return false;
-        } else {
-            Toast.makeText(this, R.string.info_added_product, Toast.LENGTH_SHORT).show();
-            return true;
-        }
-    }
-
     /**
      * This method is called when request finishes in other app
      *
@@ -359,48 +316,28 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     /**
-     * Set current product data with provided ones from database
-     *
-     * @param cursor cursor that contains the existing product data
+     * Set current product data with provided ones from ViewModel
      */
-    private void setProductData(Cursor cursor) {
-        if (cursor == null || cursor.getCount() < 1) {
-            Log.e(ProductEditActivity.class.getSimpleName(), "Error with loading existing product data from database");
-            return;
-        }
-
-        if (cursor.moveToFirst()) {
-            setNameInUi(cursor);
-            setPriceInUi(cursor);
-            setQuantityInUi(cursor);
-        }
+    private void setExistingProductDataInUi() {
+        currentProduct = productViewModel.findSingleById(currentProductId);
+        setQuantityInUi();
+        setPriceInUi();
+        setNameInUi();
     }
 
-    private void setQuantityInUi(Cursor cursor) {
-        int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        int quantity = cursor.getInt(quantityColumnIndex);
+    private void setQuantityInUi() {
+        int quantity = currentProduct.getQuantity();
         editTextQuantity.setText(String.valueOf(quantity));
     }
 
-    private void setPriceInUi(Cursor cursor) {
-        int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-        float price = cursor.getFloat(priceColumnIndex);
+    private void setPriceInUi() {
+        float price = currentProduct.getPrice();
         editTextPrice.setText(String.format(Locale.US, "%.2f", price));
     }
 
-    private void setNameInUi(Cursor cursor) {
-        int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
-        String name = cursor.getString(nameColumnIndex);
+    private void setNameInUi() {
+        String name = currentProduct.getName();
         editTextName.setText(name);
     }
 
-
-    /**
-     * Replace current product data with blank space
-     */
-    private void releaseProductData() {
-        editTextName.setText(EMPTY_STRING);
-        editTextQuantity.setText(EMPTY_STRING);
-        editTextPrice.setText(EMPTY_STRING);
-    }
 }

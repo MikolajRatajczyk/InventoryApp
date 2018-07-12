@@ -42,4 +42,11 @@ public class ProductViewModel extends AndroidViewModel {
     public void updateSingle(Product product) {
         productRepository.updateSingle(product);
     }
+
+    /**
+     * This way implementation of findSingleById() is completely hidden from UI
+     */
+    public Product findSingleById(int searchId) {
+        return productRepository.findSingleById(searchId);
+    }
 }
