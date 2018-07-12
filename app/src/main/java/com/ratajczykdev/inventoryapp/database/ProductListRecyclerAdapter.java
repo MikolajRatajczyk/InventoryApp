@@ -68,13 +68,11 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
             holder.textName.setText(currentProduct.getName());
             holder.textPrice.setText(String.format(Locale.US, "%.2f", currentProduct.getPrice()));
             holder.textQuantity.setText(String.valueOf(currentProduct.getQuantity()));
-            //  TODO: check if working
             setProductPhotoFromUri(holder, currentProduct);
             holder.listItemRootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //  TODO: delete Toast
-                    Toast.makeText(context, "Clicked on item with database id: " + currentProduct.getId(), Toast.LENGTH_SHORT).show();
+                    //  TODO: when ready, use CatalogActivity
                     Intent intent = new Intent(context, ProductEditActivity.class);
                     intent.putExtra(DATA_SELECTED_PRODUCT_ID, String.valueOf(currentProduct.getId()));
                     context.startActivity(intent);
