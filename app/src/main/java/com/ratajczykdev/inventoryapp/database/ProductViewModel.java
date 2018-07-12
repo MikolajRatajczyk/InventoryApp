@@ -29,28 +29,28 @@ public class ProductViewModel extends AndroidViewModel {
     }
 
     /**
-     * This way implementation of insertSingle() is completely hidden from UI
+     * This way implementation is completely hidden from UI
      */
     public void insertSingle(Product product) {
         productRepository.insertSingle(product);
     }
 
     /**
-     * This way implementation of updateSingle() is completely hidden from UI
+     * This way implementation is completely hidden from UI
      */
     public void updateSingle(Product product) {
         productRepository.updateSingle(product);
     }
 
     /**
-     * This way implementation of findSingleById() is completely hidden from UI
+     * This way implementation is completely hidden from UI
      */
     public Product findSingleById(int searchId) {
         return productRepository.findSingleById(searchId);
     }
 
     /**
-     * This way implementation of deleteSingle() is completely hidden from UI
+     * This way implementation is completely hidden from UI
      */
     public void deleteSingle(Product product) {
         productRepository.deleteSingle(product);
