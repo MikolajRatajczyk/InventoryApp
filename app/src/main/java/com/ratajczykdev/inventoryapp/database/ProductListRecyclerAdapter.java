@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ratajczykdev.inventoryapp.ProductEditActivity;
+import com.ratajczykdev.inventoryapp.ProductDetailActivity;
 import com.ratajczykdev.inventoryapp.R;
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
 
@@ -76,8 +76,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
             holder.listItemRootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //  TODO: when ready, use CatalogActivity
-                    Intent intent = new Intent(context, ProductEditActivity.class);
+                    Intent intent = new Intent(context, ProductDetailActivity.class);
                     intent.putExtra(DATA_SELECTED_PRODUCT_ID, String.valueOf(currentProduct.getId()));
                     context.startActivity(intent);
                 }
