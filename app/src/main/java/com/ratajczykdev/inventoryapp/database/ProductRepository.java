@@ -14,50 +14,40 @@ import java.util.concurrent.ExecutionException;
  * but is a suggested best practice for code separation and architecture.
  */
 public class ProductRepository {
-    //  TODO: change class names to Big letter (?)
 
     private ProductDao productDao;
     private LiveData<List<Product>> allProducts;
 
 
-    ProductRepository(Application application) {
+    public ProductRepository(Application application) {
         ProductDatabase productDatabase = ProductDatabase.getProductsDatabaseInstance(application);
         productDao = productDatabase.productDao();
         allProducts = productDao.getAll();
     }
 
-
     /**
-     * Wrapper for getAll()
+     * Wrapper for {@link ProductDao#getAll()}
      */
-    LiveData<List<Product>> getAll() {
+    public LiveData<List<Product>> getAll() {
         return allProducts;
     }
 
     /**
-     * Wrapper for insertSingle()
+     * Wrapper for {@link ProductDao#insertSingle(Product)}
      * Call this on a non-UI thread or app will crash.
      */
     public void insertSingle(Product product) {
 
-        new insertSingleAsyncTask(productDao).execute(product);
+        new InsertSingleAsyncTask(productDao).execute(product);
     }
 
     /**
-     * Wrapper for updateSingle()
-     * Call this on a non-UI thread or app will crash.
+     * Static class for {@link ProductRepository#insertSingle(Product)}
      */
-    public void updateSingle(Product product) {
-        new updateSingleAsyncTask(productDao).execute(product);
-    }
-
-    /**
-     * Static class for insertSingle
-     */
-    private static class insertSingleAsyncTask extends AsyncTask<Product, Void, Void> {
+    private static class InsertSingleAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDao productDao;
 
-        insertSingleAsyncTask(ProductDao productDao) {
+        InsertSingleAsyncTask(ProductDao productDao) {
             this.productDao = productDao;
         }
 
@@ -69,12 +59,20 @@ public class ProductRepository {
     }
 
     /**
-     * Static class for updateSingle
+     * Wrapper for {@link ProductDao#updateSingle(Product)}
+     * Call this on a non-UI thread or app will crash.
      */
-    private static class updateSingleAsyncTask extends AsyncTask<Product, Void, Void> {
+    public void updateSingle(Product product) {
+        new UpdateSingleAsyncTask(productDao).execute(product);
+    }
+
+    /**
+     * Static class for {@link ProductRepository#updateSingle(Product)}
+     */
+    private static class UpdateSingleAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDao productDao;
 
-        updateSingleAsyncTask(ProductDao productDao) {
+        UpdateSingleAsyncTask(ProductDao productDao) {
             this.productDao = productDao;
         }
 
@@ -86,13 +84,13 @@ public class ProductRepository {
     }
 
     /**
-     * Wrapper for findSingleById
+     * Wrapper for {@link ProductDao#findSingleById(int)}
      * Call this on a non-UI thread or app will crash.
      */
-    Product findSingleById(int searchId) {
+    public Product findSingleById(int searchId) {
         Product product = null;
         try {
-            product = new findSingleByIdAsyncTask(productDao).execute(searchId).get();
+            product = new FindSingleByIdAsyncTask(productDao).execute(searchId).get();
         } catch (InterruptedException | ExecutionException e) {
             Log.e("ProductRepository", "findSingleById failed, id: " + searchId);
             e.printStackTrace();
@@ -101,12 +99,12 @@ public class ProductRepository {
     }
 
     /**
-     * Static class for findSingleById
+     * Static class for {@link ProductRepository#findSingleById(int)}
      */
-    private static class findSingleByIdAsyncTask extends AsyncTask<Integer, Void, Product> {
+    private static class FindSingleByIdAsyncTask extends AsyncTask<Integer, Void, Product> {
         private ProductDao productDao;
 
-        public findSingleByIdAsyncTask(ProductDao productDao) {
+        public FindSingleByIdAsyncTask(ProductDao productDao) {
             this.productDao = productDao;
         }
 
@@ -123,20 +121,20 @@ public class ProductRepository {
     }
 
     /**
-     * Wrapper for deleteSingle
+     * Wrapper for {@link ProductDao#deleteSingle(Product)}
      * Call this on a non-UI thread or app will crash.
      */
     public void deleteSingle(Product product) {
-        new deleteSingleAsyncTask(productDao).execute(product);
+        new DeleteSingleAsyncTask(productDao).execute(product);
     }
 
     /**
-     * Static class for deleteSingle
+     * Static class for {@link ProductRepository#deleteSingle(Product)}
      */
-    private static class deleteSingleAsyncTask extends AsyncTask<Product, Void, Void> {
+    private static class DeleteSingleAsyncTask extends AsyncTask<Product, Void, Void> {
         private ProductDao productDao;
 
-        public deleteSingleAsyncTask(ProductDao productDao) {
+        public DeleteSingleAsyncTask(ProductDao productDao) {
             this.productDao = productDao;
         }
 
@@ -146,6 +144,4 @@ public class ProductRepository {
             return null;
         }
     }
-
-
 }
