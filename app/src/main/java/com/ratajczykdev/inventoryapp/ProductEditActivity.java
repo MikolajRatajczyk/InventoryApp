@@ -21,11 +21,13 @@ import java.util.Locale;
 
 /**
  * This class allows to edit or add a new product to the database
+ * <p>
+ * Gets data from own {@link ProductViewModel}
  *
  * @author Mikołaj Ratajczyk
  */
 public class ProductEditActivity extends AppCompatActivity {
-    //  TODO: do not store rest of the data here, create ViewModel
+    //  TODO: do not store rest of the data here use ViewModel
 
     /**
      * Activity gets its own {@link ProductViewModel},
