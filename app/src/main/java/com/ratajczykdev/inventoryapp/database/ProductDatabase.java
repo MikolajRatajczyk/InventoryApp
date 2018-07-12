@@ -28,7 +28,6 @@ public abstract class ProductDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             ProductDatabase.class,
                             "products_database")
-                            .addCallback(roomDatabaseCallback)  //  custom callback, TODO: only temporary
                             .build();
                 }
             }
@@ -41,9 +40,13 @@ public abstract class ProductDatabase extends RoomDatabase {
      * create a RoomDatabase.Callback and override onOpen().
      * Because you cannot do Room database operations on the UI thread,
      * onOpen() creates and executes an AsyncTask to add content to the database.
+     * <p>
+     * Only for debugging purposes
+     * <p>
+     * If you want to use this you must invoke .addCallback(roomDatabaseCallback)"
+     * on Room.databaseBuilder.... before .build()
      */
     private static RoomDatabase.Callback roomDatabaseCallback =
-            //  TODO: only temporary field
             new RoomDatabase.Callback() {
                 @Override
                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
@@ -59,7 +62,6 @@ public abstract class ProductDatabase extends RoomDatabase {
      * Only for debugging purposes
      */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
-        //  TODO: only temporary class, delete later
         private final ProductDao productDao;
 
         PopulateDbAsync(ProductDatabase productDatabase) {
