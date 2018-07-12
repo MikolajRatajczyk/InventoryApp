@@ -25,7 +25,6 @@ public class ProductViewModel extends AndroidViewModel {
      * Completely hides implementation from the UI
      */
     public LiveData<List<Product>> getAll() {
-        //  TODO: change method name to getAllProducts (and previous classes)
         return allProducts;
     }
 
