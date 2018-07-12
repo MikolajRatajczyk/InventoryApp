@@ -28,8 +28,7 @@ import java.util.Locale;
  *
  * @author Mikołaj Ratajczyk
  */
-public class ProductDetailActivity extends AppCompatActivity implements OrderDialogFragment.OrderDialogListener
-{
+public class ProductDetailActivity extends AppCompatActivity implements OrderDialogFragment.OrderDialogListener {
     //  TODO: add the Room Persistence Library implementation
 
     /**
@@ -60,20 +59,17 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         hideAppBar();
         setContentView(R.layout.activity_product_detail);
 
         setUiElementsReferences();
 
-        if (getIntent().getData() != null)
-        {
+        if (getIntent().getData() != null) {
             currentProductUri = getIntent().getData();
             setFabListener();
-        } else
-        {
+        } else {
             makeFabAndButtonOrderInvisible();
 
         }
@@ -82,17 +78,14 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         setButtonOrderListener();
     }
 
-    private void hideAppBar()
-    {
+    private void hideAppBar() {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        if (getSupportActionBar() != null)
-        {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
     }
 
-    private void setUiElementsReferences()
-    {
+    private void setUiElementsReferences() {
         imagePhoto = findViewById(R.id.product_detail_photo);
         imageNameIcon = findViewById(R.id.product_detail_name_icon);
         fabEditMode = findViewById(R.id.product_detail_edit_fab);
@@ -106,13 +99,10 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     }
 
 
-    private void setFabListener()
-    {
-        fabEditMode.setOnClickListener(new View.OnClickListener()
-        {
+    private void setFabListener() {
+        fabEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 Pair pairNameIcon = Pair.create(imageNameIcon, imageNameIcon.getTransitionName());
                 Pair pairQuantityIcon = Pair.create(imageQuantityIcon, imageQuantityIcon.getTransitionName());
                 Pair pairPriceIcon = Pair.create(imagePriceIcon, imagePriceIcon.getTransitionName());
@@ -127,33 +117,26 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         });
     }
 
-    private void makeFabAndButtonOrderInvisible()
-    {
+    private void makeFabAndButtonOrderInvisible() {
         //  if there is no correct data, so there is no point on editing - hide fab
         fabEditMode.setVisibility(View.INVISIBLE);
         // also hide order button
         buttonOrder.setVisibility(View.INVISIBLE);
     }
 
-    private void setButtonDismissListener()
-    {
-        buttonDismiss.setOnClickListener(new View.OnClickListener()
-        {
+    private void setButtonDismissListener() {
+        buttonDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 finish();
             }
         });
     }
 
-    private void setButtonOrderListener()
-    {
-        buttonOrder.setOnClickListener(new View.OnClickListener()
-        {
+    private void setButtonOrderListener() {
+        buttonOrder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 showOrderDialog();
             }
         });
@@ -162,8 +145,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     /**
      * Shows OrderDialogFragment that gets product quantity from user
      */
-    private void showOrderDialog()
-    {
+    private void showOrderDialog() {
         OrderDialogFragment orderDialog = new OrderDialogFragment();
         orderDialog.show(getFragmentManager(), "OrderDialogFragment");
     }
@@ -178,8 +160,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
      * @param dialog OrderDialogFragment object
      */
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog)
-    {
+    public void onDialogPositiveClick(DialogFragment dialog) {
         int productQuantity = ((OrderDialogFragment) dialog).getQuantity();
         sendOrder(productQuantity);
     }
@@ -187,8 +168,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     /**
      * Method to send predefined order
      */
-    private void sendOrder(int productQuantity)
-    {
+    private void sendOrder(int productQuantity) {
         String productName = textName.getText().toString();
 
         String subject = getString(R.string.email_order) + " " + productName;
@@ -216,8 +196,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
      * @param dialog OrderDialogFragment object
      */
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog)
-    {
+    public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
     }
 
@@ -226,17 +205,14 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
      *
      * @param cursor cursor that contains the existing product data
      */
-    private void setProductData(Cursor cursor)
-    {
-        if (cursor == null || cursor.getCount() < 1)
-        {
+    private void setProductData(Cursor cursor) {
+        if (cursor == null || cursor.getCount() < 1) {
             Log.e(ProductDetailActivity.class.getSimpleName(), "Error with loading existing product data from database");
             Toast.makeText(this, R.string.error_loading_product, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (cursor.moveToFirst())
-        {
+        if (cursor.moveToFirst()) {
             setPriceInUi(cursor);
             setQuantityInUi(cursor);
             setNameInUi(cursor);
@@ -244,33 +220,28 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         }
     }
 
-    private void setPriceInUi(Cursor cursor)
-    {
+    private void setPriceInUi(Cursor cursor) {
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
         float price = cursor.getFloat(priceColumnIndex);
         textPrice.setText(String.format(Locale.US, "%.2f", price));
     }
 
-    private void setQuantityInUi(Cursor cursor)
-    {
+    private void setQuantityInUi(Cursor cursor) {
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
         int quantity = cursor.getInt(quantityColumnIndex);
         textQuantity.setText(String.valueOf(quantity));
     }
 
 
-    private void setNameInUi(Cursor cursor)
-    {
+    private void setNameInUi(Cursor cursor) {
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
         String name = cursor.getString(nameColumnIndex);
         textName.setText(name);
     }
 
-    private void setPhotoIfAvailableInUi(Cursor cursor)
-    {
+    private void setPhotoIfAvailableInUi(Cursor cursor) {
         int photoUriColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PHOTO_URI);
-        if (!(cursor.isNull(photoUriColumnIndex)))
-        {
+        if (!(cursor.isNull(photoUriColumnIndex))) {
             Uri photoUri = ImageHelper.getUriFromCursor(cursor, photoUriColumnIndex);
             Bitmap photoBitmap = ImageHelper.getBitmapFromUri(photoUri, getApplicationContext());
             imagePhoto.setImageBitmap(photoBitmap);
