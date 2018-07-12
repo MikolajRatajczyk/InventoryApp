@@ -144,21 +144,6 @@ public class CatalogActivity extends AppCompatActivity {
         });
     }
 
-//    private void configureViewProductList() {
-//        viewProductList.setEmptyView(viewEmptyHint);
-//        viewProductList.setAdapter(productCursorAdapter);
-//        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                Intent intent = new Intent(CatalogActivity.this, ProductDetailActivity.class);
-//                //  create the content URI that represents the specific product that was clicked on
-//                Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
-//                intent.setData(currentProductUri);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
     private void animateFabNewProduct() {
         fabNewProduct.animate()
                 .rotation(360)
