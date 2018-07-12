@@ -28,7 +28,8 @@ public class ProductEditActivity extends AppCompatActivity {
     //  TODO: do not store rest of the data here, create ViewModel
 
     /**
-     * Activity gets its own ViewModel, but with the same repository as {@link CatalogActivity}
+     * Activity gets its own {@link ProductViewModel},
+     * but with the same repository as {@link CatalogActivity}
      */
     private ProductViewModel productViewModel;
 
@@ -37,55 +38,29 @@ public class ProductEditActivity extends AppCompatActivity {
      */
     private static final int PHOTO_REQUEST_ID = 2;
 
-    /**
-     * Change photo button
-     */
     private Button buttonChangePhoto;
-    /**
-     * Name EditText
-     */
     private EditText editTextName;
-    /**
-     * Quantity EditText
-     */
     private EditText editTextQuantity;
-    /**
-     * Price EditText
-     */
     private EditText editTextPrice;
-    /**
-     * Delete button
-     */
     private Button buttonDelete;
-    /**
-     * Cancel button
-     */
     private Button buttonCancel;
-    /**
-     * Save button
-     */
     private Button buttonSave;
-    /**
-     * ID of the existing product
-     */
+
+    private Product currentProduct;
     private int currentProductId;
+    private String currentName;
+    private int currentQuantity;
+    private float currentFloatPrice;
+
     /**
      * URI to product photo received directly from user
      */
-    private Uri directImageUri;
+    private Uri receivedImageUri;
 
     /**
      * URI to product photo saved by app
      */
     private Uri savedImageUri;
-
-    private String currentName;
-
-    private int currentQuantity;
-
-    private float currentFloatPrice;
-
-    private Product currentProduct;
 
 
     @Override
@@ -95,14 +70,13 @@ public class ProductEditActivity extends AppCompatActivity {
 
         //  Activity gets its own ViewModel, but with the same repository
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        setUiElementsReferences();
 
+        setUiElementsReferences();
         setButtonCancelListener();
         setButtonChangePhotoListener();
 
         if (getIntent().hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
-            String stringCurrentProductId = getIntent().getStringExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID);
-            currentProductId = Integer.parseInt(stringCurrentProductId);
+            currentProductId = getProductIdFromIntent(getIntent());
             setExistingProductDataInUi();
             setupButtonsForEditing();
         } else {
@@ -141,7 +115,7 @@ public class ProductEditActivity extends AppCompatActivity {
     /**
      * Starts activity to receive image URI from user
      * <p>
-     * Data will be received by onActivityResult method
+     * Data will be received by {@link ProductEditActivity#onActivityResult(int, int, Intent)}
      */
     private void requestBitmapUriFromUser() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -149,6 +123,35 @@ public class ProductEditActivity extends AppCompatActivity {
         startActivityForResult(photoPickerIntent, PHOTO_REQUEST_ID);
     }
 
+    private int getProductIdFromIntent(Intent intent) {
+        String stringCurrentProductId = intent.getStringExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID);
+        return Integer.parseInt(stringCurrentProductId);
+    }
+
+    /**
+     * Set current product data with provided ones from ViewModel
+     */
+    private void setExistingProductDataInUi() {
+        currentProduct = productViewModel.findSingleById(currentProductId);
+        setQuantityInUi();
+        setPriceInUi();
+        setNameInUi();
+    }
+
+    private void setQuantityInUi() {
+        int quantity = currentProduct.getQuantity();
+        editTextQuantity.setText(String.valueOf(quantity));
+    }
+
+    private void setPriceInUi() {
+        float price = currentProduct.getPrice();
+        editTextPrice.setText(String.format(Locale.US, "%.2f", price));
+    }
+
+    private void setNameInUi() {
+        String name = currentProduct.getName();
+        editTextName.setText(name);
+    }
 
     /**
      * Setups all buttons in order to edit existing product
@@ -172,11 +175,6 @@ public class ProductEditActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private boolean deleteProduct() {
-        productViewModel.deleteSingle(currentProduct);
-        return true;
     }
 
     /**
@@ -207,20 +205,20 @@ public class ProductEditActivity extends AppCompatActivity {
         return true;
     }
 
-    private float getFloatPriceFromUi() {
-        String stringPrice = editTextPrice.getText().toString().trim();
-        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals(".")) {
-            stringPrice = "0";
-        }
-        return Float.valueOf(stringPrice);
-    }
-
     private int getIntQuantityFromUi() {
         String stringQuantity = editTextQuantity.getText().toString().trim();
         if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals(".")) {
             stringQuantity = "0";
         }
         return Integer.valueOf(stringQuantity);
+    }
+
+    private float getFloatPriceFromUi() {
+        String stringPrice = editTextPrice.getText().toString().trim();
+        if (TextUtils.isEmpty(stringPrice) || stringPrice.equals(".")) {
+            stringPrice = "0";
+        }
+        return Float.valueOf(stringPrice);
     }
 
     /**
@@ -245,6 +243,11 @@ public class ProductEditActivity extends AppCompatActivity {
             String savedImageUriString = savedImageUri.toString();
             product.setPhotoUri(savedImageUriString);
         }
+    }
+
+    private boolean deleteProduct() {
+        productViewModel.deleteSingle(currentProduct);
+        return true;
     }
 
     /**
@@ -292,38 +295,12 @@ public class ProductEditActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PHOTO_REQUEST_ID) {
             if (resultCode == RESULT_OK && data != null) {
-                directImageUri = data.getData();
-                savedImageUri = ImageHelper.saveImageAndGetUri(directImageUri, getApplicationContext());
+                receivedImageUri = data.getData();
+                savedImageUri = ImageHelper.saveImageAndGetUri(receivedImageUri, getApplicationContext());
 
             } else {
                 Toast.makeText(this, R.string.info_not_picked_image, Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-    /**
-     * Set current product data with provided ones from ViewModel
-     */
-    private void setExistingProductDataInUi() {
-        currentProduct = productViewModel.findSingleById(currentProductId);
-        setQuantityInUi();
-        setPriceInUi();
-        setNameInUi();
-    }
-
-    private void setQuantityInUi() {
-        int quantity = currentProduct.getQuantity();
-        editTextQuantity.setText(String.valueOf(quantity));
-    }
-
-    private void setPriceInUi() {
-        float price = currentProduct.getPrice();
-        editTextPrice.setText(String.format(Locale.US, "%.2f", price));
-    }
-
-    private void setNameInUi() {
-        String name = currentProduct.getName();
-        editTextName.setText(name);
-    }
-
 }
