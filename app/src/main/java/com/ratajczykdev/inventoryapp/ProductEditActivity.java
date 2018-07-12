@@ -37,7 +37,6 @@ public class ProductEditActivity extends AppCompatActivity {
      */
     private static final int PHOTO_REQUEST_ID = 2;
 
-    private static final String EMPTY_STRING = "";
     /**
      * Change photo button
      */
@@ -168,29 +167,12 @@ public class ProductEditActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (deleteProduct()) {
-                    finish();
-                }
+                //  TODO: implement for Room
+//                if (deleteProduct()) {
+//                    finish();
+//                }
             }
         });
-    }
-
-    /**
-     * Deletes existing product from database
-     *
-     * @return true if deletion was successful, false if failed
-     */
-    private boolean deleteProduct() {
-//        int rowsDeleted = getContentResolver().delete(currentProductId, null, null);
-//        if (rowsDeleted == 0) {
-//            Toast.makeText(this, R.string.failed_deleting_product, Toast.LENGTH_SHORT).show();
-//            Log.e(ProductEditActivity.class.getSimpleName(), "Deleting product failed for URI: " + currentProductId.toString());
-//            return false;
-//        } else {
-//            Toast.makeText(this, R.string.info_deleted_product, Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
-        return true;
     }
 
     /**
