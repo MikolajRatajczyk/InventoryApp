@@ -17,8 +17,7 @@ import java.util.HashMap;
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-public class GraphsActivity extends AppCompatActivity
-{
+public class GraphsActivity extends AppCompatActivity {
     private GraphView graphItemsAndProductsNumber;
     private GraphView graphMaxAndMinPrice;
     private HashMap<String, Float> statistics;
@@ -28,15 +27,13 @@ public class GraphsActivity extends AppCompatActivity
     private float productsMinPrice;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graphs);
 
         setUiReferences();
 
-        if (getIntent().getSerializableExtra(StatisticsContract.STATISTICS_MAP_NAME) != null)
-        {
+        if (getIntent().getSerializableExtra(StatisticsContract.STATISTICS_MAP_NAME) != null) {
             Intent intent = getIntent();
             statistics = (HashMap<String, Float>) intent.getSerializableExtra(StatisticsContract.STATISTICS_MAP_NAME);
             itemsNumber = statistics.get(StatisticsContract.ITEMS_NUMBER_KEY);
@@ -48,14 +45,12 @@ public class GraphsActivity extends AppCompatActivity
         }
     }
 
-    private void setUiReferences()
-    {
+    private void setUiReferences() {
         graphItemsAndProductsNumber = findViewById(R.id.activity_graphs_products_number_graphview);
         graphMaxAndMinPrice = findViewById(R.id.activity_graphs_maxmin_price_graphview);
     }
 
-    private void configureGraphItemsAndProductsNumber()
-    {
+    private void configureGraphItemsAndProductsNumber() {
         DataPoint[] dataPointsArray = {
                 new DataPoint(0, productsNumber),
                 new DataPoint(1, itemsNumber)};
@@ -69,8 +64,7 @@ public class GraphsActivity extends AppCompatActivity
         hideGraphXLabels(graphItemsAndProductsNumber);
     }
 
-    private void configureGraphMaxAndMinPrice()
-    {
+    private void configureGraphMaxAndMinPrice() {
         DataPoint[] dataPointsArray = {
                 new DataPoint(0, productsMaxPrice),
                 new DataPoint(1, productsMinPrice)};
@@ -84,8 +78,7 @@ public class GraphsActivity extends AppCompatActivity
         hideGraphXLabels(graphMaxAndMinPrice);
     }
 
-    private static void hideGraphXLabels(GraphView graph)
-    {
+    private static void hideGraphXLabels(GraphView graph) {
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
         //  must have more than one element, if not it will cause crash
         final String[] EMPTY_LABEL_ARRAY = new String[]{"", ""};

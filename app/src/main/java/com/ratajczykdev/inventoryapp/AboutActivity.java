@@ -13,8 +13,7 @@ import android.widget.TextView;
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-public class AboutActivity extends AppCompatActivity
-{
+public class AboutActivity extends AppCompatActivity {
     private ImageView imageViewStore;
     private TextView textViewCreatedBy;
     private TextView textViewAuthor;
@@ -23,8 +22,7 @@ public class AboutActivity extends AppCompatActivity
     private static final int EXPLODE_TRANSITION_DURATION_IN_MS = 400;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
@@ -36,16 +34,14 @@ public class AboutActivity extends AppCompatActivity
         setEasterEgg();
     }
 
-    private void setUiReferences()
-    {
+    private void setUiReferences() {
         imageViewStore = findViewById(R.id.activity_about_store_imageview);
         textViewCreatedBy = findViewById(R.id.activity_about_created_textview);
         textViewAuthor = findViewById(R.id.activity_about_author_textview);
         textViewEmail = findViewById(R.id.activity_about_email_textview);
     }
 
-    private Explode getCustomExplodeAnimation()
-    {
+    private Explode getCustomExplodeAnimation() {
         Explode explode = new Explode();
         explode.setDuration(EXPLODE_TRANSITION_DURATION_IN_MS);
         explode.setInterpolator(AnimationUtils.loadInterpolator(this, android.R.interpolator.fast_out_slow_in));
@@ -57,15 +53,12 @@ public class AboutActivity extends AppCompatActivity
         return explode;
     }
 
-    private void setEasterEgg()
-    {
+    private void setEasterEgg() {
         final int FULL_ROTATION_IN_DEGREES = 360;
         final int ROTATION_ANIMATION_DURATION_IN_MS = 5000;
-        imageViewStore.setOnLongClickListener(new View.OnLongClickListener()
-        {
+        imageViewStore.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View view)
-            {
+            public boolean onLongClick(View view) {
                 imageViewStore.animate()
                         .rotation(imageViewStore.getRotation() + FULL_ROTATION_IN_DEGREES)
                         .setInterpolator(AnimationUtils.loadInterpolator(AboutActivity.this, android.R.interpolator.cycle))

@@ -33,7 +33,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
 
     /**
      * Activity gets its own {@link ProductViewModel},
-     * but with the same repository as {@link CatalogActivity} and {@link ProductEditActivity}
+     * but with the same repository as e.g. {@link CatalogActivity} and {@link ProductEditActivity}
      */
     private ProductViewModel productViewModel;
 

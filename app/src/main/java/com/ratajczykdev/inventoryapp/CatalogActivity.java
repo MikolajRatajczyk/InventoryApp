@@ -41,6 +41,10 @@ public class CatalogActivity extends AppCompatActivity {
 
     private FloatingActionButton fabNewProduct;
 
+    /**
+     * Activity gets its own {@link ProductViewModel},
+     * but with the same repository as e.g. {@link StatisticsActivity} and {@link ProductEditActivity}
+     */
     private ProductViewModel productViewModel;
     private RecyclerView recyclerProductList;
     ProductListRecyclerAdapter productListRecyclerAdapter;

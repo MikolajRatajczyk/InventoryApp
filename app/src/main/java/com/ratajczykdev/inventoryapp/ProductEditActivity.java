@@ -35,7 +35,7 @@ public class ProductEditActivity extends AppCompatActivity {
 
     /**
      * Activity gets its own {@link ProductViewModel},
-     * but with the same repository as {@link CatalogActivity} and {@link ProductDetailActivity}
+     * but with the same repository as e.g. {@link CatalogActivity} and {@link ProductDetailActivity}
      */
     private ProductViewModel productViewModel;
 
