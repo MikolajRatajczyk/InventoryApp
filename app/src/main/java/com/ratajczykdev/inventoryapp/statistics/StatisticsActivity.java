@@ -22,8 +22,7 @@ import java.util.Set;
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-public class StatisticsActivity extends AppCompatActivity
-{
+public class StatisticsActivity extends AppCompatActivity {
     //  TODO: implement Room
 
     private TextView textViewItemsNumber;
@@ -37,8 +36,7 @@ public class StatisticsActivity extends AppCompatActivity
     private static final int ITEMS_NUMBER_IF_ERROR = -1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
@@ -47,8 +45,7 @@ public class StatisticsActivity extends AppCompatActivity
         animateFabGraphs();
     }
 
-    private void setUiReferences()
-    {
+    private void setUiReferences() {
         textViewItemsNumber = findViewById(R.id.activity_statistics_items_number_textview);
         textViewProductsNumber = findViewById(R.id.activity_statistics_products_number_textview);
         textViewMaxPrice = findViewById(R.id.activity_statistics_max_price_textview);
@@ -56,16 +53,12 @@ public class StatisticsActivity extends AppCompatActivity
         fabGraphs = findViewById(R.id.activity_statistics_graphs_fab);
     }
 
-    private void setUiListeners()
-    {
-        fabGraphs.setOnClickListener(new View.OnClickListener()
-        {
+    private void setUiListeners() {
+        fabGraphs.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 Intent intent = new Intent(StatisticsActivity.this, GraphsActivity.class);
-                if (!(productsCursor == null || productsCursor.getCount() < 1))
-                {
+                if (!(productsCursor == null || productsCursor.getCount() < 1)) {
                     //  add statistics Map to Intent for GraphActivity
                     intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap());
                 }
@@ -74,8 +67,7 @@ public class StatisticsActivity extends AppCompatActivity
         });
     }
 
-    private HashMap<String, Float> getStatisticsMap()
-    {
+    private HashMap<String, Float> getStatisticsMap() {
         HashMap<String, Float> statisticsMap = new HashMap<>();
         statisticsMap.put(StatisticsContract.ITEMS_NUMBER_KEY, (float) getItemsNumber());
         statisticsMap.put(StatisticsContract.PRODUCTS_NUMBER_KEY, (float) getProductsNumber());
@@ -85,18 +77,10 @@ public class StatisticsActivity extends AppCompatActivity
     }
 
 
-
-
-
-
-
-    private void updateStatisticsNumbersInUi()
-    {
-        if (productsCursor == null || productsCursor.getCount() < 1)
-        {
+    private void updateStatisticsNumbersInUi() {
+        if (productsCursor == null || productsCursor.getCount() < 1) {
             Log.e(StatisticsActivity.class.getSimpleName(), "Error with loading products data from database");
-        } else if (productsCursor.moveToFirst())
-        {
+        } else if (productsCursor.moveToFirst()) {
             updateItemsNumberInUi();
             updateProductsNumberInUi();
             updateMaxPriceInUi();
@@ -104,64 +88,51 @@ public class StatisticsActivity extends AppCompatActivity
         }
     }
 
-    private void updateItemsNumberInUi()
-    {
+    private void updateItemsNumberInUi() {
         String itemsNumberString = String.valueOf(getItemsNumber());
         textViewItemsNumber.setText(itemsNumberString);
     }
 
-    private void updateProductsNumberInUi()
-    {
+    private void updateProductsNumberInUi() {
         String productsNumberString = String.valueOf(getProductsNumber());
         textViewProductsNumber.setText(productsNumberString);
     }
 
-    private int getItemsNumber()
-    {
-        if (productsCursor != null)
-        {
+    private int getItemsNumber() {
+        if (productsCursor != null) {
             int itemsNumber = 0;
-            do
-            {
+            do {
                 int productQuantityColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
                 itemsNumber = itemsNumber + productsCursor.getInt(productQuantityColumnIndex);
             } while (productsCursor.moveToNext());
             productsCursor.moveToFirst();
             return itemsNumber;
-        } else
-        {
+        } else {
             return ITEMS_NUMBER_IF_ERROR;
         }
     }
 
-    private int getProductsNumber()
-    {
-        if (productsCursor != null)
-        {
+    private int getProductsNumber() {
+        if (productsCursor != null) {
             return productsCursor.getCount();
-        } else
-        {
+        } else {
             return PRODUCTS_NUMBER_IF_ERROR;
         }
     }
 
-    private void updateMaxPriceInUi()
-    {
+    private void updateMaxPriceInUi() {
         String maximumPriceString = String.valueOf(getProductsMaxPrice());
         textViewMaxPrice.setText(maximumPriceString);
     }
 
-    private float getProductsMaxPrice()
-    {
+    private float getProductsMaxPrice() {
         Set<Float> pricesSet = getPricesSet();
         return Collections.max(pricesSet);
     }
 
-    private Set<Float> getPricesSet()
-    {
+    private Set<Float> getPricesSet() {
         Set<Float> pricesSet = new HashSet<>();
-        do
-        {
+        do {
             int priceColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
             float price = productsCursor.getFloat(priceColumnIndex);
             pricesSet.add(price);
@@ -172,21 +143,18 @@ public class StatisticsActivity extends AppCompatActivity
         return pricesSet;
     }
 
-    private void updateMinPriceInUi()
-    {
+    private void updateMinPriceInUi() {
         String minimalPriceString = String.valueOf(getProductsMinPrice());
         textViewMinPrice.setText(minimalPriceString);
     }
 
-    private float getProductsMinPrice()
-    {
+    private float getProductsMinPrice() {
         Set<Float> pricesSet = getPricesSet();
         return Collections.min(pricesSet);
     }
 
 
-    private void animateFabGraphs()
-    {
+    private void animateFabGraphs() {
         fabGraphs.animate()
                 .rotation(360)
                 .setInterpolator(AnimationUtils.loadInterpolator(StatisticsActivity.this, android.R.interpolator.accelerate_decelerate))
