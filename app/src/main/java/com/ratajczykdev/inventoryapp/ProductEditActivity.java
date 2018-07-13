@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,27 +21,24 @@ import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 import java.util.Locale;
 
 /**
- * This class allows to edit or add a new product to the database
+ * This class allows to edit existing or add a new product
  * <p>
  * Gets data from own {@link ProductViewModel}
  *
  * @author Mikołaj Ratajczyk
  */
 public class ProductEditActivity extends AppCompatActivity {
-    //  TODO: do not store rest of the data here use ViewModel
-    //  TODO: do code refactor
-    //  TODO: check comments
-
-    /**
-     * Activity gets its own {@link ProductViewModel},
-     * but with the same repository as {@link CatalogActivity}
-     */
-    private ProductViewModel productViewModel;
 
     /**
      * Request code that identifies photo request from user
      */
     private static final int PHOTO_REQUEST_ID = 2;
+
+    /**
+     * Activity gets its own {@link ProductViewModel},
+     * but with the same repository as {@link CatalogActivity} and {@link ProductDetailActivity}
+     */
+    private ProductViewModel productViewModel;
 
     private Button buttonChangePhoto;
     private EditText editTextName;
@@ -52,21 +48,20 @@ public class ProductEditActivity extends AppCompatActivity {
     private Button buttonCancel;
     private Button buttonSave;
     private ImageView imagePhoto;
-
+    //  TODO: do not store rest of the data here use ViewModel
     private Product currentProduct;
 
     /**
      * URI to product photo saved by app
      */
-    private Uri savedImageUri;
-
+    private String savedImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_edit);
 
-        //  Activity gets its own ViewModel, but with the same repository
+        //  Activity gets its own ViewModel
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
 
         setUiElementsReferences();
@@ -130,7 +125,7 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     /**
-     * Set current product data with provided ones from ViewModel
+     * Set current product data with provided ones
      */
     private void loadProductDataToUi() {
         setQuantityInUi();
@@ -164,7 +159,7 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     /**
-     * Setups all buttons in order to edit existing product
+     * Setups all buttons in order to edit product
      */
     private void setupButtonsForEditing() {
 
@@ -187,11 +182,6 @@ public class ProductEditActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Saves product with changes
-     *
-     * @return true if change was successful, false if failed
-     */
     private boolean saveProduct() {
         if (isUiDataCorrect()) {
             replaceProductDataFromUi();
@@ -211,6 +201,22 @@ public class ProductEditActivity extends AppCompatActivity {
         return true;
     }
 
+    private String getStringNameFromUi() {
+        return editTextName.getText().toString().trim();
+    }
+
+    /**
+     * Replace product data with ones from UI
+     */
+    private void replaceProductDataFromUi() {
+        currentProduct.setName(getStringNameFromUi());
+        currentProduct.setQuantity(getIntQuantityFromUi());
+        currentProduct.setPrice(getFloatPriceFromUi());
+        if (savedImageUri != null) {
+            currentProduct.setPhotoUri(savedImageUri);
+        }
+    }
+
     private int getIntQuantityFromUi() {
         String stringQuantity = editTextQuantity.getText().toString().trim();
         if (TextUtils.isEmpty(stringQuantity) || stringQuantity.equals(".")) {
@@ -227,41 +233,13 @@ public class ProductEditActivity extends AppCompatActivity {
         return Float.valueOf(stringPrice);
     }
 
-    private String getStringNameFromUi() {
-        return editTextName.getText().toString().trim();
-    }
-
-    /**
-     * Replace product data with ones from UI
-     */
-    @NonNull
-    private void replaceProductDataFromUi() {
-        currentProduct.setName(getStringNameFromUi());
-        currentProduct.setQuantity(getIntQuantityFromUi());
-        currentProduct.setPrice(getFloatPriceFromUi());
-        if (getSavedImageUri() != null) {
-            currentProduct.setPhotoUri(getSavedImageUri());
-        }
-    }
-
-    /**
-     * Set photo URI in product if available
-     */
-    private String getSavedImageUri() {
-        if (savedImageUri != null) {
-            return savedImageUri.toString();
-        } else {
-            return null;
-        }
-    }
-
     private boolean deleteProduct() {
         productViewModel.deleteSingle(currentProduct);
         return true;
     }
 
     /**
-     * Setups all buttons in order to add a new product to database
+     * Setups all buttons in order to add a new product
      */
     private void setupButtonsForAdding() {
         buttonDelete.setVisibility(View.INVISIBLE);
@@ -285,7 +263,6 @@ public class ProductEditActivity extends AppCompatActivity {
      */
     private boolean addNewProduct() {
         if (isUiDataCorrect()) {
-            currentProduct = new Product();
             replaceProductDataFromUi();
             productViewModel.insertSingle(currentProduct);
             return true;
@@ -295,7 +272,7 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     /**
-     * This method is called when request finishes in other app
+     * This method is called when photo request finishes in other app
      *
      * @param requestCode request code passed when starting activity
      * @param resultCode  result code
@@ -307,8 +284,8 @@ public class ProductEditActivity extends AppCompatActivity {
         if (requestCode == PHOTO_REQUEST_ID) {
             if (resultCode == RESULT_OK && data != null) {
                 Uri receivedImageUri = data.getData();
-                savedImageUri = ImageHelper.saveImageAndGetUri(receivedImageUri, getApplicationContext());
-                currentProduct.setPhotoUri(String.valueOf(savedImageUri));
+                savedImageUri = String.valueOf(ImageHelper.saveImageAndGetUri(receivedImageUri, getApplicationContext()));
+                currentProduct.setPhotoUri(savedImageUri);
                 setPhotoInUi();
             } else {
                 Toast.makeText(this, R.string.info_not_picked_image, Toast.LENGTH_SHORT).show();
