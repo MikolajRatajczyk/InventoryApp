@@ -31,6 +31,8 @@ import java.util.Locale;
 public class ProductEditActivity extends AppCompatActivity {
     //  TODO: do not store rest of the data here use ViewModel
     //  TODO: fix photo disappearing bug (after edit)
+    //  TODO: do code refactor
+    //  TODO: check comments
 
     /**
      * Activity gets its own {@link ProductViewModel},
@@ -53,10 +55,6 @@ public class ProductEditActivity extends AppCompatActivity {
     private ImageView imagePhoto;
 
     private Product currentProduct;
-    private int currentProductId;
-    private String currentName;
-    private int currentQuantity;
-    private float currentFloatPrice;
 
     /**
      * URI to product photo received directly from user
@@ -82,8 +80,9 @@ public class ProductEditActivity extends AppCompatActivity {
         setButtonChangePhotoListener();
 
         if (getIntent().hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
-            currentProductId = getProductIdFromIntent(getIntent());
-            setExistingProductDataInUi();
+            int currentProductId = getProductIdFromIntent(getIntent());
+            currentProduct = productViewModel.findSingleById(currentProductId);
+            loadProductDataToUi();
             setupButtonsForEditing();
         } else {
             setupButtonsForAdding();
@@ -138,8 +137,7 @@ public class ProductEditActivity extends AppCompatActivity {
     /**
      * Set current product data with provided ones from ViewModel
      */
-    private void setExistingProductDataInUi() {
-        currentProduct = productViewModel.findSingleById(currentProductId);
+    private void loadProductDataToUi() {
         setQuantityInUi();
         setPriceInUi();
         setNameInUi();
@@ -178,7 +176,7 @@ public class ProductEditActivity extends AppCompatActivity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (saveExistingProduct()) {
+                if (saveProduct()) {
                     finish();
                 }
             }
@@ -195,26 +193,22 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves existing product with changes
+     * Saves product with changes
      *
      * @return true if change was successful, false if failed
      */
-    private boolean saveExistingProduct() {
-        if (setCurrentProductDataFromUi()) {
-            Product editedProduct = getProductWithCurrentData();
-            editedProduct.setId(currentProductId);
-            productViewModel.updateSingle(editedProduct);
+    private boolean saveProduct() {
+        if (isUiDataCorrect()) {
+            replaceProductDataFromUi();
+            productViewModel.updateSingle(currentProduct);
             return true;
         } else {
             return false;
         }
     }
 
-    private boolean setCurrentProductDataFromUi() {
-        currentQuantity = getIntQuantityFromUi();
-        currentFloatPrice = getFloatPriceFromUi();
-        currentName = editTextName.getText().toString().trim();
-
+    private boolean isUiDataCorrect() {
+        String currentName = getStringNameFromUi();
         if (TextUtils.isEmpty(currentName)) {
             Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
             return false;
@@ -238,27 +232,29 @@ public class ProductEditActivity extends AppCompatActivity {
         return Float.valueOf(stringPrice);
     }
 
+    private String getStringNameFromUi() {
+        return editTextName.getText().toString().trim();
+    }
+
     /**
-     * Create new product with current data
+     * Replace product data with ones from UI
      */
     @NonNull
-    private Product getProductWithCurrentData() {
-        Product product = new Product();
-        product.setName(currentName);
-        product.setQuantity(currentQuantity);
-        product.setPrice(currentFloatPrice);
-        setPhotoUriInProduct(product);
-
-        return product;
+    private void replaceProductDataFromUi() {
+        currentProduct.setName(getStringNameFromUi());
+        currentProduct.setQuantity(getIntQuantityFromUi());
+        currentProduct.setPrice(getFloatPriceFromUi());
+        currentProduct.setPhotoUri(getSavedImageUri());
     }
 
     /**
      * Set photo URI in product if available
      */
-    private void setPhotoUriInProduct(Product product) {
+    private String getSavedImageUri() {
         if (savedImageUri != null) {
-            String savedImageUriString = savedImageUri.toString();
-            product.setPhotoUri(savedImageUriString);
+            return savedImageUri.toString();
+        } else {
+            return null;
         }
     }
 
@@ -291,9 +287,10 @@ public class ProductEditActivity extends AppCompatActivity {
      * @return true if adding was successful, false if failed
      */
     private boolean addNewProduct() {
-        if (setCurrentProductDataFromUi()) {
-            Product newProduct = getProductWithCurrentData();
-            productViewModel.insertSingle(newProduct);
+        if (isUiDataCorrect()) {
+            currentProduct = new Product();
+            replaceProductDataFromUi();
+            productViewModel.insertSingle(currentProduct);
             return true;
         } else {
             return false;
@@ -314,7 +311,8 @@ public class ProductEditActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK && data != null) {
                 receivedImageUri = data.getData();
                 savedImageUri = ImageHelper.saveImageAndGetUri(receivedImageUri, getApplicationContext());
-
+                currentProduct.setPhotoUri(String.valueOf(savedImageUri));
+                setPhotoInUi();
             } else {
                 Toast.makeText(this, R.string.info_not_picked_image, Toast.LENGTH_SHORT).show();
             }
