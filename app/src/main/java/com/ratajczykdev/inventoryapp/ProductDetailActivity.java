@@ -18,19 +18,19 @@ import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
 import java.util.Locale;
 
-import static com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID;
-
 /**
  * Shows details about product and help with making order
+ * <p>
+ * Gets data from own {@link ProductViewModel}
  *
  * @author Mikołaj Ratajczyk
  */
 public class ProductDetailActivity extends AppCompatActivity implements OrderDialogFragment.OrderDialogListener {
-    //  TODO: do code refactoring
 
     /**
      * Activity gets its own {@link ProductViewModel},
@@ -38,29 +38,16 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
      */
     private ProductViewModel productViewModel;
 
-    /**
-     * Floating action button for switching to edit mode
-     */
-    private FloatingActionButton fabEditMode;
-
-    private ImageView imagePhoto;
-    private TextView textName;
-    private ImageView imageNameIcon;
-    private TextView textQuantity;
-    private ImageView imageQuantityIcon;
-    private TextView textPrice;
-    private ImageView imagePriceIcon;
-
-    /**
-     * Button for finishing activity
-     */
+    private FloatingActionButton fabEdit;
     private Button buttonDismiss;
-    /**
-     * Button for making the order from supplier
-     */
     private Button buttonOrder;
-
-    private int productId;
+    private ImageView imagePhoto;
+    private ImageView imageNameIcon;
+    private ImageView imageQuantityIcon;
+    private ImageView imagePriceIcon;
+    private TextView textName;
+    private TextView textQuantity;
+    private TextView textPrice;
 
     private Product product;
 
@@ -75,8 +62,9 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
 
         setUiElementsReferences();
 
-        if (getIntent().hasExtra(DATA_SELECTED_PRODUCT_ID)) {
-            productId = getProductIdFromIntent(getIntent());
+        if (getIntent().hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
+            int productId = getProductIdFromIntent(getIntent());
+            product = productViewModel.findSingleById(productId);
             setReceivedProductDataInUi();
             setFabListener();
         } else {
@@ -85,36 +73,6 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
 
         setButtonDismissListener();
         setButtonOrderListener();
-    }
-
-    private int getProductIdFromIntent(Intent intent) {
-        String stringCurrentProductId = intent.getStringExtra(DATA_SELECTED_PRODUCT_ID);
-        return Integer.parseInt(stringCurrentProductId);
-    }
-
-    private void setFabListener() {
-        fabEditMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Pair pairNameIcon = Pair.create(imageNameIcon, imageNameIcon.getTransitionName());
-                Pair pairQuantityIcon = Pair.create(imageQuantityIcon, imageQuantityIcon.getTransitionName());
-                Pair pairPriceIcon = Pair.create(imagePriceIcon, imagePriceIcon.getTransitionName());
-                Pair[] sharedElementsPairs = {pairNameIcon, pairQuantityIcon, pairPriceIcon};
-
-                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ProductDetailActivity.this, sharedElementsPairs).toBundle();
-
-                Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
-                intent.putExtra(DATA_SELECTED_PRODUCT_ID, String.valueOf(productId));
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void makeFabAndButtonOrderInvisible() {
-        //  if there is no correct data, so there is no point on editing - hide fab
-        fabEditMode.setVisibility(View.INVISIBLE);
-        // also hide order button
-        buttonOrder.setVisibility(View.INVISIBLE);
     }
 
     private void hideAppBar() {
@@ -127,7 +85,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     private void setUiElementsReferences() {
         imagePhoto = findViewById(R.id.product_detail_photo);
         imageNameIcon = findViewById(R.id.product_detail_name_icon);
-        fabEditMode = findViewById(R.id.product_detail_edit_fab);
+        fabEdit = findViewById(R.id.product_detail_edit_fab);
         textName = findViewById(R.id.product_detail_name);
         textQuantity = findViewById(R.id.product_detail_quantity);
         imageQuantityIcon = findViewById(R.id.product_detail_quantity_icon);
@@ -137,16 +95,19 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
     }
 
+    private int getProductIdFromIntent(Intent intent) {
+        String stringCurrentProductId = intent.getStringExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID);
+        return Integer.parseInt(stringCurrentProductId);
+    }
+
     /**
      * Set current product data with provided ones
      */
     private void setReceivedProductDataInUi() {
-        product = productViewModel.findSingleById(productId);
         setQuantityInUi();
         setPriceInUi();
         setNameInUi();
         setPhotoInUi();
-
     }
 
     private void setQuantityInUi() {
@@ -174,6 +135,30 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         }
     }
 
+    private void setFabListener() {
+        fabEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Pair pairNameIcon = Pair.create(imageNameIcon, imageNameIcon.getTransitionName());
+                Pair pairQuantityIcon = Pair.create(imageQuantityIcon, imageQuantityIcon.getTransitionName());
+                Pair pairPriceIcon = Pair.create(imagePriceIcon, imagePriceIcon.getTransitionName());
+                Pair[] sharedElementsPairs = {pairNameIcon, pairQuantityIcon, pairPriceIcon};
+
+                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(ProductDetailActivity.this, sharedElementsPairs).toBundle();
+
+                Intent intent = new Intent(ProductDetailActivity.this, ProductEditActivity.class);
+                intent.putExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID, String.valueOf(product.getId()));
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void makeFabAndButtonOrderInvisible() {
+        //  if there is no correct data, so there is no point on editing - hide fab
+        fabEdit.setVisibility(View.INVISIBLE);
+        // also hide order button
+        buttonOrder.setVisibility(View.INVISIBLE);
+    }
 
     private void setButtonDismissListener() {
         buttonDismiss.setOnClickListener(new View.OnClickListener() {
@@ -213,13 +198,13 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         int productQuantity = ((OrderDialogFragment) dialog).getQuantity();
-        sendOrder(productQuantity);
+        exportOrder(productQuantity);
     }
 
     /**
-     * Method to send predefined order
+     * Sends predefined order to external app
      */
-    private void sendOrder(int productQuantity) {
+    private void exportOrder(int productQuantity) {
         String productName = textName.getText().toString();
 
         String subject = getString(R.string.email_order) + " " + productName;
