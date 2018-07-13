@@ -27,8 +27,9 @@ import java.util.Set;
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-public class StatisticsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
+public class StatisticsActivity extends AppCompatActivity
 {
+    //  TODO: implement Room
 
     private TextView textViewItemsNumber;
     private TextView textViewProductsNumber;
@@ -36,10 +37,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
     private TextView textViewMinPrice;
     private FloatingActionButton fabGraphs;
 
-    private Cursor productsCursor;
-
     //  TODO: do not use error return codes
-    private static final int PRODUCTS_LOADER_ID = 0;
     private static final int PRODUCTS_NUMBER_IF_ERROR = -1;
     private static final int ITEMS_NUMBER_IF_ERROR = -1;
 
@@ -52,7 +50,6 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         setUiReferences();
         setUiListeners();
         animateFabGraphs();
-        startProductsLoader();
     }
 
     private void setUiReferences()
@@ -92,31 +89,11 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         return statisticsMap;
     }
 
-    private void startProductsLoader()
-    {
-        getLoaderManager().initLoader(PRODUCTS_LOADER_ID, null, this);
-    }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
-    {
-        String[] projection = ProductContract.FULL_PROJECTION_ARRAY;
 
-        return new CursorLoader(
-                this,
-                ProductEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                null);
-    }
 
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
-    {
-        productsCursor = cursor;
-        updateStatisticsNumbersInUi();
-    }
+
+
 
     private void updateStatisticsNumbersInUi()
     {
@@ -212,18 +189,6 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         return Collections.min(pricesSet);
     }
 
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        releaseStatisticsData();
-    }
-
-    private void releaseStatisticsData()
-    {
-        textViewProductsNumber.setText(getString(R.string.number_no_data));
-        textViewMaxPrice.setText(getString(R.string.number_no_data));
-        textViewMinPrice.setText(getString(R.string.number_no_data));
-    }
 
     private void animateFabGraphs()
     {
