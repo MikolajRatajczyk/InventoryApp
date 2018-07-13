@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
@@ -28,6 +30,7 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity {
     //  TODO: do not store rest of the data here use ViewModel
+    //  TODO: fix photo disappearing bug (after edit)
 
     /**
      * Activity gets its own {@link ProductViewModel},
@@ -47,6 +50,7 @@ public class ProductEditActivity extends AppCompatActivity {
     private Button buttonDelete;
     private Button buttonCancel;
     private Button buttonSave;
+    private ImageView imagePhoto;
 
     private Product currentProduct;
     private int currentProductId;
@@ -94,6 +98,7 @@ public class ProductEditActivity extends AppCompatActivity {
         buttonDelete = findViewById(R.id.product_edit_delete_button);
         buttonCancel = findViewById(R.id.product_edit_cancel_button);
         buttonSave = findViewById(R.id.product_edit_save_button);
+        imagePhoto = findViewById(R.id.product_edit_photo_imageview);
     }
 
     private void setButtonCancelListener() {
@@ -138,6 +143,7 @@ public class ProductEditActivity extends AppCompatActivity {
         setQuantityInUi();
         setPriceInUi();
         setNameInUi();
+        setPhotoInUi();
     }
 
     private void setQuantityInUi() {
@@ -153,6 +159,15 @@ public class ProductEditActivity extends AppCompatActivity {
     private void setNameInUi() {
         String name = currentProduct.getName();
         editTextName.setText(name);
+    }
+
+    private void setPhotoInUi() {
+        String stringPhotoUri = currentProduct.getPhotoUri();
+        if (stringPhotoUri != null) {
+            Uri photoUri = Uri.parse(stringPhotoUri);
+            Bitmap bitmapPhoto = ImageHelper.getBitmapFromUri(photoUri, getApplicationContext());
+            imagePhoto.setImageBitmap(bitmapPhoto);
+        }
     }
 
     /**
