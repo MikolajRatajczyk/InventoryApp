@@ -85,6 +85,7 @@ public class ProductEditActivity extends AppCompatActivity {
             loadProductDataToUi();
             setupButtonsForEditing();
         } else {
+            currentProduct = new Product();
             setupButtonsForAdding();
         }
     }
