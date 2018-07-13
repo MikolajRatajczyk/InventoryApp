@@ -30,7 +30,6 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity {
     //  TODO: do not store rest of the data here use ViewModel
-    //  TODO: fix photo disappearing bug (after edit)
     //  TODO: do code refactor
     //  TODO: check comments
 
@@ -245,7 +244,9 @@ public class ProductEditActivity extends AppCompatActivity {
         currentProduct.setName(getStringNameFromUi());
         currentProduct.setQuantity(getIntQuantityFromUi());
         currentProduct.setPrice(getFloatPriceFromUi());
-        currentProduct.setPhotoUri(getSavedImageUri());
+        if (getSavedImageUri() != null) {
+            currentProduct.setPhotoUri(getSavedImageUri());
+        }
     }
 
     /**
