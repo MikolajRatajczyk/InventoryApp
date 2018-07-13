@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.ratajczykdev.inventoryapp.database.Product;
-import com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
 import java.util.List;

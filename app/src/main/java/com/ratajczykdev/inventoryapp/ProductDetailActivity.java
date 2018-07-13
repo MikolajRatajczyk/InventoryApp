@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
-import com.ratajczykdev.inventoryapp.database.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
 import java.util.Locale;

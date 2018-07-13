@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp.database;
+package com.ratajczykdev.inventoryapp;
 //  TODO: move outside package
 
 import android.content.Context;
@@ -13,9 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ratajczykdev.inventoryapp.ProductDetailActivity;
-import com.ratajczykdev.inventoryapp.R;
 import com.ratajczykdev.inventoryapp.data.ImageHelper;
+import com.ratajczykdev.inventoryapp.database.Product;
 
 import java.util.List;
 import java.util.Locale;
