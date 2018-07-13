@@ -1,10 +1,6 @@
 package com.ratajczykdev.inventoryapp.statistics;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +10,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.R;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
 import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.util.Collections;
@@ -23,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Shows statistics data about products in numbers
+ * Shows statistics data about products in numeric form
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
