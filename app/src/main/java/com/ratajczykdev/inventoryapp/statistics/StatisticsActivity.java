@@ -1,22 +1,24 @@
 package com.ratajczykdev.inventoryapp.statistics;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.R;
-import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
+import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,9 +27,9 @@ import java.util.Set;
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class StatisticsActivity extends AppCompatActivity {
-    //  TODO: implement Room
 
     private ProductViewModel productViewModel;
+    private List<Product> productList;
 
     private TextView textViewItemsNumber;
     private TextView textViewProductsNumber;
@@ -35,16 +37,22 @@ public class StatisticsActivity extends AppCompatActivity {
     private TextView textViewMinPrice;
     private FloatingActionButton fabGraphs;
 
-    //  TODO: do not use error return codes
-    private static final int PRODUCTS_NUMBER_IF_ERROR = -1;
-    private static final int ITEMS_NUMBER_IF_ERROR = -1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        productList = productViewModel.getAll().getValue();
+        productViewModel.getAll().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(@Nullable List<Product> products) {
+                productList = products;
+                if (productList != null && !productList.isEmpty()) {
+                    updateStatisticsInUi();
+                }
+            }
+        });
 
         setUiReferences();
         setUiListeners();
@@ -64,7 +72,7 @@ public class StatisticsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StatisticsActivity.this, GraphsActivity.class);
-                if (!(productsCursor == null || productsCursor.getCount() < 1)) {
+                if (!productList.isEmpty()) {
                     //  add statistics Map to Intent for GraphActivity
                     intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap());
                 }
@@ -82,16 +90,54 @@ public class StatisticsActivity extends AppCompatActivity {
         return statisticsMap;
     }
 
-
-    private void updateStatisticsNumbersInUi() {
-        if (productsCursor == null || productsCursor.getCount() < 1) {
-            Log.e(StatisticsActivity.class.getSimpleName(), "Error with loading products data from database");
-        } else if (productsCursor.moveToFirst()) {
-            updateItemsNumberInUi();
-            updateProductsNumberInUi();
-            updateMaxPriceInUi();
-            updateMinPriceInUi();
+    private int getItemsNumber() {
+        int itemsNumber = 0;
+        if (!productList.isEmpty()) {
+            for (Product product : productList) {
+                itemsNumber += product.getQuantity();
+            }
         }
+        return itemsNumber;
+    }
+
+    private int getProductsNumber() {
+        return productList.size();
+    }
+
+    private float getProductsMaxPrice() {
+        Set<Float> pricesSet = getPricesSet();
+        return Collections.max(pricesSet);
+    }
+
+    private float getProductsMinPrice() {
+        Set<Float> pricesSet = getPricesSet();
+        return Collections.min(pricesSet);
+    }
+
+    private Set<Float> getPricesSet() {
+        Set<Float> pricesSet = new HashSet<>();
+        for (Product product : productList) {
+            pricesSet.add(product.getPrice());
+        }
+        return pricesSet;
+    }
+
+    private void updateMaxPriceInUi() {
+        String maximumPriceString = String.valueOf(getProductsMaxPrice());
+        textViewMaxPrice.setText(maximumPriceString);
+    }
+
+    private void updateMinPriceInUi() {
+        String minimalPriceString = String.valueOf(getProductsMinPrice());
+        textViewMinPrice.setText(minimalPriceString);
+    }
+
+
+    private void updateStatisticsInUi() {
+        updateItemsNumberInUi();
+        updateProductsNumberInUi();
+        updateMaxPriceInUi();
+        updateMinPriceInUi();
     }
 
     private void updateItemsNumberInUi() {
@@ -103,62 +149,6 @@ public class StatisticsActivity extends AppCompatActivity {
         String productsNumberString = String.valueOf(getProductsNumber());
         textViewProductsNumber.setText(productsNumberString);
     }
-
-    private int getItemsNumber() {
-        if (productsCursor != null) {
-            int itemsNumber = 0;
-            do {
-                int productQuantityColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-                itemsNumber = itemsNumber + productsCursor.getInt(productQuantityColumnIndex);
-            } while (productsCursor.moveToNext());
-            productsCursor.moveToFirst();
-            return itemsNumber;
-        } else {
-            return ITEMS_NUMBER_IF_ERROR;
-        }
-    }
-
-    private int getProductsNumber() {
-        if (productsCursor != null) {
-            return productsCursor.getCount();
-        } else {
-            return PRODUCTS_NUMBER_IF_ERROR;
-        }
-    }
-
-    private void updateMaxPriceInUi() {
-        String maximumPriceString = String.valueOf(getProductsMaxPrice());
-        textViewMaxPrice.setText(maximumPriceString);
-    }
-
-    private float getProductsMaxPrice() {
-        Set<Float> pricesSet = getPricesSet();
-        return Collections.max(pricesSet);
-    }
-
-    private Set<Float> getPricesSet() {
-        Set<Float> pricesSet = new HashSet<>();
-        do {
-            int priceColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-            float price = productsCursor.getFloat(priceColumnIndex);
-            pricesSet.add(price);
-        } while (productsCursor.moveToNext());
-
-        productsCursor.moveToFirst();
-
-        return pricesSet;
-    }
-
-    private void updateMinPriceInUi() {
-        String minimalPriceString = String.valueOf(getProductsMinPrice());
-        textViewMinPrice.setText(minimalPriceString);
-    }
-
-    private float getProductsMinPrice() {
-        Set<Float> pricesSet = getPricesSet();
-        return Collections.min(pricesSet);
-    }
-
 
     private void animateFabGraphs() {
         fabGraphs.animate()
