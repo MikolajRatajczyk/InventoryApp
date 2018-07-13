@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp.data;
+package com.ratajczykdev.inventoryapp.tools;
 
 import android.content.ContentResolver;
 import android.content.Context;

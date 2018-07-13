@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 
 import java.util.Locale;
 

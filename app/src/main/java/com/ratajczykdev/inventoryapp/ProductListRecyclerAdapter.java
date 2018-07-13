@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 
 import java.util.List;
 import java.util.Locale;

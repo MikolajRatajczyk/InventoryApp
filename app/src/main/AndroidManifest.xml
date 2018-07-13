@@ -21,11 +21,6 @@
             </intent-filter>
         </activity>
 
-        <provider
-            android:name=".data.ProductProvider"
-            android:authorities="com.ratajczykdev.inventoryapp"
-            android:exported="false" />
-
         <activity
             android:name=".ProductDetailActivity"
             android:label="@string/details_title" />

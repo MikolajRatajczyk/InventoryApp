@@ -16,9 +16,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ratajczykdev.inventoryapp.data.ImageHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 
 import java.util.Locale;
 
