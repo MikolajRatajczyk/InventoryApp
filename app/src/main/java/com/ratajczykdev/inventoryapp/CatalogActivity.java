@@ -1,6 +1,7 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.Manifest;
+import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -13,11 +14,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
 
 import java.util.List;
 
@@ -116,41 +119,34 @@ public class CatalogActivity extends AppCompatActivity {
         return true;
     }
 
-//    /**
-//     * Triggers methods for the specified action on the app bar
-//     */
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    {
-//        //  TODO: do implementation for the Room
-//        int currentItemId = item.getItemId();
-//        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
-//        {
+    /**
+     * Triggers methods for the specified action on the app bar
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //  TODO: finish implementation for the Room
+        int currentItemId = item.getItemId();
+        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name) {
 //            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_NAME + " ASC";
 //            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
-//        {
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price) {
 //            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_PRICE + " DESC";
 //            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id)
-//        {
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id) {
 //            loaderSqlSortOrder = ProductEntry._ID + " ASC";
 //            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity)
-//        {
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity) {
 //            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " DESC";
 //            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics)
-//        {
-//            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
-//            startActivity(intent);
-//        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about)
-//        {
-//            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
-//            //  to start content transition in AboutActivity
-//            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
-//            startActivity(intent, bundle);
-//        }
-//        return true;
-//    }
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics) {
+            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
+            startActivity(intent);
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about) {
+            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
+            //  to start content transition in AboutActivity
+            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
+            startActivity(intent, bundle);
+        }
+        return true;
+    }
 }
