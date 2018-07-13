@@ -56,11 +56,6 @@ public class ProductEditActivity extends AppCompatActivity {
     private Product currentProduct;
 
     /**
-     * URI to product photo received directly from user
-     */
-    private Uri receivedImageUri;
-
-    /**
      * URI to product photo saved by app
      */
     private Uri savedImageUri;
@@ -311,7 +306,7 @@ public class ProductEditActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PHOTO_REQUEST_ID) {
             if (resultCode == RESULT_OK && data != null) {
-                receivedImageUri = data.getData();
+                Uri receivedImageUri = data.getData();
                 savedImageUri = ImageHelper.saveImageAndGetUri(receivedImageUri, getApplicationContext());
                 currentProduct.setPhotoUri(String.valueOf(savedImageUri));
                 setPhotoInUi();
