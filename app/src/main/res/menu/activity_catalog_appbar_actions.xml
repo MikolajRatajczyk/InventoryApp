@@ -13,9 +13,9 @@
         android:title="@string/sort_by_name_desc"
         app:showAsAction="never" />
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_price"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_price_highest"
         android:icon="@drawable/price_sorting_black_icon"
-        android:title="@string/sort_by_price"
+        android:title="@string/sort_by_price_highest"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_id"
