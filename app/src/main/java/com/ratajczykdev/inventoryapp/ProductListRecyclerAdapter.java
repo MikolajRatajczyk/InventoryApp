@@ -81,7 +81,7 @@ public class ProductListRecyclerAdapter extends RecyclerView.Adapter<ProductList
             });
         } else {
             //  TODO: add empty list view, delete this
-            holder.textName.setText("No product available");
+            holder.textName.setText(R.string.list_no_product_available);
         }
     }
 

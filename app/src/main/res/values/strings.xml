@@ -66,4 +66,5 @@
     <string name="items_products_graph_title">Items and products number</string>
     <string name="max_min_price_graph_title">Maximum and minimum price</string>
     <string name="content_description_background_product_photo">background product photo</string>
+    <string name="list_no_product_available">No product available</string>
 </resources>
