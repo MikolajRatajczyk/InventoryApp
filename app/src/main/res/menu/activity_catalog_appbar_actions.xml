@@ -3,24 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_name"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_name_asc"
         android:icon="@drawable/name_sorting_icon_black"
-        android:title="@string/sort_by_name"
+        android:title="@string/sort_by_name_asc"
         app:showAsAction="never" />
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_price"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_name_desc"
+        android:icon="@drawable/name_sorting_icon_black"
+        android:title="@string/sort_by_name_desc"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_price_highest"
         android:icon="@drawable/price_sorting_black_icon"
-        android:title="@string/sort_by_price"
+        android:title="@string/sort_by_price_highest"
         app:showAsAction="never" />
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_id"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_price_lowest"
+        android:icon="@drawable/price_sorting_black_icon"
+        android:title="@string/sort_by_price_lowest"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_date_newest"
         android:icon="@drawable/id_sorting_black_icon"
-        android:title="@string/sort_by_id"
+        android:title="@string/sort_by_date_newest"
         app:showAsAction="never" />
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_date_oldest"
+        android:icon="@drawable/id_sorting_black_icon"
+        android:title="@string/sort_by_date_oldest"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity_more"
         android:icon="@drawable/quantity_sorting_black_icon"
-        android:title="@string/sort_by_quantity"
+        android:title="@string/sort_by_quantity_more"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity_less"
+        android:icon="@drawable/quantity_sorting_black_icon"
+        android:title="@string/sort_by_quantity_less"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_about"

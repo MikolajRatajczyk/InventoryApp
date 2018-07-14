@@ -2,43 +2,36 @@ package com.ratajczykdev.inventoryapp;
 
 import android.Manifest;
 import android.app.ActivityOptions;
-import android.app.LoaderManager;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.CursorLoader;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.Loader;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.ratajczykdev.inventoryapp.data.ImageHelper;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
-import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
+import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
+
+import java.util.List;
 
 /**
  * Loads view with product list
+ * <p>
+ * Gets data from own {@link ProductViewModel}
  *
  * @author Mikołaj Ratajczyk
  */
-public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
-{
-    /**
-     * Identifier for product data loader
-     */
-    private static final int PRODUCT_LOADER_ID = 0;
+public class CatalogActivity extends AppCompatActivity {
 
     /**
      * Identifier for WRITE permissions request
@@ -46,52 +39,85 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      */
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 1000;
 
-    /**
-     * Floating action button for adding a new product
-     */
     private FloatingActionButton fabNewProduct;
+
     /**
-     * Adapter for list view
+     * Activity gets its own {@link ProductViewModel},
+     * but with the same repository as e.g. {@link StatisticsActivity} and {@link ProductEditActivity}
      */
-    private ProductCursorAdapter productCursorAdapter;
-
-    //  TODO: change entire behaviour to RecyclerView
-    private ListView viewProductList;
-
-    private View viewEmptyHint;
-
-    private String loaderSqlSortOrder = null;
+    private ProductViewModel productViewModel;
+    private RecyclerView recyclerProductList;
+    ProductListRecyclerAdapter productListRecyclerAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
         askWriteStoragePermission();
 
+        //  Use ViewModelProviders to associate your ViewModel with your UI controller.
+        //  When your app first starts, the ViewModelProviders will create the ViewModel.
+        //  When the activity is destroyed, for example through a configuration change, the ViewModel persists.
+        //  When the activity is re-created, the ViewModelProviders return the existing ViewModel
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+        //  Add an observer for the LiveData returned by getAll().
+        //  The onChanged() method fires when the observed data changes
+        //  and the activity is in the foreground.
+        productViewModel.getAll().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(@Nullable List<Product> productsList) {
+                // Update the cached copy of the products in the adapter.
+                productListRecyclerAdapter.setProducts(productsList);
+            }
+        });
+
+        recyclerProductList = findViewById(R.id.product_list_recyclerview);
+        productListRecyclerAdapter = new ProductListRecyclerAdapter(this);
+        recyclerProductList.setAdapter(productListRecyclerAdapter);
+        recyclerProductList.setLayoutManager(new LinearLayoutManager(this));
+
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
-
-        //  loader will provide cursor, so now pass null for cursor
-        productCursorAdapter = new ProductCursorAdapter(this, null);
-
-        viewProductList = findViewById(R.id.product_list);
-        viewEmptyHint = findViewById(R.id.empty_view_hint);
-
-        configureViewProductList();
-
-        startProductLoader();
 
         animateFabNewProduct();
     }
 
+    private void askWriteStoragePermission() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                //  TODO: add explanation for a user (asynchronously)
+            }
+
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID);
+        }
+    }
+
+    private void setFabListener() {
+        fabNewProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void animateFabNewProduct() {
+        final int FULL_ANGLE_IN_DEG = 360;
+        final int ANIMATION_DURATION_IN_MS = 700;
+        fabNewProduct.animate()
+                .rotation(FULL_ANGLE_IN_DEG)
+                .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
+                .setDuration(ANIMATION_DURATION_IN_MS)
+                .start();
+    }
+
     /**
-     * Modify App Bar to have actions
+     * Modifies App Bar to have actions
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.activity_catalog_appbar_actions, menu);
         return true;
@@ -101,143 +127,73 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      * Triggers methods for the specified action on the app bar
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         int currentItemId = item.getItemId();
-        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name)
-        {
-            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_NAME + " ASC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price)
-        {
-            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_PRICE + " DESC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_id)
-        {
-            loaderSqlSortOrder = ProductEntry._ID + " ASC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity)
-        {
-            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " DESC";
-            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics)
-        {
+        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name_asc) {
+            productViewModel.getAllOrderNameAsc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name_desc) {
+            productViewModel.getAllOrderNameDesc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price_highest) {
+            productViewModel.getAllOrderPriceDesc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price_lowest) {
+            productViewModel.getAllOrderPriceAsc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_date_newest) {
+            productViewModel.getAllOrderIdDesc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_date_oldest) {
+            productViewModel.getAllOrderIdAsc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity_more) {
+            productViewModel.getAllOrderQuantityDesc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity_less) {
+            productViewModel.getAllOrderQuantityAsc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics) {
             Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
             startActivity(intent);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about)
-        {
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about) {
             Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
             //  to start content transition in AboutActivity
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
             startActivity(intent, bundle);
         }
         return true;
-    }
-
-    private void askWriteStoragePermission()
-    {
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-            {
-                //  TODO: add explanation for a user (asynchronously)
-            }
-
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID);
-        }
-    }
-
-    private void setFabListener()
-    {
-        fabNewProduct.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(CatalogActivity.this, ProductEditActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void configureViewProductList()
-    {
-        viewProductList.setEmptyView(viewEmptyHint);
-        viewProductList.setAdapter(productCursorAdapter);
-        viewProductList.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
-            {
-                Intent intent = new Intent(CatalogActivity.this, ProductDetailActivity.class);
-                //  create the content URI that represents the specific product that was clicked on
-                Uri currentProductUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
-                intent.setData(currentProductUri);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void startProductLoader()
-    {
-        getLoaderManager().initLoader(PRODUCT_LOADER_ID, null, this);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
-    {
-        String[] projection = ProductContract.FULL_PROJECTION_ARRAY;
-
-        return new CursorLoader(
-                this,
-                ProductEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                loaderSqlSortOrder);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
-    {
-        //  update adapter with new data
-        productCursorAdapter.swapCursor(cursor);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        //  when data needs to be deleted
-        productCursorAdapter.swapCursor(null);
-    }
-
-    private void animateFabNewProduct()
-    {
-        fabNewProduct.animate()
-                .rotation(360)
-                .setInterpolator(AnimationUtils.loadInterpolator(CatalogActivity.this, android.R.interpolator.accelerate_decelerate))
-                .setDuration(700)
-                .start();
-    }
-
-    /**
-     * Helper method to insert hardcoded product data into the database.
-     * <p>
-     * Only for debugging.
-     */
-    private void insertFakeProduct()
-    {
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_NAME, "Fast smartphone");
-
-        Uri productPlaceholderImageUri = ImageHelper.getUriForResourceId(R.drawable.product_photo_placeholder_phone, getApplicationContext());
-        String productPlaceHolderImageUriString = productPlaceholderImageUri.toString();
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PHOTO_URI, productPlaceHolderImageUriString);
-
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_PRICE, 15.80);
-        contentValues.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 35);
-
-        Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, contentValues);
-        Toast.makeText(this, newUri.toString(), Toast.LENGTH_SHORT).show();
     }
 }

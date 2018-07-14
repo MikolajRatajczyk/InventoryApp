@@ -15,8 +15,7 @@ import android.widget.EditText;
  *
  * @author Mikołaj Ratajczyk
  */
-public class OrderDialogFragment extends DialogFragment
-{
+public class OrderDialogFragment extends DialogFragment {
     /**
      * instance of the interface to deliver action events
      */
@@ -29,24 +28,19 @@ public class OrderDialogFragment extends DialogFragment
 
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState)
-    {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle(R.string.order_dialog_title);
-        builder.setNegativeButton(R.string.order_dialog_cancel, new DialogInterface.OnClickListener()
-        {
+        builder.setNegativeButton(R.string.order_dialog_cancel, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int id)
-            {
+            public void onClick(DialogInterface dialog, int id) {
                 listener.onDialogNegativeClick(OrderDialogFragment.this);
             }
         });
-        builder.setPositiveButton(R.string.order_dialog_make_order, new DialogInterface.OnClickListener()
-        {
+        builder.setPositiveButton(R.string.order_dialog_make_order, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int id)
-            {
+            public void onClick(DialogInterface dialog, int id) {
                 listener.onDialogPositiveClick(OrderDialogFragment.this);
             }
         });
@@ -64,16 +58,12 @@ public class OrderDialogFragment extends DialogFragment
      * @param context context
      */
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         super.onAttach(context);
         //  Verify that the host activity implements the callback interface
-        try
-        {
+        try {
             listener = (OrderDialogListener) context;
-        }
-        catch (ClassCastException e)
-        {
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OrderDialogListener");
         }
     }
@@ -83,8 +73,7 @@ public class OrderDialogFragment extends DialogFragment
      *
      * @return quantity
      */
-    public int getQuantity()
-    {
+    public int getQuantity() {
         EditText editTextQuantity = customView.findViewById(R.id.fragment_dialog_order_quantity_edittext);
         String quantityString = editTextQuantity.getText().toString().trim();
         return Integer.parseInt(quantityString);
@@ -95,8 +84,7 @@ public class OrderDialogFragment extends DialogFragment
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it.
      */
-    public interface OrderDialogListener
-    {
+    public interface OrderDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
 
         void onDialogNegativeClick(DialogFragment dialog);

@@ -1,34 +1,43 @@
 package com.ratajczykdev.inventoryapp.statistics;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.ratajczykdev.inventoryapp.CatalogActivity;
+import com.ratajczykdev.inventoryapp.ProductDetailActivity;
 import com.ratajczykdev.inventoryapp.R;
-import com.ratajczykdev.inventoryapp.data.ProductContract;
-import com.ratajczykdev.inventoryapp.data.ProductContract.ProductEntry;
+import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
- * Shows statistics data about products in numbers
+ * Shows statistics data about products in numeric form
+ * <p>
+ * Gets data from own {@link ProductViewModel}
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-public class StatisticsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>
-{
+public class StatisticsActivity extends AppCompatActivity {
+
+    /**
+     * Activity gets its own {@link ProductViewModel},
+     * but with the same repository as e.g. {@link CatalogActivity} and {@link ProductDetailActivity}
+     */
+    private ProductViewModel productViewModel;
+    private List<Product> productList;
 
     private TextView textViewItemsNumber;
     private TextView textViewProductsNumber;
@@ -36,27 +45,89 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
     private TextView textViewMinPrice;
     private FloatingActionButton fabGraphs;
 
-    private Cursor productsCursor;
-
-    //  TODO: do not use error return codes
-    private static final int PRODUCTS_LOADER_ID = 0;
-    private static final int PRODUCTS_NUMBER_IF_ERROR = -1;
-    private static final int ITEMS_NUMBER_IF_ERROR = -1;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+
+        productList = productViewModel.getAll().getValue();
+        productViewModel.getAll().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(@Nullable List<Product> products) {
+                productList = products;
+                if (productList != null && !productList.isEmpty()) {
+                    updateStatisticsInUi();
+                }
+            }
+        });
+
         setUiReferences();
-        setUiListeners();
+        setFabListener();
         animateFabGraphs();
-        startProductsLoader();
     }
 
-    private void setUiReferences()
-    {
+    private void updateStatisticsInUi() {
+        updateItemsNumberInUi();
+        updateProductsNumberInUi();
+        updateMaxPriceInUi();
+        updateMinPriceInUi();
+    }
+
+    private void updateItemsNumberInUi() {
+        String itemsNumberString = String.valueOf(getItemsNumber());
+        textViewItemsNumber.setText(itemsNumberString);
+    }
+
+    private int getItemsNumber() {
+        int itemsNumber = 0;
+        if (!productList.isEmpty()) {
+            for (Product product : productList) {
+                itemsNumber += product.getQuantity();
+            }
+        }
+        return itemsNumber;
+    }
+
+    private void updateProductsNumberInUi() {
+        String productsNumberString = String.valueOf(getProductsNumber());
+        textViewProductsNumber.setText(productsNumberString);
+    }
+
+    private int getProductsNumber() {
+        return productList.size();
+    }
+
+    private void updateMaxPriceInUi() {
+        String maximumPriceString = String.valueOf(getProductsMaxPrice());
+        textViewMaxPrice.setText(maximumPriceString);
+    }
+
+    private float getProductsMaxPrice() {
+        Set<Float> pricesSet = getPricesSet();
+        return Collections.max(pricesSet);
+    }
+
+    private Set<Float> getPricesSet() {
+        Set<Float> pricesSet = new HashSet<>();
+        for (Product product : productList) {
+            pricesSet.add(product.getPrice());
+        }
+        return pricesSet;
+    }
+
+    private void updateMinPriceInUi() {
+        String minimalPriceString = String.valueOf(getProductsMinPrice());
+        textViewMinPrice.setText(minimalPriceString);
+    }
+
+    private float getProductsMinPrice() {
+        Set<Float> pricesSet = getPricesSet();
+        return Collections.min(pricesSet);
+    }
+
+    private void setUiReferences() {
         textViewItemsNumber = findViewById(R.id.activity_statistics_items_number_textview);
         textViewProductsNumber = findViewById(R.id.activity_statistics_products_number_textview);
         textViewMaxPrice = findViewById(R.id.activity_statistics_max_price_textview);
@@ -64,16 +135,12 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         fabGraphs = findViewById(R.id.activity_statistics_graphs_fab);
     }
 
-    private void setUiListeners()
-    {
-        fabGraphs.setOnClickListener(new View.OnClickListener()
-        {
+    private void setFabListener() {
+        fabGraphs.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
                 Intent intent = new Intent(StatisticsActivity.this, GraphsActivity.class);
-                if (!(productsCursor == null || productsCursor.getCount() < 1))
-                {
+                if (productList != null && !productList.isEmpty()) {
                     //  add statistics Map to Intent for GraphActivity
                     intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap());
                 }
@@ -82,8 +149,7 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         });
     }
 
-    private HashMap<String, Float> getStatisticsMap()
-    {
+    private HashMap<String, Float> getStatisticsMap() {
         HashMap<String, Float> statisticsMap = new HashMap<>();
         statisticsMap.put(StatisticsContract.ITEMS_NUMBER_KEY, (float) getItemsNumber());
         statisticsMap.put(StatisticsContract.PRODUCTS_NUMBER_KEY, (float) getProductsNumber());
@@ -92,145 +158,13 @@ public class StatisticsActivity extends AppCompatActivity implements LoaderManag
         return statisticsMap;
     }
 
-    private void startProductsLoader()
-    {
-        getLoaderManager().initLoader(PRODUCTS_LOADER_ID, null, this);
-    }
-
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
-    {
-        String[] projection = ProductContract.FULL_PROJECTION_ARRAY;
-
-        return new CursorLoader(
-                this,
-                ProductEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                null);
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
-    {
-        productsCursor = cursor;
-        updateStatisticsNumbersInUi();
-    }
-
-    private void updateStatisticsNumbersInUi()
-    {
-        if (productsCursor == null || productsCursor.getCount() < 1)
-        {
-            Log.e(StatisticsActivity.class.getSimpleName(), "Error with loading products data from database");
-        } else if (productsCursor.moveToFirst())
-        {
-            updateItemsNumberInUi();
-            updateProductsNumberInUi();
-            updateMaxPriceInUi();
-            updateMinPriceInUi();
-        }
-    }
-
-    private void updateItemsNumberInUi()
-    {
-        String itemsNumberString = String.valueOf(getItemsNumber());
-        textViewItemsNumber.setText(itemsNumberString);
-    }
-
-    private void updateProductsNumberInUi()
-    {
-        String productsNumberString = String.valueOf(getProductsNumber());
-        textViewProductsNumber.setText(productsNumberString);
-    }
-
-    private int getItemsNumber()
-    {
-        if (productsCursor != null)
-        {
-            int itemsNumber = 0;
-            do
-            {
-                int productQuantityColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-                itemsNumber = itemsNumber + productsCursor.getInt(productQuantityColumnIndex);
-            } while (productsCursor.moveToNext());
-            productsCursor.moveToFirst();
-            return itemsNumber;
-        } else
-        {
-            return ITEMS_NUMBER_IF_ERROR;
-        }
-    }
-
-    private int getProductsNumber()
-    {
-        if (productsCursor != null)
-        {
-            return productsCursor.getCount();
-        } else
-        {
-            return PRODUCTS_NUMBER_IF_ERROR;
-        }
-    }
-
-    private void updateMaxPriceInUi()
-    {
-        String maximumPriceString = String.valueOf(getProductsMaxPrice());
-        textViewMaxPrice.setText(maximumPriceString);
-    }
-
-    private float getProductsMaxPrice()
-    {
-        Set<Float> pricesSet = getPricesSet();
-        return Collections.max(pricesSet);
-    }
-
-    private Set<Float> getPricesSet()
-    {
-        Set<Float> pricesSet = new HashSet<>();
-        do
-        {
-            int priceColumnIndex = productsCursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-            float price = productsCursor.getFloat(priceColumnIndex);
-            pricesSet.add(price);
-        } while (productsCursor.moveToNext());
-
-        productsCursor.moveToFirst();
-
-        return pricesSet;
-    }
-
-    private void updateMinPriceInUi()
-    {
-        String minimalPriceString = String.valueOf(getProductsMinPrice());
-        textViewMinPrice.setText(minimalPriceString);
-    }
-
-    private float getProductsMinPrice()
-    {
-        Set<Float> pricesSet = getPricesSet();
-        return Collections.min(pricesSet);
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader)
-    {
-        releaseStatisticsData();
-    }
-
-    private void releaseStatisticsData()
-    {
-        textViewProductsNumber.setText(getString(R.string.number_no_data));
-        textViewMaxPrice.setText(getString(R.string.number_no_data));
-        textViewMinPrice.setText(getString(R.string.number_no_data));
-    }
-
-    private void animateFabGraphs()
-    {
+    private void animateFabGraphs() {
+        final int FULL_ANGLE_IN_DEG = 360;
+        final int ANIMATION_DURATION_IN_MS = 700;
         fabGraphs.animate()
-                .rotation(360)
+                .rotation(FULL_ANGLE_IN_DEG)
                 .setInterpolator(AnimationUtils.loadInterpolator(StatisticsActivity.this, android.R.interpolator.accelerate_decelerate))
-                .setDuration(700)
+                .setDuration(ANIMATION_DURATION_IN_MS)
                 .start();
     }
 }

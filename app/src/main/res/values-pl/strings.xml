@@ -43,10 +43,14 @@
     <string name="dollar_symbol">$</string>
     <string name="photo_edit_symbol">symbol edycji</string>
     <string name="number_no_data">brak danych</string>
-    <string name="sort_by_name">Sortuj nazwą</string>
-    <string name="sort_by_price">Sortuj ceną</string>
-    <string name="sort_by_id">Sortuj ID</string>
-    <string name="sort_by_quantity">Sortuj ilością</string>
+    <string name="sort_by_name_asc">Sortuj nazwą A-Z</string>
+    <string name="sort_by_name_desc">Sortuj nazwą Z-A</string>
+    <string name="sort_by_price_highest">Sortuj ceną najwyższa</string>
+    <string name="sort_by_price_lowest">Sortuj ceną najniższa</string>
+    <string name="sort_by_date_newest">Sortuj datą najnowsze</string>
+    <string name="sort_by_date_oldest">Sortuj datą najstarsze</string>
+    <string name="sort_by_quantity_more">Sortuj ilością więcej</string>
+    <string name="sort_by_quantity_less">Sortuj ilością mniej</string>
     <string name="statistics">Statystyki</string>
     <string name="about_the_app">O aplikacji</string>
     <string name="content_description_big_app_icon">duża ikona aplikacji</string>
@@ -62,4 +66,6 @@
     <string name="about_title">O aplikacji</string>
     <string name="items_products_graph_title">Ilość przedmiotów i produktów</string>
     <string name="max_min_price_graph_title">Maksymalna i minimalna cena</string>
+    <string name="content_description_background_product_photo">Zdjęcie produktu w tle</string>
+    <string name="list_no_product_available">Brak produktów</string>
 </resources>
