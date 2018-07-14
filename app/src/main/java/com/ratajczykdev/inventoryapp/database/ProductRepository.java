@@ -180,4 +180,40 @@ public class ProductRepository {
             super.onPostExecute(listLiveData);
         }
     }
+
+    /**
+     * Wrapper for {@link ProductDao#getAllOrderNameDesc()}
+     * Call this on a non-UI thread or app will crash.
+     */
+    public LiveData<List<Product>> getAllOrderNameDesc() {
+        LiveData<List<Product>> productLiveDataList = null;
+        try {
+            productLiveDataList = new GetAllOrderNameDescAsyncTask(productDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.e("ProductRepository", "getAllOrderNameDesc failed");
+            e.printStackTrace();
+        }
+        return productLiveDataList;
+    }
+
+    /**
+     * Static class for {@link ProductRepository#getAllOrderNameDesc()}
+     */
+    private static class GetAllOrderNameDescAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
+        private ProductDao productDao;
+
+        public GetAllOrderNameDescAsyncTask(ProductDao productDao) {
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected LiveData<List<Product>> doInBackground(Void... voids) {
+            return productDao.getAllOrderNameDesc();
+        }
+
+        @Override
+        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
+            super.onPostExecute(listLiveData);
+        }
+    }
 }

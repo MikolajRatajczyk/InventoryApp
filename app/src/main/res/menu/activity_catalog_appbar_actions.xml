@@ -8,6 +8,11 @@
         android:title="@string/sort_by_name_asc"
         app:showAsAction="never" />
     <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_name_desc"
+        android:icon="@drawable/name_sorting_icon_black"
+        android:title="@string/sort_by_name_desc"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_price"
         android:icon="@drawable/price_sorting_black_icon"
         android:title="@string/sort_by_price"

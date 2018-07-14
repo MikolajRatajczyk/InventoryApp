@@ -43,6 +43,7 @@
     <string name="dollar_symbol">$</string>
     <string name="number_no_data">no data</string>
     <string name="sort_by_name_asc">Sort by name A-Z</string>
+    <string name="sort_by_name_desc">Sort by name Z-A</string>
     <string name="sort_by_price">Sort by price</string>
     <string name="sort_by_id">Sort by ID</string>
     <string name="sort_by_quantity">Sort by quantity</string>

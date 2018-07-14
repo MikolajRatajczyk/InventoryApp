@@ -137,6 +137,13 @@ public class CatalogActivity extends AppCompatActivity {
                     productListRecyclerAdapter.setProducts(productsList);
                 }
             });
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name_desc) {
+            productViewModel.getAllOrderNameDesc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price) {
 //            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_PRICE + " DESC";
 //            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);

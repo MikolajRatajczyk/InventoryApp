@@ -63,4 +63,11 @@ public class ProductViewModel extends AndroidViewModel {
         return productRepository.getAllOrderNameAsc();
     }
 
+    /**
+     * This way implementation is completely hidden from UI
+     */
+    public LiveData<List<Product>> getAllOrderNameDesc() {
+        return productRepository.getAllOrderNameDesc();
+    }
+
 }

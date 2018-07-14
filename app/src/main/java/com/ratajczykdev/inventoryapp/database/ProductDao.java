@@ -45,4 +45,7 @@ public interface ProductDao {
 
     @Query("SELECT * FROM products_table ORDER BY name ASC")
     LiveData<List<Product>> getAllOrderNameAsc();
+
+    @Query("SELECT * FROM products_table ORDER BY name DESC")
+    LiveData<List<Product>> getAllOrderNameDesc();
 }
