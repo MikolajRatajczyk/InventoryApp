@@ -63,4 +63,7 @@ public interface ProductDao {
 
     @Query("SELECT * FROM products_table ORDER BY quantity DESC")
     LiveData<List<Product>> getAllOrderQuantityDesc();
+
+    @Query("SELECT * FROM products_table ORDER BY quantity ASC")
+    LiveData<List<Product>> getAllOrderQuantityAsc();
 }

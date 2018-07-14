@@ -396,4 +396,40 @@ public class ProductRepository {
             super.onPostExecute(listLiveData);
         }
     }
+
+    /**
+     * Wrapper for {@link ProductDao#getAllOrderQuantityAsc()}
+     * Call this on a non-UI thread or app will crash.
+     */
+    public LiveData<List<Product>> getAllOrderQuantityAsc() {
+        LiveData<List<Product>> productLiveDataList = null;
+        try {
+            productLiveDataList = new GetAllOrderQuantityAscAsyncTask(productDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.e("ProductRepository", "getAllOrderQuantityAsc failed");
+            e.printStackTrace();
+        }
+        return productLiveDataList;
+    }
+
+    /**
+     * Static class for {@link ProductRepository#getAllOrderQuantityAsc()}
+     */
+    private static class GetAllOrderQuantityAscAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
+        private ProductDao productDao;
+
+        public GetAllOrderQuantityAscAsyncTask(ProductDao productDao) {
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected LiveData<List<Product>> doInBackground(Void... voids) {
+            return productDao.getAllOrderQuantityAsc();
+        }
+
+        @Override
+        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
+            super.onPostExecute(listLiveData);
+        }
+    }
 }
