@@ -128,7 +128,6 @@ public class CatalogActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //  TODO: finish implementation for the Room
         int currentItemId = item.getItemId();
         if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name_asc) {
             productViewModel.getAllOrderNameAsc().observe(this, new Observer<List<Product>>() {

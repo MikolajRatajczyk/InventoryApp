@@ -1,5 +1,4 @@
 package com.ratajczykdev.inventoryapp;
-//  TODO: move outside package
 
 import android.content.Context;
 import android.content.Intent;
