@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_name"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_name_asc"
         android:icon="@drawable/name_sorting_icon_black"
-        android:title="@string/sort_by_name"
+        android:title="@string/sort_by_name_asc"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_price"

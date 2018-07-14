@@ -56,4 +56,11 @@ public class ProductViewModel extends AndroidViewModel {
         productRepository.deleteSingle(product);
     }
 
+    /**
+     * This way implementation is completely hidden from UI
+     */
+    public LiveData<List<Product>> getAllOrderNameAsc() {
+        return productRepository.getAllOrderNameAsc();
+    }
+
 }

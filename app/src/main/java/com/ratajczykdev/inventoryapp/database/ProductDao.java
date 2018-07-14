@@ -42,4 +42,7 @@ public interface ProductDao {
 
     @Query("SELECT * FROM products_table WHERE id = :searchId")
     Product findSingleById(int searchId);
+
+    @Query("SELECT * FROM products_table ORDER BY name ASC")
+    LiveData<List<Product>> getAllOrderNameAsc();
 }

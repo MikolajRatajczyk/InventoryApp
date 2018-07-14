@@ -130,9 +130,13 @@ public class CatalogActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         //  TODO: finish implementation for the Room
         int currentItemId = item.getItemId();
-        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name) {
-//            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_NAME + " ASC";
-//            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+        if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_name_asc) {
+            productViewModel.getAllOrderNameAsc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_price) {
 //            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_PRICE + " DESC";
 //            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
