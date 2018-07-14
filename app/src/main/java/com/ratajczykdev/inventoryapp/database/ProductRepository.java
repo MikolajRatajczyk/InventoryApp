@@ -252,4 +252,40 @@ public class ProductRepository {
             super.onPostExecute(listLiveData);
         }
     }
+
+    /**
+     * Wrapper for {@link ProductDao#getAllOrderPriceAsc()}
+     * Call this on a non-UI thread or app will crash.
+     */
+    public LiveData<List<Product>> getAllOrderPriceAsc() {
+        LiveData<List<Product>> productLiveDataList = null;
+        try {
+            productLiveDataList = new GetAllOrderPriceAscAsyncTask(productDao).execute().get();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.e("ProductRepository", "getAllOrderPriceDesc failed");
+            e.printStackTrace();
+        }
+        return productLiveDataList;
+    }
+
+    /**
+     * Static class for {@link ProductRepository#getAllOrderPriceAsc()}
+     */
+    private static class GetAllOrderPriceAscAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
+        private ProductDao productDao;
+
+        public GetAllOrderPriceAscAsyncTask(ProductDao productDao) {
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected LiveData<List<Product>> doInBackground(Void... voids) {
+            return productDao.getAllOrderPriceAsc();
+        }
+
+        @Override
+        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
+            super.onPostExecute(listLiveData);
+        }
+    }
 }

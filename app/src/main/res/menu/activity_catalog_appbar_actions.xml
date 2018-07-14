@@ -18,6 +18,11 @@
         android:title="@string/sort_by_price_highest"
         app:showAsAction="never" />
     <item
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_price_lowest"
+        android:icon="@drawable/price_sorting_black_icon"
+        android:title="@string/sort_by_price_lowest"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/activity_catalog_appbar_actions_sort_by_id"
         android:icon="@drawable/id_sorting_black_icon"
         android:title="@string/sort_by_id"

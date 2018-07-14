@@ -45,6 +45,7 @@
     <string name="sort_by_name_asc">Sort by name A-Z</string>
     <string name="sort_by_name_desc">Sort by name Z-A</string>
     <string name="sort_by_price_highest">Sort by price highest</string>
+    <string name="sort_by_price_lowest">Sort by price lowest</string>
     <string name="sort_by_id">Sort by ID</string>
     <string name="sort_by_quantity">Sort by quantity</string>
     <string name="statistics">Statistics</string>
