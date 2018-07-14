@@ -33,9 +33,9 @@
         android:title="@string/sort_by_date_oldest"
         app:showAsAction="never" />
     <item
-        android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity"
+        android:id="@+id/activity_catalog_appbar_actions_sort_by_quantity_more"
         android:icon="@drawable/quantity_sorting_black_icon"
-        android:title="@string/sort_by_quantity"
+        android:title="@string/sort_by_quantity_more"
         app:showAsAction="never" />
     <item
         android:id="@+id/activity_catalog_appbar_actions_about"

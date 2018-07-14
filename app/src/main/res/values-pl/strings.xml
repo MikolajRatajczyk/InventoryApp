@@ -49,7 +49,7 @@
     <string name="sort_by_price_lowest">Sortuj ceną najniższa</string>
     <string name="sort_by_date_newest">Sortuj datą najnowsze</string>
     <string name="sort_by_date_oldest">Sortuj datą najstarsze</string>
-    <string name="sort_by_quantity">Sortuj ilością</string>
+    <string name="sort_by_quantity_more">Sortuj ilością więcej</string>
     <string name="statistics">Statystyki</string>
     <string name="about_the_app">O aplikacji</string>
     <string name="content_description_big_app_icon">duża ikona aplikacji</string>

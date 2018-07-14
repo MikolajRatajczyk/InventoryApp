@@ -172,9 +172,13 @@ public class CatalogActivity extends AppCompatActivity {
                     productListRecyclerAdapter.setProducts(productsList);
                 }
             });
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity) {
-//            loaderSqlSortOrder = ProductEntry.COLUMN_PRODUCT_QUANTITY + " DESC";
-//            getLoaderManager().restartLoader(PRODUCT_LOADER_ID, null, this);
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_sort_by_quantity_more) {
+            productViewModel.getAllOrderQuantityDesc().observe(this, new Observer<List<Product>>() {
+                @Override
+                public void onChanged(@Nullable List<Product> productsList) {
+                    productListRecyclerAdapter.setProducts(productsList);
+                }
+            });
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics) {
             Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
             startActivity(intent);

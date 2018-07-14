@@ -48,7 +48,7 @@
     <string name="sort_by_price_lowest">Sort by price lowest</string>
     <string name="sort_by_date_newest">Sort by date newest</string>
     <string name="sort_by_date_oldest">Sort by date oldest</string>
-    <string name="sort_by_quantity">Sort by quantity</string>
+    <string name="sort_by_quantity_more">Sort by quantity more</string>
     <string name="statistics">Statistics</string>
     <string name="about_the_app">About the app</string>
     <string name="content_description_big_app_icon">big app icon</string>
