@@ -7,12 +7,14 @@ This app helps you track your shop inventory.
 ## Features
 
 
- - Based on SQLite 3,
+ - Based on the Room Persistence Library,
+ - ViewModels with Lifecycle,
+ - Implemented LiveData<>,
  - Sweet Material Design,
  - Statistics,
  - Drawing graphs,
  - Adding a new product with: name, quantity, price and photo,
- - Sorting products by: name, price, ID and quantity,
+ - Sorting products by: name, price, date and quantity,
  - Editing added product,
  - Deleting a product
  - Loading from database does not block UI thread,
@@ -24,10 +26,10 @@ This app helps you track your shop inventory.
  
 ## Screenshots
 
-![enter image description here](https://i.imgur.com/MaNMKHYl.jpg) ![enter image description here](https://i.imgur.com/t9mcoSpl.jpg)
-![enter image description here](https://i.imgur.com/JGZHBDtl.jpg) ![enter image description here](https://i.imgur.com/X9cXo56l.jpg)
-![enter image description here](https://i.imgur.com/VM8vVmMl.jpg) ![enter image description here](https://i.imgur.com/OQWd6Ukl.jpg)
-![enter image description here](https://i.imgur.com/DAImMd7l.jpg) ![enter image description here](https://i.imgur.com/NMJvwq9l.jpg)
+![enter image description here](https://i.imgur.com/xqw8eY8l.jpg) ![enter image description here](https://i.imgur.com/2Ebd9Ktl.jpg)
+![enter image description here](https://i.imgur.com/UJNFwf9l.jpg) ![enter image description here](https://i.imgur.com/1ysMVZNl.jpg)
+![enter image description here](https://i.imgur.com/JZJU1ptl.jpg) ![enter image description here](https://i.imgur.com/gjCxlNvl.jpg)
+![enter image description here](https://i.imgur.com/Z0v993Fl.jpg) ![enter image description here](https://i.imgur.com/3XKVNNhl.jpg)
 ## What platform?
 
 InventoryApp is created from scratch for Android.
@@ -37,6 +39,7 @@ For now :).
 
  - App logic is written in Java language
  - App UI elements are organized in XML files
+ - Database queries are performed with the Room Persistence Library with SQL language
 
 ## What (human) languages?
 
@@ -45,10 +48,6 @@ App is fully translated into:
  - English
  - Polish
  > **Future:** it will be translated into **Norsk Bokmål** because **jeg elsker dette språket!**
-
-## Why?
-
-In the past I was learning C, later C++, then Java and I thought "I love Android and the mobile market so why do not create something for it?"
 
 
 ## What in the future?
