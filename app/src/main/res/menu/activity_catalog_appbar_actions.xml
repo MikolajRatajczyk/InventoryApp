@@ -53,4 +53,9 @@
         android:title="@string/statistics"
         app:showAsAction="always" />
 
+    <!--TODO: delete, make new icon for settings-->
+    <item
+        android:id="@+id/activity_catalog_appbar_actions_settings"
+        android:title="Start SettingsActivity"
+        app:showAsAction="never" />
 </menu>
