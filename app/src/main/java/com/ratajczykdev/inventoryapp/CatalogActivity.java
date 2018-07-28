@@ -201,7 +201,6 @@ public class CatalogActivity extends AppCompatActivity {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
             startActivity(intent, bundle);
         } else if (currentItemId == R.id.activity_catalog_appbar_actions_settings) {
-            //  TODO: delete, make new icon for settings
             Intent intent = new Intent(CatalogActivity.this, SettingsActivity.class);
             startActivity(intent);
         }
