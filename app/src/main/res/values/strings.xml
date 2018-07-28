@@ -67,4 +67,8 @@
     <string name="max_min_price_graph_title">Maximum and minimum price</string>
     <string name="content_description_background_product_photo">background product photo</string>
     <string name="list_no_product_available">No product available</string>
+    <string name="settings_label">Settings</string>
+    <string name="preference_longer_easter_egg" translatable="false">preference_longer_easter_egg</string>
+    <string name="multiply_values_by_ten">Multiply values by 10</string>
+    <string name="longer_easter_egg">Longer easter egg</string>
 </resources>

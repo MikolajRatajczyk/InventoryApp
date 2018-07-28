@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+import com.ratajczykdev.inventoryapp.settings.SettingsActivity;
 import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
 
 import java.util.List;
@@ -193,7 +194,12 @@ public class CatalogActivity extends AppCompatActivity {
             //  to start content transition in AboutActivity
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
             startActivity(intent, bundle);
+        } else if (currentItemId == R.id.activity_catalog_appbar_actions_settings) {
+            Intent intent = new Intent(CatalogActivity.this, SettingsActivity.class);
+            startActivity(intent);
         }
         return true;
     }
 }
+
+

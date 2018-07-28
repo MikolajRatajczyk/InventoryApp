@@ -68,4 +68,7 @@
     <string name="max_min_price_graph_title">Maksymalna i minimalna cena</string>
     <string name="content_description_background_product_photo">Zdjęcie produktu w tle</string>
     <string name="list_no_product_available">Brak produktów</string>
+    <string name="settings_label">Ustawienia</string>
+    <string name="multiply_values_by_ten">Wszystkie wartości pomnożone razy 10</string>
+    <string name="longer_easter_egg">Dłuższy easter egg</string>
 </resources>

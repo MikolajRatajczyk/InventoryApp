@@ -77,7 +77,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_info_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_settings_applications_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -88,7 +88,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_info" />
+                            <entry key="outputName" value="settings_icon" />
                             <entry key="sourceFile" value="C:\Users\Misiekmr" />
                           </map>
                         </option>
