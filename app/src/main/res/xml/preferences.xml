@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreference
         android:defaultValue="false"
-        android:key="preference_start_toast"
-        android:summary="A short test message"
-        android:title="Show Toast on start" />
+        android:key="@string/preference_longer_easter_egg"
+        android:summary="Multiply values by 10"
+        android:title="Longer easter egg" />
 </PreferenceScreen>

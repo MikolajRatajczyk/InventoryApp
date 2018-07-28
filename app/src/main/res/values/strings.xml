@@ -68,4 +68,5 @@
     <string name="content_description_background_product_photo">background product photo</string>
     <string name="list_no_product_available">No product available</string>
     <string name="settings_label">Settings</string>
+    <string name="preference_longer_easter_egg" translatable="false">preference_longer_easter_egg</string>
 </resources>

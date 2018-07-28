@@ -1,6 +1,8 @@
 package com.ratajczykdev.inventoryapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.View;
@@ -54,18 +56,34 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setEasterEgg() {
-        final int FULL_ROTATION_IN_DEGREES = 360;
-        final int ROTATION_ANIMATION_DURATION_IN_MS = 5000;
+        final Boolean LONGER_EASTER_EGG = getEasterEggPreference();
+        final int ROTATION_IN_DEGREES;
+        final int ROTATION_ANIMATION_DURATION_IN_MS;
+        if (LONGER_EASTER_EGG) {
+            ROTATION_IN_DEGREES = 3600;
+            ROTATION_ANIMATION_DURATION_IN_MS = 50000;
+        } else {
+            ROTATION_IN_DEGREES = 360;
+            ROTATION_ANIMATION_DURATION_IN_MS = 5000;
+        }
+
         imageViewStore.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 imageViewStore.animate()
-                        .rotation(imageViewStore.getRotation() + FULL_ROTATION_IN_DEGREES)
+                        .rotation(imageViewStore.getRotation() + ROTATION_IN_DEGREES)
                         .setInterpolator(AnimationUtils.loadInterpolator(AboutActivity.this, android.R.interpolator.cycle))
                         .setDuration(ROTATION_ANIMATION_DURATION_IN_MS)
                         .start();
                 return true;
             }
         });
+    }
+
+    private Boolean getEasterEggPreference() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final String PREFERENCE_KEY = getString(R.string.preference_longer_easter_egg);
+        final Boolean DEFAULT_VALUE = false;
+        return sharedPreferences.getBoolean(PREFERENCE_KEY, DEFAULT_VALUE);
     }
 }
