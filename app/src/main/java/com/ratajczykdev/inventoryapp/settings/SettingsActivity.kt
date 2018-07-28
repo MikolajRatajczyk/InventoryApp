@@ -10,6 +10,8 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        title = getString(R.string.settings_label)
+
         //  display the fragment as the main content
         fragmentManager.beginTransaction()
                 .replace(android.R.id.content, SettingsFragment())
