@@ -5,10 +5,8 @@ import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
@@ -85,9 +82,6 @@ public class CatalogActivity extends AppCompatActivity {
         setFabListener();
 
         animateFabNewProduct();
-
-        //  TODO: delete
-        testPreferences();
     }
 
     private void askWriteStoragePermission() {
@@ -205,16 +199,6 @@ public class CatalogActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return true;
-    }
-
-    private void testPreferences() {
-        //  TODO: delete
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final Boolean DEFAULT_VALUE = false;
-        Boolean showToast = sharedPreferences.getBoolean("preference_start_toast", DEFAULT_VALUE);
-        if (showToast) {
-            Toast.makeText(this, "App started!", Toast.LENGTH_SHORT).show();
-        }
     }
 }
 
