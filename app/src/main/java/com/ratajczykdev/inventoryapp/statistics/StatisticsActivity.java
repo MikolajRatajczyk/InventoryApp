@@ -67,7 +67,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         setUiReferences();
         setFabListener();
-        setBottomNavigationListener();
+        configureBottomNavigation();
         animateFabGraphs();
     }
 
@@ -171,8 +171,18 @@ public class StatisticsActivity extends AppCompatActivity {
                 .start();
     }
 
+    private void configureBottomNavigation() {
+        setBottomNavigationListener();
+        setSelectedItemForActivity();
+    }
+
     private void setBottomNavigationListener() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.activity_statistics_bottom_navigation);
         BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
+    }
+
+    private void setSelectedItemForActivity() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_statistics_bottom_navigation);
+        BottomNavigationHelper.Companion.setButtonForActivityChecked(bottomNavigationView, this);
     }
 }

@@ -82,7 +82,7 @@ public class CatalogActivity extends AppCompatActivity {
         setFabListener();
         animateFabNewProduct();
 
-        setBottomNavigationListener();
+        configureBottomNavigation();
     }
 
     private void askWriteStoragePermission() {
@@ -191,9 +191,19 @@ public class CatalogActivity extends AppCompatActivity {
         return true;
     }
 
+    private void configureBottomNavigation() {
+        setBottomNavigationListener();
+        setSelectedItemForActivity();
+    }
+
     private void setBottomNavigationListener() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.activity_catalog_bottom_navigation);
         BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
+    }
+
+    private void setSelectedItemForActivity() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_catalog_bottom_navigation);
+        BottomNavigationHelper.Companion.setButtonForActivityChecked(bottomNavigationView, this);
     }
 }
 

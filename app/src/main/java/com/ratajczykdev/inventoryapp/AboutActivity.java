@@ -36,7 +36,7 @@ public class AboutActivity extends AppCompatActivity {
         //  ...ActivityOptions.makeSceneTransitionAnimation... must be called in previous activity
         getWindow().setEnterTransition(getCustomExplodeAnimation());
 
-        setBottomNavigationListener();
+        configureBottomNavigation();
 
         setEasterEgg();
     }
@@ -92,8 +92,18 @@ public class AboutActivity extends AppCompatActivity {
         return sharedPreferences.getBoolean(PREFERENCE_KEY, DEFAULT_VALUE);
     }
 
+    private void configureBottomNavigation() {
+        setBottomNavigationListener();
+        setSelectedItemForActivity();
+    }
+
     private void setBottomNavigationListener() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.activity_about_bottom_navigation);
         BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
+    }
+
+    private void setSelectedItemForActivity() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_about_bottom_navigation);
+        BottomNavigationHelper.Companion.setButtonForActivityChecked(bottomNavigationView, this);
     }
 }

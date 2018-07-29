@@ -58,6 +58,25 @@ class BottomNavigationHelper {
             val bundle = ActivityOptions.makeSceneTransitionAnimation(currentActivity).toBundle()
             currentActivity.startActivity(intent, bundle)
         }
+
+        /**
+         * Set matching current [Activity] button as checked
+         */
+        fun setButtonForActivityChecked(bottomNavigationView: BottomNavigationView, currentActivity: Activity) {
+            val matchingButton = getMatchingButtonIdForActivity(currentActivity)
+            bottomNavigationView.menu.findItem(matchingButton).isChecked = true
+
+        }
+
+        private fun getMatchingButtonIdForActivity(currentActivity: Activity): Int {
+            return when (currentActivity) {
+                is SettingsActivity -> R.id.settings_button
+                is CatalogActivity -> R.id.list_button
+                is StatisticsActivity -> R.id.statistics_button
+                is AboutActivity -> R.id.about_button
+                else -> R.id.list_button    //  because when expression must be exhaustive
+            }
+        }
     }
 
 }

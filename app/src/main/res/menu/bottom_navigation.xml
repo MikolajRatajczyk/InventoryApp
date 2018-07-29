@@ -4,23 +4,27 @@
 
     <item
         android:id="@+id/settings_button"
+        android:enabled="true"
         android:icon="@drawable/settings_icon"
         android:title="Settings"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/list_button"
+        android:enabled="true"
         android:icon="@drawable/list_icon"
         android:title="List"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/statistics_button"
+        android:enabled="true"
         android:icon="@drawable/statistics_icon_dark_orange"
         android:title="Statistics"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/about_button"
+        android:enabled="true"
         android:icon="@drawable/ic_info"
         android:title="About"
         app:showAsAction="ifRoom" />

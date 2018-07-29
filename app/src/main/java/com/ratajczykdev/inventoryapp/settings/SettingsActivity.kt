@@ -19,7 +19,12 @@ class SettingsActivity : AppCompatActivity() {
                 .replace(R.id.settings_view, SettingsFragment())
                 .commit()
 
+        configureBottomNavigation()
+    }
+
+    private fun configureBottomNavigation() {
         setBottomNavigationListener()
+        BottomNavigationHelper.setButtonForActivityChecked(bottom_navigation, this)
     }
 
     private fun setBottomNavigationListener() {
