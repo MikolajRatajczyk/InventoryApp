@@ -17,7 +17,7 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity
 class BottomNavigationHelper {
 
     companion object {
-        //  TODO: prevent Activity from launching itself
+        //  TODO: buggy, move to Fragments with common [BottomNavigationView]
 
         /**
          * Configures [BottomNavigationView] with listeners
