@@ -18,12 +18,12 @@ class BottomNavigationHelper {
     companion object {
 
         /**
-         * Configures listeners
+         * Configures [BottomNavigationView] with listeners
          *
          * @param bottomNavigationView to be configured with listeners
          * @param currentActivity where BNV is
          */
-        fun setBottomNaviagtionListener(bottomNavigationView: BottomNavigationView, currentActivity: Activity) {
+        fun setBottomNavigationListener(bottomNavigationView: BottomNavigationView, currentActivity: Activity) {
             bottomNavigationView.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
                 when (currentItem.itemId) {
                     R.id.settings_button -> startSettingsActivity(currentActivity)

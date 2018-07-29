@@ -1,13 +1,11 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.Manifest;
-import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -20,9 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import com.ratajczykdev.inventoryapp.bottomnavigation.BottomNavigationHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
-import com.ratajczykdev.inventoryapp.settings.SettingsActivity;
 import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
 
 import java.util.List;
@@ -194,26 +192,8 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void setBottomNavigationListener() {
-        BottomNavigationView bottomNavigation = findViewById(R.id.activity_catalog_bottom_navigation);
-        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem currentItem) {
-                int currentItemId = currentItem.getItemId();
-                if (currentItemId == R.id.settings_button) {
-                    Intent intent = new Intent(CatalogActivity.this, SettingsActivity.class);
-                    startActivity(intent);
-                } else if (currentItemId == R.id.statistics_button) {
-                    Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
-                    startActivity(intent);
-                } else if (currentItemId == R.id.about_button) {
-                    Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
-                    //  to start content transition in AboutActivity
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
-                    startActivity(intent, bundle);
-                }
-                return true;
-            }
-        });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_catalog_bottom_navigation);
+        BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
     }
 }
 
