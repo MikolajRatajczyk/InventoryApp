@@ -36,9 +36,6 @@ import java.util.List;
  */
 public class CatalogActivity extends AppCompatActivity {
 
-    //  TODO: add listener for BottomNavigationView
-    //  TODO: delete old navigation icons on appbar
-
     /**
      * Identifier for WRITE permissions request
      * The callback method gets the result of the request
