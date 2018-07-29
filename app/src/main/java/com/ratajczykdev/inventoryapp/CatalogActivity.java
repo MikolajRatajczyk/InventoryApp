@@ -7,7 +7,9 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,8 +85,9 @@ public class CatalogActivity extends AppCompatActivity {
 
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
-
         animateFabNewProduct();
+
+        setBottomNavigationListener();
     }
 
     private void askWriteStoragePermission() {
@@ -202,6 +205,29 @@ public class CatalogActivity extends AppCompatActivity {
             startActivity(intent);
         }
         return true;
+    }
+
+    private void setBottomNavigationListener() {
+        BottomNavigationView bottomNavigation = findViewById(R.id.activity_catalog_bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem currentItem) {
+                int currentItemId = currentItem.getItemId();
+                if (currentItemId == R.id.settings_button) {
+                    Intent intent = new Intent(CatalogActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                } else if (currentItemId == R.id.statistics_button) {
+                    Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
+                    startActivity(intent);
+                } else if (currentItemId == R.id.about_button) {
+                    Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
+                    //  to start content transition in AboutActivity
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
+                    startActivity(intent, bundle);
+                }
+                return true;
+            }
+        });
     }
 }
 
