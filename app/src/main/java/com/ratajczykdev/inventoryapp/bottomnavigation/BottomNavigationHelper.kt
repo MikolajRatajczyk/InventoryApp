@@ -6,6 +6,7 @@ import android.content.Intent
 import android.support.design.widget.BottomNavigationView
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.AboutActivity
+import com.ratajczykdev.inventoryapp.CatalogActivity
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.settings.SettingsActivity
 import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity
@@ -16,6 +17,7 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity
 class BottomNavigationHelper {
 
     companion object {
+        //  TODO: prevent Activity from launching itself
 
         /**
          * Configures [BottomNavigationView] with listeners
@@ -27,6 +29,7 @@ class BottomNavigationHelper {
             bottomNavigationView.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
                 when (currentItem.itemId) {
                     R.id.settings_button -> startSettingsActivity(currentActivity)
+                    R.id.list_button -> startCatalogActivity(currentActivity)
                     R.id.statistics_button -> startStatisticsActivity(currentActivity)
                     R.id.about_button -> startAboutActivity(currentActivity)
                 }
@@ -36,6 +39,11 @@ class BottomNavigationHelper {
 
         private fun startSettingsActivity(currentActivity: Activity) {
             val intent = Intent(currentActivity, SettingsActivity::class.java)
+            currentActivity.startActivity(intent)
+        }
+
+        private fun startCatalogActivity(currentActivity: Activity) {
+            val intent = Intent(currentActivity, CatalogActivity::class.java)
             currentActivity.startActivity(intent)
         }
 
@@ -50,7 +58,6 @@ class BottomNavigationHelper {
             val bundle = ActivityOptions.makeSceneTransitionAnimation(currentActivity).toBundle()
             currentActivity.startActivity(intent, bundle)
         }
-
     }
 
 }
