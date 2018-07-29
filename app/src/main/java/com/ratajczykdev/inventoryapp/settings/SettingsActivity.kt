@@ -3,6 +3,8 @@ package com.ratajczykdev.inventoryapp.settings
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ratajczykdev.inventoryapp.R
+import com.ratajczykdev.inventoryapp.bottomnavigation.BottomNavigationHelper
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -12,9 +14,15 @@ class SettingsActivity : AppCompatActivity() {
 
         title = getString(R.string.settings_label)
 
-        //  display the fragment as the main content
+        //  display the fragment as settings_view
         fragmentManager.beginTransaction()
-                .replace(android.R.id.content, SettingsFragment())
+                .replace(R.id.settings_view, SettingsFragment())
                 .commit()
+
+        setBottomNavigationListener()
+    }
+
+    private fun setBottomNavigationListener() {
+        BottomNavigationHelper.setBottomNavigationListener(bottom_navigation, this)
     }
 }
