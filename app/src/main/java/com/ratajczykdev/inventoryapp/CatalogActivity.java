@@ -192,17 +192,6 @@ public class CatalogActivity extends AppCompatActivity {
                     productListRecyclerAdapter.setProducts(productsList);
                 }
             });
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics) {
-            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
-            startActivity(intent);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about) {
-            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
-            //  to start content transition in AboutActivity
-            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
-            startActivity(intent, bundle);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_settings) {
-            Intent intent = new Intent(CatalogActivity.this, SettingsActivity.class);
-            startActivity(intent);
         }
         return true;
     }

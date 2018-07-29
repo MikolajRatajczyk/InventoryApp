@@ -42,20 +42,4 @@
         android:icon="@drawable/quantity_sorting_black_icon"
         android:title="@string/sort_by_quantity_less"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/activity_catalog_appbar_actions_about"
-        android:icon="@drawable/ic_info"
-        android:title="@string/about_the_app"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/activity_catalog_appbar_actions_statistics"
-        android:icon="@drawable/statistics_icon_dark_orange"
-        android:title="@string/statistics"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/activity_catalog_appbar_actions_settings"
-        android:icon="@drawable/settings_icon"
-        android:title="Start SettingsActivity"
-        app:showAsAction="always" />
 </menu>
