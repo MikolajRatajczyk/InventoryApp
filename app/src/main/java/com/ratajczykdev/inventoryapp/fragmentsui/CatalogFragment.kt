@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.ratajczykdev.inventoryapp.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.ProductEditActivity
 import com.ratajczykdev.inventoryapp.ProductListRecyclerAdapter
 import com.ratajczykdev.inventoryapp.R
@@ -29,7 +30,7 @@ class CatalogFragment : Fragment() {
 
     /**
      * Fragment gets its own [ProductViewModel]
-     * but with the same repository as e.g. [ProductDetailFragment]
+     * but with the same repository as e.g. [ProductDetailActivity]
      */
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productListRecyclerAdapter: ProductListRecyclerAdapter
