@@ -38,25 +38,33 @@ class BottomNavigationHelper {
         }
 
         private fun startSettingsActivity(currentActivity: Activity) {
-            val intent = Intent(currentActivity, SettingsActivity::class.java)
-            currentActivity.startActivity(intent)
+            if (currentActivity !is SettingsActivity) {
+                val intent = Intent(currentActivity, SettingsActivity::class.java)
+                currentActivity.startActivity(intent)
+            }
         }
 
         private fun startCatalogActivity(currentActivity: Activity) {
-            val intent = Intent(currentActivity, CatalogActivity::class.java)
-            currentActivity.startActivity(intent)
+            if (currentActivity !is CatalogActivity) {
+                val intent = Intent(currentActivity, CatalogActivity::class.java)
+                currentActivity.startActivity(intent)
+            }
         }
 
         private fun startStatisticsActivity(currentActivity: Activity) {
-            val intent = Intent(currentActivity, StatisticsActivity::class.java)
-            currentActivity.startActivity(intent)
+            if (currentActivity !is StatisticsActivity) {
+                val intent = Intent(currentActivity, StatisticsActivity::class.java)
+                currentActivity.startActivity(intent)
+            }
         }
 
         private fun startAboutActivity(currentActivity: Activity) {
-            val intent = Intent(currentActivity, AboutActivity::class.java)
-            //  to start content transition in AboutActivity
-            val bundle = ActivityOptions.makeSceneTransitionAnimation(currentActivity).toBundle()
-            currentActivity.startActivity(intent, bundle)
+            if (currentActivity !is AboutActivity) {
+                val intent = Intent(currentActivity, AboutActivity::class.java)
+                //  to start content transition in AboutActivity
+                val bundle = ActivityOptions.makeSceneTransitionAnimation(currentActivity).toBundle()
+                currentActivity.startActivity(intent, bundle)
+            }
         }
 
         /**
