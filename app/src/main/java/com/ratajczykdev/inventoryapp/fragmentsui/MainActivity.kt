@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             askWriteStoragePermission()
             configureBottomNavigation()
+            tapOnCatalogButton()
         }
     }
 
@@ -90,6 +91,13 @@ class MainActivity : AppCompatActivity() {
             }
             requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE_PERMISSION), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
         }
+    }
+
+    /**
+     * Behaves the same as tapping on the Catalog button
+     */
+    private fun tapOnCatalogButton() {
+        bottom_navigation_view.selectedItemId = R.id.catalog_button
     }
 
 
