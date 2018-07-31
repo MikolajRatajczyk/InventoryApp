@@ -16,7 +16,8 @@
             android:label="@string/products_catalog_title" />
         <activity
             android:name=".ProductDetailActivity"
-            android:label="@string/details_title" />
+            android:label="@string/details_title"
+            android:parentActivityName=".fragmentsui.MainActivity" />
         <activity
             android:name=".ProductEditActivity"
             android:label="@string/edit_product_title" />
