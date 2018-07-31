@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 class SettingsActivity : AppCompatActivity() {
+    //  TODO: delete BottomNavigationBar, support back button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
