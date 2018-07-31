@@ -10,7 +10,6 @@ import com.ratajczykdev.inventoryapp.R
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 class SettingsActivity : AppCompatActivity() {
-    //  TODO: support back arrow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
