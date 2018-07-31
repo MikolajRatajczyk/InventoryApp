@@ -17,7 +17,7 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity
 class BottomNavigationHelper {
 
     companion object {
-        //  TODO: buggy, move to Fragments with common [BottomNavigationView]
+        //  TODO: back navigation is buggy, move to Fragments with common [BottomNavigationView]
 
         /**
          * Configures [BottomNavigationView] with listeners
