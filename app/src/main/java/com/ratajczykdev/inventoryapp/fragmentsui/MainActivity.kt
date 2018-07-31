@@ -32,11 +32,11 @@ class MainActivity : AppCompatActivity() {
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
-            //  TODO: complete for all cases
             //  TODO: make universal loader for all Fragments
                 R.id.about_button -> loadAboutFragment()
                 R.id.catalog_button -> loadCatalogFragment()
                 R.id.settings_button -> startSettingsActivity()
+                R.id.statistics_button -> loadStatisticsFragment();
 
             }
             true
@@ -65,6 +65,19 @@ class MainActivity : AppCompatActivity() {
         } else {
             supportFragmentManager.beginTransaction()
                     .add(R.id.fragment_container, catalogFragment)
+                    .commit()
+        }
+    }
+
+    private fun loadStatisticsFragment() {
+        val statisticsFragment = StatisticsFragment()
+        if (isFragmentLoaded()) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, statisticsFragment)
+                    .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, statisticsFragment)
                     .commit()
         }
     }
