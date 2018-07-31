@@ -28,8 +28,8 @@ class CatalogFragment : Fragment() {
 
 
     /**
-     * Activity gets its own [ProductViewModel]
-     * but with the same repository as e.g. //  TODO: complete examples
+     * Fragment gets its own [ProductViewModel]
+     * but with the same repository as e.g. [ProductDetailFragment]
      */
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productListRecyclerAdapter: ProductListRecyclerAdapter
