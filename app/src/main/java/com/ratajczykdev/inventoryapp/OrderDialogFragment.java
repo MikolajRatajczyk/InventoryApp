@@ -13,7 +13,7 @@ import android.widget.EditText;
 /**
  * DialogFragment for making order
  *
- * @author Mikołaj Ratajczyk
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class OrderDialogFragment extends DialogFragment {
     /**

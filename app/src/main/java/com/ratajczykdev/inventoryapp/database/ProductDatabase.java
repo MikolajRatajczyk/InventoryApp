@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
  * Products database abstract class
  * <p>
  * Uses Singleton design pattern
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 @Database(entities = {Product.class}, version = 1, exportSchema = false)
 public abstract class ProductDatabase extends RoomDatabase {

@@ -13,6 +13,8 @@ import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity
 
 /**
  * Helper class that configures [BottomNavigationView]
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 class BottomNavigationHelper {
 

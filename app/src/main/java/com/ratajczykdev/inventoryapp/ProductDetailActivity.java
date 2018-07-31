@@ -27,7 +27,7 @@ import java.util.Locale;
  * <p>
  * Gets data from own {@link ProductViewModel}
  *
- * @author Mikołaj Ratajczyk
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class ProductDetailActivity extends AppCompatActivity implements OrderDialogFragment.OrderDialogListener {
 

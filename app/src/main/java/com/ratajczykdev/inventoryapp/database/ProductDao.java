@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * Interface class for database access
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 @Dao
 public interface ProductDao {

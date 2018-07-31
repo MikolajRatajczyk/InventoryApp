@@ -12,6 +12,8 @@ import java.util.concurrent.ExecutionException;
  * Abstracts access to multiple data sources (here: only one)
  * The Repository is not part of the Architecture Components libraries,
  * but is a suggested best practice for code separation and architecture.
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class ProductRepository {
 

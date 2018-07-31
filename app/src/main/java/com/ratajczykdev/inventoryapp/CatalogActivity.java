@@ -30,7 +30,7 @@ import java.util.List;
  * <p>
  * Gets data from own {@link ProductViewModel}
  *
- * @author Mikołaj Ratajczyk
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class CatalogActivity extends AppCompatActivity {
 

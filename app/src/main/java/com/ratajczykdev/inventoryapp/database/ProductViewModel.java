@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * Provides data to the UI and survive configuration changes
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class ProductViewModel extends AndroidViewModel {
 

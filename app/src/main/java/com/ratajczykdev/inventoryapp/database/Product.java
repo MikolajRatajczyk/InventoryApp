@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
  * Data model class for the database
  * <p>
  * Represents single product and products table name
+ *
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 @Entity(tableName = "products_table")
 public class Product {
