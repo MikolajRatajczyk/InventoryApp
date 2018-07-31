@@ -11,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +53,6 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideAppBar();
         setContentView(R.layout.activity_product_detail);
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
@@ -74,12 +72,6 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         setButtonOrderListener();
     }
 
-    private void hideAppBar() {
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-    }
 
     private void setUiElementsReferences() {
         imagePhoto = findViewById(R.id.product_detail_photo);
