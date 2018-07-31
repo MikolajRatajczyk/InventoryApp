@@ -13,13 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".CatalogActivity"
-            android:label="@string/products_catalog_title">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/products_catalog_title" />
         <activity
             android:name=".ProductDetailActivity"
             android:label="@string/details_title" />
