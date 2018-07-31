@@ -1,6 +1,8 @@
 package com.ratajczykdev.inventoryapp.fragmentsui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -10,11 +12,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Identifier for WRITE permissions request
+     * The callback method gets the result of the request
+     */
+    private val PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 1000
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
+            askWriteStoragePermission()
             configureBottomNavigation()
         }
     }
@@ -70,6 +79,15 @@ class MainActivity : AppCompatActivity() {
     private fun startSettingsActivity() {
         val intent = Intent(this@MainActivity, SettingsActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun askWriteStoragePermission() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                //  TODO: add explanation for a user (asynchronously)
+            }
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
+        }
     }
 
 
