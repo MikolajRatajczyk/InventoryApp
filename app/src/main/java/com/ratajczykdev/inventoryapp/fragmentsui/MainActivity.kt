@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
             //  TODO: complete for all cases
             //  TODO: make universal loader for all Fragments
                 R.id.about_button -> loadAboutFragment()
+                R.id.catalog_button -> loadCatalogFragment()
                 R.id.settings_button -> startSettingsActivity()
+
             }
             true
         }
@@ -36,6 +38,15 @@ class MainActivity : AppCompatActivity() {
         val fragmentManager = supportFragmentManager
         fragmentManager.beginTransaction()
                 .add(R.id.fragment_container, aboutFragment)
+                .commit()
+    }
+
+    private fun loadCatalogFragment() {
+        val catalogFragment = CatalogFragment();
+        val fragmentManager = supportFragmentManager
+        //  TODO: consider replace instead of add
+        fragmentManager.beginTransaction()
+                .add(R.id.fragment_container, catalogFragment)
                 .commit()
     }
 

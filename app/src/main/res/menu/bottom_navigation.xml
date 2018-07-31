@@ -10,10 +10,10 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/list_button"
+        android:id="@+id/catalog_button"
         android:enabled="true"
         android:icon="@drawable/list_icon"
-        android:title="List"
+        android:title="Catalog"
         app:showAsAction="ifRoom" />
 
     <item
