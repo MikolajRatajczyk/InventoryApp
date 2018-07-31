@@ -3,8 +3,6 @@ package com.ratajczykdev.inventoryapp.settings
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.ratajczykdev.inventoryapp.R
-import com.ratajczykdev.inventoryapp.bottomnavigation.BottomNavigationHelper
-import kotlinx.android.synthetic.main.activity_settings.*
 
 /**
  * Displays Fragment with preferences
@@ -24,7 +22,6 @@ class SettingsActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
                 .replace(R.id.settings_view, SettingsFragment())
                 .commit()
-
     }
 
 }
