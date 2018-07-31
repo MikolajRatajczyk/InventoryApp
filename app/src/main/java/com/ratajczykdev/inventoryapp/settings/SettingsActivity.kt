@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 class SettingsActivity : AppCompatActivity() {
-    //  TODO: delete BottomNavigationBar, support back button
+    //  TODO: support back arrow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,15 +25,6 @@ class SettingsActivity : AppCompatActivity() {
                 .replace(R.id.settings_view, SettingsFragment())
                 .commit()
 
-        configureBottomNavigation()
     }
 
-    private fun configureBottomNavigation() {
-        setBottomNavigationListener()
-        BottomNavigationHelper.setButtonForActivityChecked(bottom_navigation, this)
-    }
-
-    private fun setBottomNavigationListener() {
-        BottomNavigationHelper.setBottomNavigationListener(bottom_navigation, this)
-    }
 }
