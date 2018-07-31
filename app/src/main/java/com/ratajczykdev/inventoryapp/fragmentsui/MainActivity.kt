@@ -15,14 +15,13 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             configureBottomNavigation()
         }
-
-
     }
 
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
             //  TODO: complete for all cases
+            //  TODO: handle settings as Activity
             //  TODO: make universal loader for all Fragments
                 R.id.about_button -> loadAboutFragment()
             }
@@ -37,4 +36,6 @@ class MainActivity : AppCompatActivity() {
                 .add(R.id.fragment_container, aboutFragment)
                 .commit()
     }
+
+
 }
