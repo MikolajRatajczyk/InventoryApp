@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.ratajczykdev.inventoryapp.CatalogActivity;
 import com.ratajczykdev.inventoryapp.ProductDetailActivity;
 import com.ratajczykdev.inventoryapp.R;
+import com.ratajczykdev.inventoryapp.bottomnavigation.BottomNavigationHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 
@@ -65,6 +67,7 @@ public class StatisticsActivity extends AppCompatActivity {
 
         setUiReferences();
         setFabListener();
+        configureBottomNavigation();
         animateFabGraphs();
     }
 
@@ -166,5 +169,20 @@ public class StatisticsActivity extends AppCompatActivity {
                 .setInterpolator(AnimationUtils.loadInterpolator(StatisticsActivity.this, android.R.interpolator.accelerate_decelerate))
                 .setDuration(ANIMATION_DURATION_IN_MS)
                 .start();
+    }
+
+    private void configureBottomNavigation() {
+        setBottomNavigationListener();
+        setSelectedItemForActivity();
+    }
+
+    private void setBottomNavigationListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_statistics_bottom_navigation);
+        BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
+    }
+
+    private void setSelectedItemForActivity() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_statistics_bottom_navigation);
+        BottomNavigationHelper.Companion.setButtonForActivityChecked(bottomNavigationView, this);
     }
 }

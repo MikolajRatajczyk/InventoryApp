@@ -1,13 +1,13 @@
 package com.ratajczykdev.inventoryapp;
 
 import android.Manifest;
-import android.app.ActivityOptions;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,9 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 
+import com.ratajczykdev.inventoryapp.bottomnavigation.BottomNavigationHelper;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
-import com.ratajczykdev.inventoryapp.settings.SettingsActivity;
 import com.ratajczykdev.inventoryapp.statistics.StatisticsActivity;
 
 import java.util.List;
@@ -80,8 +80,9 @@ public class CatalogActivity extends AppCompatActivity {
 
         fabNewProduct = findViewById(R.id.fab_new_product);
         setFabListener();
-
         animateFabNewProduct();
+
+        configureBottomNavigation();
     }
 
     private void askWriteStoragePermission() {
@@ -186,19 +187,23 @@ public class CatalogActivity extends AppCompatActivity {
                     productListRecyclerAdapter.setProducts(productsList);
                 }
             });
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_statistics) {
-            Intent intent = new Intent(CatalogActivity.this, StatisticsActivity.class);
-            startActivity(intent);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_about) {
-            Intent intent = new Intent(CatalogActivity.this, AboutActivity.class);
-            //  to start content transition in AboutActivity
-            Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(CatalogActivity.this).toBundle();
-            startActivity(intent, bundle);
-        } else if (currentItemId == R.id.activity_catalog_appbar_actions_settings) {
-            Intent intent = new Intent(CatalogActivity.this, SettingsActivity.class);
-            startActivity(intent);
         }
         return true;
+    }
+
+    private void configureBottomNavigation() {
+        setBottomNavigationListener();
+        setSelectedItemForActivity();
+    }
+
+    private void setBottomNavigationListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_catalog_bottom_navigation);
+        BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
+    }
+
+    private void setSelectedItemForActivity() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_catalog_bottom_navigation);
+        BottomNavigationHelper.Companion.setButtonForActivityChecked(bottomNavigationView, this);
     }
 }
 

@@ -3,12 +3,15 @@ package com.ratajczykdev.inventoryapp;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Explode;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ratajczykdev.inventoryapp.bottomnavigation.BottomNavigationHelper;
 
 /**
  * Shows info about the app
@@ -32,6 +35,8 @@ public class AboutActivity extends AppCompatActivity {
 
         //  ...ActivityOptions.makeSceneTransitionAnimation... must be called in previous activity
         getWindow().setEnterTransition(getCustomExplodeAnimation());
+
+        configureBottomNavigation();
 
         setEasterEgg();
     }
@@ -85,5 +90,20 @@ public class AboutActivity extends AppCompatActivity {
         final String PREFERENCE_KEY = getString(R.string.preference_longer_easter_egg);
         final Boolean DEFAULT_VALUE = false;
         return sharedPreferences.getBoolean(PREFERENCE_KEY, DEFAULT_VALUE);
+    }
+
+    private void configureBottomNavigation() {
+        setBottomNavigationListener();
+        setSelectedItemForActivity();
+    }
+
+    private void setBottomNavigationListener() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_about_bottom_navigation);
+        BottomNavigationHelper.Companion.setBottomNavigationListener(bottomNavigationView, this);
+    }
+
+    private void setSelectedItemForActivity() {
+        BottomNavigationView bottomNavigationView = findViewById(R.id.activity_about_bottom_navigation);
+        BottomNavigationHelper.Companion.setButtonForActivityChecked(bottomNavigationView, this);
     }
 }
