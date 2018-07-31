@@ -82,11 +82,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun askWriteStoragePermission() {
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+        if (checkSelfPermission(WRITE_EXTERNAL_STORAGE_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)) {
                 //  TODO: add explanation for a user (asynchronously)
             }
-            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
+            requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE_PERMISSION), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
         }
     }
 
