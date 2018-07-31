@@ -1,9 +1,11 @@
 package com.ratajczykdev.inventoryapp.fragmentsui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.R
+import com.ratajczykdev.inventoryapp.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
             //  TODO: complete for all cases
-            //  TODO: handle settings as Activity
             //  TODO: make universal loader for all Fragments
                 R.id.about_button -> loadAboutFragment()
+                R.id.settings_button -> startSettingsActivity()
             }
             true
         }
@@ -35,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
                 .add(R.id.fragment_container, aboutFragment)
                 .commit()
+    }
+
+    private fun startSettingsActivity() {
+        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
 
