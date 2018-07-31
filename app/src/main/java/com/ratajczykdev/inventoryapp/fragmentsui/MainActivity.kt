@@ -35,19 +35,36 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadAboutFragment() {
         val aboutFragment = AboutFragment()
-        val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_container, aboutFragment)
-                .commit()
+        if (isFragmentLoaded()) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, aboutFragment)
+                    .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.container, aboutFragment)
+                    .commit()
+        }
     }
 
     private fun loadCatalogFragment() {
         val catalogFragment = CatalogFragment();
-        val fragmentManager = supportFragmentManager
-        //  TODO: consider replace instead of add
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_container, catalogFragment)
-                .commit()
+        if (isFragmentLoaded()) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, catalogFragment)
+                    .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, catalogFragment)
+                    .commit()
+        }
+    }
+
+    private fun isFragmentLoaded(): Boolean {
+        val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        return when (fragment) {
+            null -> false
+            else -> true
+        }
     }
 
     private fun startSettingsActivity() {
