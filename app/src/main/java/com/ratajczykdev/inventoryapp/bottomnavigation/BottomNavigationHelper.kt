@@ -31,7 +31,7 @@ class BottomNavigationHelper {
             bottomNavigationView.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
                 when (currentItem.itemId) {
                     R.id.settings_button -> startSettingsActivity(currentActivity)
-                    R.id.list_button -> startCatalogActivity(currentActivity)
+                    R.id.catalog_button -> startCatalogActivity(currentActivity)
                     R.id.statistics_button -> startStatisticsActivity(currentActivity)
                     R.id.about_button -> startAboutActivity(currentActivity)
                 }
@@ -81,10 +81,10 @@ class BottomNavigationHelper {
         private fun getMatchingButtonIdForActivity(currentActivity: Activity): Int {
             return when (currentActivity) {
                 is SettingsActivity -> R.id.settings_button
-                is CatalogActivity -> R.id.list_button
+                is CatalogActivity -> R.id.catalog_button
                 is StatisticsActivity -> R.id.statistics_button
                 is AboutActivity -> R.id.about_button
-                else -> R.id.list_button    //  because when expression must be exhaustive
+                else -> R.id.catalog_button    //  because when expression must be exhaustive
             }
         }
     }

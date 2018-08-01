@@ -3,17 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/settings_button"
-        android:enabled="true"
-        android:icon="@drawable/settings_icon"
-        android:title="Settings"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/list_button"
+        android:id="@+id/catalog_button"
         android:enabled="true"
         android:icon="@drawable/list_icon"
-        android:title="List"
+        android:title="Catalog"
         app:showAsAction="ifRoom" />
 
     <item
@@ -21,6 +14,13 @@
         android:enabled="true"
         android:icon="@drawable/statistics_icon_dark_orange"
         android:title="Statistics"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/settings_button"
+        android:enabled="true"
+        android:icon="@drawable/settings_icon"
+        android:title="Settings"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/about_button"
