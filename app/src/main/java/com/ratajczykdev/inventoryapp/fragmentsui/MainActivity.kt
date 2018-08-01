@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.about_button -> loadAboutFragment()
                 R.id.catalog_button -> loadCatalogFragment()
                 R.id.settings_button -> startSettingsActivity()
-                R.id.statistics_button -> loadStatisticsFragment();
+                R.id.statistics_button -> loadStatisticsFragment()
 
             }
             true
