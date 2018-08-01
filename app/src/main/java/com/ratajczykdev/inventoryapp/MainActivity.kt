@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
 
 
-
     /**
      * Identifier for WRITE permissions request
      * The callback method gets the result of the request
@@ -135,6 +134,6 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         }
     }
 
-
-
+    //  TODO: show sorting options on appbar
+    //  TODO: move settings button to appbar
 }
