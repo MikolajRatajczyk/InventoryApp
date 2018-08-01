@@ -17,7 +17,7 @@ import com.ratajczykdev.inventoryapp.ProductListRecyclerAdapter
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
-import kotlinx.android.synthetic.main.activity_catalog.*
+import kotlinx.android.synthetic.main.fragment_catalog.*
 
 /**
  * Loads view with products list
