@@ -21,6 +21,7 @@ This app helps you track your shop inventory.
  - Editing added product,
  - Deleting a product
  - Loading from database does **not block UI** thread,
+ - UI based on **Fragments**
  - Help making order for a new supply,
  - Showing the full list of products with photos,
  - Fully translated
