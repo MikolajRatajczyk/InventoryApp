@@ -4,13 +4,16 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
+
+
 
     /**
      * Identifier for WRITE permissions request
@@ -112,6 +115,23 @@ class MainActivity : AppCompatActivity() {
     private fun tapOnCatalogButton() {
         bottom_navigation_view.selectedItemId = R.id.catalog_button
     }
+
+    /**
+     * Interface implementation required for communicate Fragments
+     */
+    override fun loadFragmentWithArgs(fragment: Fragment, bundle: Bundle) {
+        fragment.arguments = bundle
+        if (isFragmentLoaded()) {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit()
+        } else {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, fragment)
+                    .commit()
+        }
+    }
+
 
 
 }
