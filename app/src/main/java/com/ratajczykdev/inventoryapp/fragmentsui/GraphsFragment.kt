@@ -11,6 +11,13 @@ import com.ratajczykdev.inventoryapp.R
 
 class GraphsFragment : Fragment() {
 
+    private val statistics: HashMap<String, Float> = hashMapOf()
+
+    private var itemsNumber: Float = 0F
+    private var productsNumber: Float = 0F
+    private var productsMaxPrice: Float = 0F
+    private var productsMinPrice: Float = 0F
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
