@@ -30,11 +30,10 @@ This app helps you track your shop inventory.
  
 ## Screenshots
 
-![enter image description here](https://i.imgur.com/xqw8eY8l.jpg) ![enter image description here](https://i.imgur.com/2Ebd9Ktl.jpg)
-![enter image description here](https://i.imgur.com/UJNFwf9l.jpg) ![enter image description here](https://i.imgur.com/1ysMVZNl.jpg)
-![enter image description here](https://i.imgur.com/JZJU1ptl.jpg) ![enter image description here](https://i.imgur.com/gjCxlNvl.jpg)
-![enter image description here](https://i.imgur.com/Z0v993Fl.jpg) ![enter image description here](https://i.imgur.com/4Gugjxel.jpg)
-![enter image description here](https://i.imgur.com/3XKVNNhl.jpg)
+![enter image description here](https://i.imgur.com/kB66Avil.jpg) ![enter image description here](https://i.imgur.com/pIxDIOQl.jpg)
+![enter image description here](https://i.imgur.com/q535MmSl.jpg) ![enter image description here](https://i.imgur.com/6PcWSVal.jpg)
+![enter image description here](https://i.imgur.com/3NhgTfLl.jpg) ![enter image description here](https://i.imgur.com/gArm9OVl.jpg)
+![enter image description here](https://i.imgur.com/Zjp1MGal.jpg) ![enter image description here](https://i.imgur.com/AZkdJewl.jpg)
 ## What platform?
 
 InventoryApp is created from scratch for Android.
