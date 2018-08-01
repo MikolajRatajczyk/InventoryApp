@@ -15,6 +15,11 @@ import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.statistics.StatisticsContract
 import kotlinx.android.synthetic.main.fragment_graphs.*
 
+/**
+ * Shows graphs with statistics data about products
+ *
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ */
 class GraphsFragment : Fragment() {
 
     private var statistics: HashMap<String, Float> = hashMapOf()
