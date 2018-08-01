@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp.fragmentsui
+package com.ratajczykdev.inventoryapp.about
 
 
 import android.os.Bundle

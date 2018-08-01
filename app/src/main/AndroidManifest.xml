@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".detailandedit.ProductDetailActivity"
             android:label="@string/details_title"
-            android:parentActivityName=".fragmentsui.MainActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ProductEditActivity"
+            android:name=".detailandedit.ProductEditActivity"
             android:label="@string/edit_product_title" />
         <activity
             android:name=".settings.SettingsActivity"
-            android:parentActivityName=".fragmentsui.MainActivity" />
-        <activity android:name=".fragmentsui.MainActivity">
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp;
+package com.ratajczykdev.inventoryapp.detailandedit;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+
+import com.ratajczykdev.inventoryapp.R;
 
 /**
  * DialogFragment for making order

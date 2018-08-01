@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductEditActivity">
+    tools:context=".detailandedit.ProductEditActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/photo_parent_constraintlayout"

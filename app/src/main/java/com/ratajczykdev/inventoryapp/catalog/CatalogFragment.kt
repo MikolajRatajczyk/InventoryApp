@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp.fragmentsui
+package com.ratajczykdev.inventoryapp.catalog
 
 
 import android.arch.lifecycle.Observer
@@ -11,9 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.ratajczykdev.inventoryapp.ProductDetailActivity
-import com.ratajczykdev.inventoryapp.ProductEditActivity
-import com.ratajczykdev.inventoryapp.ProductListRecyclerAdapter
+import com.ratajczykdev.inventoryapp.detailandedit.ProductEditActivity
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel

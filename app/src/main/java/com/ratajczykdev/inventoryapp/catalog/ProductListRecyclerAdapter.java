@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp;
+package com.ratajczykdev.inventoryapp.catalog;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity;
+import com.ratajczykdev.inventoryapp.R;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 

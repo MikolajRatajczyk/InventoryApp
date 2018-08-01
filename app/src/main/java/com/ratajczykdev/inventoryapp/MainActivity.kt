@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp.fragmentsui
+package com.ratajczykdev.inventoryapp
 
 import android.Manifest
 import android.content.Intent
@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.ratajczykdev.inventoryapp.R
+import com.ratajczykdev.inventoryapp.about.AboutFragment
+import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.settings.SettingsActivity
 import com.ratajczykdev.inventoryapp.statistics.LoadingFragmentWithArgs
 import com.ratajczykdev.inventoryapp.statistics.StatisticsFragment

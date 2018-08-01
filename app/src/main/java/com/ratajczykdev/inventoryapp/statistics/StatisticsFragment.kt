@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.ratajczykdev.inventoryapp.ProductDetailActivity
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel

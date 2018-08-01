@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp;
+package com.ratajczykdev.inventoryapp.detailandedit;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.ratajczykdev.inventoryapp.R;
+import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 import com.ratajczykdev.inventoryapp.tools.ImageHelper;
