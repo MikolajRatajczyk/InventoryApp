@@ -24,10 +24,10 @@ class GraphsFragment : Fragment() {
 
     private var statistics: HashMap<String, Float> = hashMapOf()
 
-    private var itemsNumber: Float = 0F
-    private var productsNumber: Float = 0F
-    private var productsMaxPrice: Float = 0F
-    private var productsMinPrice: Float = 0F
+    private var itemsNumber: Double = 0.0
+    private var productsNumber: Double = 0.0
+    private var productsMaxPrice: Double = 0.0
+    private var productsMinPrice: Double = 0.0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,19 +51,19 @@ class GraphsFragment : Fragment() {
     }
 
     private fun setNumbersData(statistics: HashMap<String, Float>) {
-        itemsNumber = statistics.get(StatisticsContract.ITEMS_NUMBER_KEY) ?: 0F
-        productsNumber = statistics.get(StatisticsContract.PRODUCTS_NUMBER_KEY) ?: 0F
+        itemsNumber = statistics.get(StatisticsContract.ITEMS_NUMBER_KEY)?.toDouble() ?: 0.0
+        productsNumber = statistics.get(StatisticsContract.PRODUCTS_NUMBER_KEY)?.toDouble() ?: 0.0
     }
 
     private fun setPricesData(statistics: HashMap<String, Float>) {
-        productsMaxPrice = statistics.get(StatisticsContract.PRODUCTS_MAX_PRICE_KEY) ?: 0F
-        productsMinPrice = statistics.get(StatisticsContract.PRODUCTS_MIN_PRICE_KEY) ?: 0F
+        productsMaxPrice = statistics.get(StatisticsContract.PRODUCTS_MAX_PRICE_KEY)?.toDouble() ?: 0.0
+        productsMinPrice = statistics.get(StatisticsContract.PRODUCTS_MIN_PRICE_KEY)?.toDouble() ?: 0.0
     }
 
     private fun configureGraphItemsAndProductsNumber() {
         val dataPointArray = arrayOf(
-                DataPoint(0.0, productsNumber.toDouble()),
-                DataPoint(1.0, itemsNumber.toDouble())
+                DataPoint(0.0, productsNumber),
+                DataPoint(1.0, itemsNumber)
         )
 
         val barGraphSeries = BarGraphSeries<DataPoint>(dataPointArray)
@@ -77,8 +77,8 @@ class GraphsFragment : Fragment() {
 
     private fun configureGraphMaxAndMinPrice() {
         val dataPointArray = arrayOf(
-                DataPoint(0.0, productsMaxPrice.toDouble()),
-                DataPoint(1.0, productsMinPrice.toDouble())
+                DataPoint(0.0, productsMaxPrice),
+                DataPoint(1.0, productsMinPrice)
         )
 
         val barGraphSeries = BarGraphSeries<DataPoint>(dataPointArray)
