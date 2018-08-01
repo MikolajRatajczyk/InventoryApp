@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.settings.SettingsActivity
+import com.ratajczykdev.inventoryapp.statistics.StatisticsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {

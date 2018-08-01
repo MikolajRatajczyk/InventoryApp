@@ -1,4 +1,4 @@
-package com.ratajczykdev.inventoryapp.fragmentsui
+package com.ratajczykdev.inventoryapp.statistics
 
 
 import android.arch.lifecycle.Observer
@@ -14,7 +14,7 @@ import com.ratajczykdev.inventoryapp.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
-import com.ratajczykdev.inventoryapp.statistics.StatisticsContract
+import com.ratajczykdev.inventoryapp.fragmentsui.LoadingFragmentWithArgs
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
 /**
