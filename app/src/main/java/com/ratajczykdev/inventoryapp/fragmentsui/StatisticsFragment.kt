@@ -3,9 +3,9 @@ package com.ratajczykdev.inventoryapp.fragmentsui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,6 @@ import com.ratajczykdev.inventoryapp.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
-import com.ratajczykdev.inventoryapp.statistics.GraphsActivity
 import com.ratajczykdev.inventoryapp.statistics.StatisticsContract
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
@@ -123,15 +122,16 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun setFabListener() {
-        //  TODO: change calling GraphsActivity
         graphs_fab.setOnClickListener { view ->
-            val intent = Intent(context, GraphsActivity::class.java)
-            if (productList != null && productList!!.isNotEmpty()) {
-                //  add statistics Map to Intent for GraphActivity
-                intent.putExtra(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap())
+            if (context is LoadingFragmentWithArgs) {
+                val bundle = Bundle()
+                bundle.putSerializable(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap())
+                (context as LoadingFragmentWithArgs).loadFragmentWithArgs(GraphsFragment(), bundle)
+            } else {
+                Log.e(StatisticsFragment::class.java.simpleName, "Given context does not implement LoadingFragmentWithArgs")
             }
-            startActivity(intent)
         }
+
     }
 
     private fun getStatisticsMap(): HashMap<String, Float> {
