@@ -47,10 +47,10 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
-                R.id.about_button -> loadFragment(AboutFragment())
                 R.id.catalog_button -> loadFragment(CatalogFragment())
-                R.id.settings_button -> startSettingsActivity()
                 R.id.statistics_button -> loadFragment(StatisticsFragment())
+                R.id.about_button -> loadFragment(AboutFragment())
+                R.id.settings_button -> startSettingsActivity()
             }
             true
         }
