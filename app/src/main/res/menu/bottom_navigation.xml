@@ -6,26 +6,26 @@
         android:id="@+id/catalog_button"
         android:enabled="true"
         android:icon="@drawable/list_icon"
-        android:title="Catalog"
+        android:title="@string/bottom_nav_title_catalog"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/statistics_button"
         android:enabled="true"
         android:icon="@drawable/statistics_icon_dark_orange"
-        android:title="Statistics"
+        android:title="@string/bottom_nav_title_statistics"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/settings_button"
         android:enabled="true"
         android:icon="@drawable/settings_icon"
-        android:title="Settings"
+        android:title="@string/bottom_nav_title_settings"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/about_button"
         android:enabled="true"
         android:icon="@drawable/ic_info"
-        android:title="About"
+        android:title="@string/bottom_nav_title_about"
         app:showAsAction="ifRoom" />
 </menu>
