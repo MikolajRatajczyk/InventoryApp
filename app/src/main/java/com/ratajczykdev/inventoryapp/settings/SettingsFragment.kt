@@ -1,7 +1,7 @@
 package com.ratajczykdev.inventoryapp.settings
 
 import android.os.Bundle
-import android.preference.PreferenceFragment
+import android.support.v7.preference.PreferenceFragmentCompat
 import com.ratajczykdev.inventoryapp.R
 
 /**
@@ -9,11 +9,9 @@ import com.ratajczykdev.inventoryapp.R
  *
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
-class SettingsFragment : PreferenceFragment() {
+class SettingsFragment : PreferenceFragmentCompat() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreatePreferences(p0: Bundle?, p1: String?) {
 
         //  Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences)
