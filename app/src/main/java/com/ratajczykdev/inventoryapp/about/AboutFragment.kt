@@ -14,7 +14,9 @@ import android.view.animation.AnimationUtils
 import com.ratajczykdev.inventoryapp.R
 import kotlinx.android.synthetic.main.fragment_about.*
 
-
+/**
+ * Presents about app content
+ */
 class AboutFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
