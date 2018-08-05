@@ -61,44 +61,6 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         }
     }
 
-    private fun loadAboutFragment() {
-        val aboutFragment = AboutFragment()
-        if (isFragmentLoaded()) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, aboutFragment)
-                    .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.container, aboutFragment)
-                    .commit()
-        }
-    }
-
-    private fun loadCatalogFragment() {
-        val catalogFragment = CatalogFragment();
-        if (isFragmentLoaded()) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, catalogFragment)
-                    .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, catalogFragment)
-                    .commit()
-        }
-    }
-
-    private fun loadStatisticsFragment() {
-        val statisticsFragment = StatisticsFragment()
-        if (isFragmentLoaded()) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, statisticsFragment)
-                    .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, statisticsFragment)
-                    .commit()
-        }
-    }
 
     private fun isFragmentLoaded(): Boolean {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
