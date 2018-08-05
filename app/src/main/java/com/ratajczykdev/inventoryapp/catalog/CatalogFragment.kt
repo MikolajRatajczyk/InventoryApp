@@ -11,10 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.ratajczykdev.inventoryapp.detailandedit.ProductEditActivity
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
+import com.ratajczykdev.inventoryapp.detailandedit.ProductEditActivity
 import kotlinx.android.synthetic.main.fragment_catalog.*
 
 /**
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_catalog.*
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 class CatalogFragment : Fragment() {
-
 
     /**
      * Fragment gets its own [ProductViewModel]
@@ -46,13 +46,13 @@ class CatalogFragment : Fragment() {
         productListRecyclerAdapter = ProductListRecyclerAdapter(context)
 
         //  Use ViewModelProviders to associate your ViewModel with your UI controller.
-        //  TODO: check comment
+        //  TODO: check comment (Activity to Fragment)
         //  When your app first starts, the ViewModelProviders will create the ViewModel.
         //  When the activity is destroyed, for example through a configuration change, the ViewModel persists.
         //  When the activity is re-created, the ViewModelProviders return the existing ViewModel
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
         //  Add an observer for the LiveData returned by getAll().
-        //  TODO: check comment
+        //  TODO: check comment (Activity to Fragment)
         //  The onChanged() method fires when the observed data changes
         //  and the activity is in the foreground.
         productViewModel.all.observe(this,
@@ -79,9 +79,10 @@ class CatalogFragment : Fragment() {
     private fun animateFab() {
         val FULL_ANGLE_IN_DEG = 360F
         val ANIMATION_DURATION_IN_MS = 700L
+
         fab_new_product.animate()
                 .rotation(FULL_ANGLE_IN_DEG)
-                .setInterpolator(AnimationUtils.loadInterpolator(activity, android.R.interpolator.accelerate_decelerate))
+                .setInterpolator(AnimationUtils.loadInterpolator(context, android.R.interpolator.accelerate_decelerate))
                 .setDuration(ANIMATION_DURATION_IN_MS)
                 .start()
     }
