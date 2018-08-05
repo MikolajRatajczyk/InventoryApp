@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ratajczykdev.inventoryapp.R;
+import com.ratajczykdev.inventoryapp.catalog.CatalogFragment;
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
@@ -34,7 +35,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
 
     /**
      * Activity gets its own {@link ProductViewModel},
-     * but with the same repository as e.g. {@link CatalogActivity} and {@link ProductEditActivity}
+     * but with the same repository as e.g. {@link CatalogFragment} and {@link ProductEditActivity}
      */
     private ProductViewModel productViewModel;
 
