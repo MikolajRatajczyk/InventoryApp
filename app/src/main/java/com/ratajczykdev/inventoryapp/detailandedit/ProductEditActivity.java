@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.R;
+import com.ratajczykdev.inventoryapp.catalog.CatalogFragment;
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
@@ -37,7 +38,7 @@ public class ProductEditActivity extends AppCompatActivity {
 
     /**
      * Activity gets its own {@link ProductViewModel},
-     * but with the same repository as e.g. {@link CatalogActivity} and {@link ProductDetailActivity}
+     * but with the same repository as e.g. {@link CatalogFragment} and {@link ProductDetailActivity}
      */
     private ProductViewModel productViewModel;
 
