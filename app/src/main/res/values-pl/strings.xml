@@ -71,4 +71,8 @@
     <string name="settings_label">Ustawienia</string>
     <string name="multiply_values_by_ten">Wszystkie wartości pomnożone razy 10</string>
     <string name="longer_easter_egg">Dłuższy easter egg</string>
+    <string name="bottom_nav_title_catalog">Katalog</string>
+    <string name="bottom_nav_title_statistics">Statystyki</string>
+    <string name="bottom_nav_title_settings">Ustawienia</string>
+    <string name="bottom_nav_title_about">Info</string>
 </resources>
