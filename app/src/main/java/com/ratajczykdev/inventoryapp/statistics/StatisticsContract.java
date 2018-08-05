@@ -8,7 +8,7 @@ package com.ratajczykdev.inventoryapp.statistics;
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public final class StatisticsContract {
-    //  TODO: convert to Kotlin nad move to another package
+    //  TODO: convert to Kotlin
     public static final String STATISTICS_MAP_NAME = "STATISTICS_MAP";
     public static final String ITEMS_NUMBER_KEY = "ITEMS_NUMBER";
     public static final String PRODUCTS_NUMBER_KEY = "PRODUCTS_NUMBER";
