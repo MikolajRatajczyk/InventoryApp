@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
-            //  TODO: make universal loader for all Fragments
+                //  TODO: make universal loader for all Fragments
                 R.id.about_button -> loadAboutFragment()
                 R.id.catalog_button -> loadCatalogFragment()
                 R.id.settings_button -> startSettingsActivity()
@@ -45,6 +45,21 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
 
             }
             true
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        when (isFragmentLoaded()) {
+            true -> {
+                supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+            }
+            false -> {
+                supportFragmentManager.beginTransaction()
+                        .add(R.id.container, fragment)
+                        .commit()
+            }
         }
     }
 
@@ -133,6 +148,7 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
                     .commit()
         }
     }
+
 
     //  TODO: show sorting options on appbar
     //  TODO: move settings button to appbar
