@@ -18,7 +18,7 @@ class SettingsActivity : AppCompatActivity() {
         title = getString(R.string.settings_label)
 
         //  display the fragment as settings_view
-        fragmentManager.beginTransaction()
+        supportFragmentManager.beginTransaction()
                 .replace(R.id.settings_view, SettingsFragment())
                 .commit()
     }
