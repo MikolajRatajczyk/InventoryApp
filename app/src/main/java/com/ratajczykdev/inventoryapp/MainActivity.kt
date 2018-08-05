@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
 
-
     /**
      * Identifier for WRITE permissions request
      * The callback method gets the result of the request
@@ -34,6 +33,17 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         }
     }
 
+    private fun askWriteStoragePermission() {
+        val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+        if (checkSelfPermission(WRITE_EXTERNAL_STORAGE_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)) {
+                //  TODO: add explanation for a user (asynchronously)
+            }
+            requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE_PERMISSION), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
+        }
+    }
+
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
@@ -46,21 +56,20 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
+    private fun loadFragment(fragmentToLoad: Fragment) {
         when (isFragmentLoaded()) {
             true -> {
                 supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, fragment)
+                        .replace(R.id.fragment_container, fragmentToLoad)
                         .commit()
             }
             false -> {
                 supportFragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, fragment)
+                        .add(R.id.fragment_container, fragmentToLoad)
                         .commit()
             }
         }
     }
-
 
     private fun isFragmentLoaded(): Boolean {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
@@ -75,17 +84,6 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         startActivity(intent)
     }
 
-    private fun askWriteStoragePermission() {
-        val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
-
-        if (checkSelfPermission(WRITE_EXTERNAL_STORAGE_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)) {
-                //  TODO: add explanation for a user (asynchronously)
-            }
-            requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE_PERMISSION), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
-        }
-    }
-
     /**
      * Behaves the same as tapping on the Catalog button
      */
@@ -94,21 +92,12 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     }
 
     /**
-     * Interface implementation required for communicate Fragments
+     * Interface implementation required to communicate Fragments
      */
     override fun loadFragmentWithArgs(fragment: Fragment, bundle: Bundle) {
         fragment.arguments = bundle
-        if (isFragmentLoaded()) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
-                    .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, fragment)
-                    .commit()
-        }
+        loadFragment(fragment)
     }
-
 
     //  TODO: show sorting options on appbar
     //  TODO: move settings button to appbar
