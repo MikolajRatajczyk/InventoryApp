@@ -10,27 +10,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.R
+import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
 /**
  * Shows statistics data about products in numeric form
  *
  * Gets data from own [ProductViewModel]
+ * but with the same repository as e.g. [CatalogFragment] and [ProductDetailActivity]
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 class StatisticsFragment : Fragment() {
 
-    //  TODO: reduce using double bang (!!)
-
-    /**
-     * Fragment gets its own [ProductViewModel],
-     * but with the same repository as e.g. [CatalogFragment] and [ProductDetailActivity]
-     */
     private lateinit var productViewModel: ProductViewModel
     private var productList: MutableList<Product?>? = mutableListOf()
 
@@ -38,8 +34,8 @@ class StatisticsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.fragment_statistics, container, false)
         // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_statistics, container, false)
 
         return view
     }
@@ -70,7 +66,7 @@ class StatisticsFragment : Fragment() {
 
     private fun updateItemsNumberInUi() {
         val itemsNumberString = getItemsNumber().toString()
-        items_number_textview.setText(itemsNumberString)
+        items_number_textview.text = itemsNumberString
     }
 
     private fun getItemsNumber(): Int {
@@ -85,7 +81,7 @@ class StatisticsFragment : Fragment() {
 
     private fun updateProductsNumberInUi() {
         val productsNumberString = getProductsNumber().toString()
-        products_number_textview.setText(productsNumberString)
+        products_number_textview.text = productsNumberString
     }
 
     private fun getProductsNumber(): Int {
@@ -94,7 +90,7 @@ class StatisticsFragment : Fragment() {
 
     private fun updateMaxPriceInUi() {
         val maximumPriceString = getProductsMaxPrice().toString()
-        max_price_textview.setText(maximumPriceString)
+        max_price_textview.text = maximumPriceString
     }
 
     private fun getProductsMaxPrice(): Float {
@@ -112,7 +108,7 @@ class StatisticsFragment : Fragment() {
 
     private fun updateMinPriceInUi() {
         val minimalPriceString = getProductsMinPrice().toString()
-        min_price_textview.setText(minimalPriceString)
+        min_price_textview.text = minimalPriceString
     }
 
     private fun getProductsMinPrice(): Float {
@@ -121,7 +117,7 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun setFabListener() {
-        graphs_fab.setOnClickListener { view ->
+        graphs_fab.setOnClickListener {
             if (context is LoadingFragmentWithArgs) {
                 val bundle = Bundle()
                 bundle.putSerializable(StatisticsContract.STATISTICS_MAP_NAME, getStatisticsMap())
@@ -130,7 +126,6 @@ class StatisticsFragment : Fragment() {
                 Log.e(StatisticsFragment::class.java.simpleName, "Given context does not implement LoadingFragmentWithArgs")
             }
         }
-
     }
 
     private fun getStatisticsMap(): HashMap<String, Float> {
@@ -152,5 +147,5 @@ class StatisticsFragment : Fragment() {
                 .start()
     }
 
-
+    //  TODO: reduce using double bang (!!)
 }
