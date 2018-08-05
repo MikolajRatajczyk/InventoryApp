@@ -37,12 +37,10 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
-                //  TODO: make universal loader for all Fragments
-                R.id.about_button -> loadAboutFragment()
-                R.id.catalog_button -> loadCatalogFragment()
+                R.id.about_button -> loadFragment(AboutFragment())
+                R.id.catalog_button -> loadFragment(CatalogFragment())
                 R.id.settings_button -> startSettingsActivity()
-                R.id.statistics_button -> loadStatisticsFragment()
-
+                R.id.statistics_button -> loadFragment(StatisticsFragment())
             }
             true
         }
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
             }
             false -> {
                 supportFragmentManager.beginTransaction()
-                        .add(R.id.container, fragment)
+                        .add(R.id.fragment_container, fragment)
                         .commit()
             }
         }
