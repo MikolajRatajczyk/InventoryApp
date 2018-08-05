@@ -1,9 +1,11 @@
 package com.ratajczykdev.inventoryapp.about
 
 
+import android.content.Context
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
+import android.transition.Explode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +17,24 @@ import kotlinx.android.synthetic.main.fragment_about.*
 
 class AboutFragment : Fragment() {
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+
+        //  must be called here to animate Fragment's UI elements
+        setExplodeEnterTransition()
+    }
+
+    private fun setExplodeEnterTransition() {
+        val explode = Explode()
+        val EXPLODE_ANIMATION_DURATION_IN_MS = 400L
+        explode.duration = EXPLODE_ANIMATION_DURATION_IN_MS
+        explode.interpolator = AnimationUtils.loadInterpolator(context, android.R.interpolator.fast_out_slow_in)
+
+        enterTransition = explode
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
         val view = inflater.inflate(R.layout.fragment_about, container, false)
 
         // Inflate the layout for this fragment
@@ -63,6 +80,4 @@ class AboutFragment : Fragment() {
         val DEFAULT_VALUE = false
         return sharedPreferences.getBoolean(PREFERENCE_KEY, DEFAULT_VALUE)
     }
-
-    //  TODO: implement Explode animation
 }
