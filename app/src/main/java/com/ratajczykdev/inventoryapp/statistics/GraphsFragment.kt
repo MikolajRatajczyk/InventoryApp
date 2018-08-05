@@ -10,9 +10,7 @@ import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.BarGraphSeries
 import com.jjoe64.graphview.series.DataPoint
-
 import com.ratajczykdev.inventoryapp.R
-import com.ratajczykdev.inventoryapp.statistics.StatisticsContract
 import kotlinx.android.synthetic.main.fragment_graphs.*
 
 /**
@@ -43,13 +41,6 @@ class GraphsFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        configureGraphItemsAndProductsNumber()
-        configureGraphMaxAndMinPrice()
-    }
-
     private fun setNumbersData(statistics: HashMap<String, Float>) {
         itemsNumber = statistics.get(StatisticsContract.ITEMS_NUMBER_KEY)?.toDouble() ?: 0.0
         productsNumber = statistics.get(StatisticsContract.PRODUCTS_NUMBER_KEY)?.toDouble() ?: 0.0
@@ -58,6 +49,13 @@ class GraphsFragment : Fragment() {
     private fun setPricesData(statistics: HashMap<String, Float>) {
         productsMaxPrice = statistics.get(StatisticsContract.PRODUCTS_MAX_PRICE_KEY)?.toDouble() ?: 0.0
         productsMinPrice = statistics.get(StatisticsContract.PRODUCTS_MIN_PRICE_KEY)?.toDouble() ?: 0.0
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        configureGraphItemsAndProductsNumber()
+        configureGraphMaxAndMinPrice()
     }
 
     private fun configureGraphItemsAndProductsNumber() {
@@ -75,6 +73,15 @@ class GraphsFragment : Fragment() {
         hideGraphXLabels(items_products_number_graphview)
     }
 
+    private fun hideGraphXLabels(graph: GraphView) {
+        val staticLabelsFormatter = StaticLabelsFormatter(graph)
+        //  must have more than one element, if not it will cause crash
+        val EMPTY_LABEL_ARRAY = arrayOf("", "")
+        staticLabelsFormatter.setHorizontalLabels(EMPTY_LABEL_ARRAY)
+
+        graph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
+    }
+
     private fun configureGraphMaxAndMinPrice() {
         val dataPointArray = arrayOf(
                 DataPoint(0.0, productsMaxPrice),
@@ -89,15 +96,4 @@ class GraphsFragment : Fragment() {
         max_min_price_graphview.title = context!!.getString(R.string.max_min_price_graph_title)
         hideGraphXLabels(max_min_price_graphview)
     }
-
-    private fun hideGraphXLabels(graph: GraphView) {
-        val staticLabelsFormatter = StaticLabelsFormatter(graph)
-        //  must have more than one element, if not it will cause crash
-        val EMPTY_LABEL_ARRAY = arrayOf("", "")
-        staticLabelsFormatter.setHorizontalLabels(EMPTY_LABEL_ARRAY)
-
-        graph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
-    }
-
-
 }
