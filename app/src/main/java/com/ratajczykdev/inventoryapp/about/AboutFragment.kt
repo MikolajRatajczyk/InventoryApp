@@ -14,7 +14,6 @@ import kotlinx.android.synthetic.main.fragment_about.*
 
 
 class AboutFragment : Fragment() {
-    //  TODO: implement Explode animation
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -30,7 +29,7 @@ class AboutFragment : Fragment() {
 
         //  every view from Fragment can be accessed in [onViewCreated]
         //  https://stackoverflow.com/a/34543172
-            setEasterEgg()
+        setEasterEgg()
     }
 
     private fun setEasterEgg() {
@@ -55,7 +54,6 @@ class AboutFragment : Fragment() {
                     .setDuration(rotationAnimationDurationInMs)
                     .start()
             true
-
         }
     }
 
@@ -65,4 +63,6 @@ class AboutFragment : Fragment() {
         val DEFAULT_VALUE = false
         return sharedPreferences.getBoolean(PREFERENCE_KEY, DEFAULT_VALUE)
     }
+
+    //  TODO: implement Explode animation
 }
