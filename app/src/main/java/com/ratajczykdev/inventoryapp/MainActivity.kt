@@ -103,11 +103,11 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
 
     private fun showPermissionDeniedDialog() {
         val builder = AlertDialog.Builder(this)
-        builder.setMessage("App will not work without storage permission")
-                .setTitle("Permission denied")
+        builder.setMessage(getString(R.string.dialog_description_app_will_not_work))
+                .setTitle(getString(R.string.dialog_title_permission_denied))
 
         //  Handle action when user presses the button
-        builder.setPositiveButton("Exit")
+        builder.setPositiveButton(getString(R.string.exit))
         { _: DialogInterface, _: Int ->
             finish()
         }
