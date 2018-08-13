@@ -43,7 +43,7 @@ class CatalogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        productListRecyclerAdapter = ProductListRecyclerAdapter(context)
+        productListRecyclerAdapter = ProductListRecyclerAdapter(context!!)
 
         //  Use ViewModelProviders to associate your ViewModel with your UI controller.
         //  TODO: check comment (Activity to Fragment)
@@ -59,7 +59,7 @@ class CatalogFragment : Fragment() {
                 Observer<List<Product>>
                 { // Update the cached copy of the products in the adapter.
                     productList ->
-                    productListRecyclerAdapter.setProducts(productList)
+                    productListRecyclerAdapter.productList = productList ?: emptyList()
                 })
 
         product_list_recyclerview.adapter = productListRecyclerAdapter
