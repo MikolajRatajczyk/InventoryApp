@@ -45,20 +45,6 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         }
     }
 
-    /**
-     * This method is being invoked when user responds to permission request
-     */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //  permission granted
-            } else {
-                //  permission denied
-                showPermissionDeniedDialog()
-            }
-        }
-    }
-
     private fun configureBottomNavigation() {
         bottom_navigation_view.setOnNavigationItemSelectedListener { currentItem: MenuItem ->
             when (currentItem.itemId) {
@@ -107,11 +93,17 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     }
 
     /**
-     * Interface implementation required to communicate Fragments
+     * This method is being invoked when user responds to permission request
      */
-    override fun loadFragmentWithArgs(fragment: Fragment, bundle: Bundle) {
-        fragment.arguments = bundle
-        loadFragment(fragment)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //  permission granted
+            } else {
+                //  permission denied
+                showPermissionDeniedDialog()
+            }
+        }
     }
 
     private fun showPermissionDeniedDialog() {
@@ -127,6 +119,14 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
 
         val createdDialog = builder.create()
         createdDialog.show()
+    }
+
+    /**
+     * Interface implementation required to communicate Fragments
+     */
+    override fun loadFragmentWithArgs(fragment: Fragment, bundle: Bundle) {
+        fragment.arguments = bundle
+        loadFragment(fragment)
     }
 
     //  TODO: show sorting options on appbar
