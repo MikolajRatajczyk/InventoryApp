@@ -149,5 +149,4 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     }
 
     //  TODO: show sorting options on appbar
-    //  TODO: move settings button to appbar
 }
