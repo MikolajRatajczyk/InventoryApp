@@ -1,10 +1,13 @@
 package com.ratajczykdev.inventoryapp
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.about.AboutFragment
@@ -16,11 +19,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
 
-    /**
-     * Identifier for WRITE permissions request
-     * The callback method gets the result of the request
-     */
-    private val PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 1000
+    companion object {
+        /**
+         * Identifier for WRITE permission request
+         * [onRequestPermissionsResult] gets the result of the request
+         */
+        private const val PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID = 1000
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +40,22 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     }
 
     private fun askWriteStoragePermission() {
-        val WRITE_EXTERNAL_STORAGE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
+        }
+    }
 
-        if (checkSelfPermission(WRITE_EXTERNAL_STORAGE_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-            if (shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE_PERMISSION)) {
-                //  TODO: add explanation for a user (asynchronously)
+    /**
+     * This method is being invoked when user responds to permission request
+     */
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //  permission granted
+            } else {
+                //  permission denied
+                showPermissionDeniedDialog()
             }
-            requestPermissions(arrayOf(WRITE_EXTERNAL_STORAGE_PERMISSION), PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ID)
         }
     }
 
@@ -97,6 +112,21 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     override fun loadFragmentWithArgs(fragment: Fragment, bundle: Bundle) {
         fragment.arguments = bundle
         loadFragment(fragment)
+    }
+
+    private fun showPermissionDeniedDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("App will not work without storage permission")
+                .setTitle("Permission denied")
+
+        //  Handle action when user presses the button
+        builder.setPositiveButton("Exit")
+        { _: DialogInterface, _: Int ->
+            finish()
+        }
+
+        val createdDialog = builder.create()
+        createdDialog.show()
     }
 
     //  TODO: show sorting options on appbar
