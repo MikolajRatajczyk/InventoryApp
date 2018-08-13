@@ -7,9 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
@@ -67,6 +65,8 @@ class CatalogFragment : Fragment() {
 
         setFabListener()
         animateFab()
+        //  call OnCreateOptionsMenu method
+        setHasOptionsMenu(true)
     }
 
     private fun setFabListener() {
@@ -85,5 +85,12 @@ class CatalogFragment : Fragment() {
                 .setInterpolator(AnimationUtils.loadInterpolator(context, android.R.interpolator.accelerate_decelerate))
                 .setDuration(ANIMATION_DURATION_IN_MS)
                 .start()
+    }
+
+    /**
+     * Modifies appbar to have actions
+     */
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.fragment_catalog_appbar_actions, menu)
     }
 }
