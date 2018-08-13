@@ -16,6 +16,7 @@ This app helps you track your shop inventory.
  - Sweet **Material Design**,
  - Statistics,
  - Drawing **graphs**,
+ - Loading photos with Picasso library,
  - Adding a new product with: name, quantity, price and photo,
  - **Sorting** products by: name, price, date and quantity,
  - Editing added product,
