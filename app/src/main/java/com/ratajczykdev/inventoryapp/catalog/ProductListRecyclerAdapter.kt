@@ -32,6 +32,7 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
             notifyDataSetChanged()
         }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val itemView = layoutInflater.inflate(R.layout.product_list_item, parent, false)
         return ProductViewHolder(itemView)
@@ -42,7 +43,7 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
         holder.textName.text = currentProduct.name
         holder.textPrice.text = String.format(Locale.US, "%.2f", currentProduct.price)
         holder.textQuantity.text = currentProduct.quantity.toString()
-        setProductPhotoFromUri(holder, currentProduct)
+        loadProductPhotoFromUri(holder, currentProduct)
 
         holder.listItemRootView.setOnClickListener {
             val intent = Intent(context, ProductDetailActivity::class.java)
@@ -51,14 +52,10 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
         }
     }
 
-    override fun getItemCount(): Int {
-        return productList.size
-    }
-
     /**
      * Helper method, it loads product photo to ImageView
      */
-    private fun setProductPhotoFromUri(holder: ProductViewHolder, currentProduct: Product) {
+    private fun loadProductPhotoFromUri(holder: ProductViewHolder, currentProduct: Product) {
         Picasso.get()
                 .load(currentProduct.photoUri)
                 .placeholder(R.drawable.product_list_item_placeholder)
@@ -67,6 +64,9 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
                 .into(holder.imagePhoto)
     }
 
+    override fun getItemCount(): Int {
+        return productList.size
+    }
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val textName: TextView = itemView.findViewById(R.id.text_name)
@@ -75,5 +75,4 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
         internal val textQuantity: TextView = itemView.findViewById(R.id.text_quantity)
         internal val listItemRootView: View = itemView.findViewById(R.id.product_list_item_root_linearlayout)
     }
-
 }
