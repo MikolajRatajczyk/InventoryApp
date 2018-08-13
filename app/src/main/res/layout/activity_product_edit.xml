@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/product_photo_placeholder_phone" />
+            tools:src="@drawable/product_list_item_placeholder" />
 
         <Button
             android:id="@+id/product_edit_change_photo_button"
