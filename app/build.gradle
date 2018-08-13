@@ -45,6 +45,8 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //  Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
 repositories {
     mavenCentral()
