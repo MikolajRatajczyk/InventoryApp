@@ -4,7 +4,6 @@ import android.app.ActivityOptions;
 import android.app.DialogFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +19,7 @@ import com.ratajczykdev.inventoryapp.catalog.CatalogFragment;
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
-import com.ratajczykdev.inventoryapp.tools.ImageHelper;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
@@ -120,13 +119,12 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     }
 
     private void setPhotoInUi() {
-        String stringPhotoUri = product.getPhotoUri();
-        if (stringPhotoUri != null) {
-            Uri photoUri = Uri.parse(stringPhotoUri);
-            Bitmap photoBitmap = ImageHelper.getBitmapFromUri(photoUri, getApplicationContext());
-            imagePhoto.setImageBitmap(photoBitmap);
-
-        }
+        Picasso.get()
+                .load(product.getPhotoUri())
+                .placeholder(R.drawable.product_list_item_placeholder)
+                .error(R.drawable.ic_error)
+                .fit()
+                .into(imagePhoto);
     }
 
     private void setFabListener() {
