@@ -17,12 +17,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/settings_button"
-        android:enabled="true"
-        android:icon="@drawable/settings_icon"
-        android:title="@string/bottom_nav_title_settings"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/about_button"
         android:enabled="true"
         android:icon="@drawable/ic_info"

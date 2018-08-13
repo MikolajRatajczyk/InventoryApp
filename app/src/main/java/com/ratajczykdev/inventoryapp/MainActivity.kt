@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
                 R.id.catalog_button -> loadFragment(CatalogFragment())
                 R.id.statistics_button -> loadFragment(StatisticsFragment())
                 R.id.about_button -> loadFragment(AboutFragment())
-                R.id.settings_button -> startSettingsActivity()
             }
             true
         }
@@ -79,11 +78,6 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
             null -> false
             else -> true
         }
-    }
-
-    private fun startSettingsActivity() {
-        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
-        startActivity(intent)
     }
 
     /**
@@ -147,6 +141,11 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
             else -> super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun startSettingsActivity() {
+        val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     //  TODO: show sorting options on appbar
