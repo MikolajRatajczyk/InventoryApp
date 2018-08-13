@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.about.AboutFragment
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
@@ -127,6 +128,25 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
     override fun loadFragmentWithArgs(fragment: Fragment, bundle: Bundle) {
         fragment.arguments = bundle
         loadFragment(fragment)
+    }
+
+    /**
+     * Modifies appbar to have actions
+     */
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_main_appbar_actions, menu)
+        return true
+    }
+
+    /**
+     * Handles clicks on appbar's actions
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.activity_main_appbar_actions_settings_action -> startSettingsActivity()
+            else -> super.onOptionsItemSelected(item)
+        }
+        return true
     }
 
     //  TODO: show sorting options on appbar
