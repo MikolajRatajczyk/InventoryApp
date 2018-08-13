@@ -45,8 +45,8 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
         setProductPhotoFromUri(holder, currentProduct)
 
         holder.listItemRootView.setOnClickListener {
-            val intent = Intent(context,ProductDetailActivity::class.java)
-            intent.putExtra(DATA_SELECTED_PRODUCT_ID,currentProduct.id.toString())
+            val intent = Intent(context, ProductDetailActivity::class.java)
+            intent.putExtra(DATA_SELECTED_PRODUCT_ID, currentProduct.id.toString())
             context.startActivity(intent)
         }
     }
@@ -56,7 +56,7 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
     }
 
     /**
-     * Helper method
+     * Helper method, it loads product photo to ImageView
      */
     private fun setProductPhotoFromUri(holder: ProductViewHolder, currentProduct: Product) {
         Picasso.get()
