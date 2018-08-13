@@ -12,16 +12,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity;
 import com.ratajczykdev.inventoryapp.R;
 import com.ratajczykdev.inventoryapp.database.Product;
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity;
 import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 
 import java.util.List;
 import java.util.Locale;
 
 /**
- * Provides {@link RecyclerView} with data from list of {@link Product}
+ * Provides data from list of {@link Product} to {@link RecyclerView}
  *
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
