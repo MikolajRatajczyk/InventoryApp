@@ -19,6 +19,7 @@ import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
 import com.ratajczykdev.inventoryapp.tools.ImageHelper;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
@@ -152,12 +153,12 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private void setPhotoInUi() {
-        String stringPhotoUri = currentProduct.getPhotoUri();
-        if (stringPhotoUri != null) {
-            Uri photoUri = Uri.parse(stringPhotoUri);
-            Bitmap bitmapPhoto = ImageHelper.getBitmapFromUri(photoUri, getApplicationContext());
-            imagePhoto.setImageBitmap(bitmapPhoto);
-        }
+        Picasso.get()
+                .load(currentProduct.getPhotoUri())
+                .placeholder(R.drawable.product_list_item_placeholder)
+                .error(R.drawable.ic_error)
+                .fit()
+                .into(imagePhoto);
     }
 
     /**
