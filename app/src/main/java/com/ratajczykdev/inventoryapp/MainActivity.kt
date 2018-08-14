@@ -149,6 +149,4 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         val intent = Intent(this@MainActivity, SettingsActivity::class.java)
         startActivity(intent)
     }
-
-    //  TODO: show sorting options on appbar
 }
