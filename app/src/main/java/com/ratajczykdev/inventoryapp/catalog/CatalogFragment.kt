@@ -33,9 +33,16 @@ class CatalogFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_catalog, container, false)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_catalog, container, false)
+        return view
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //  call OnCreateOptionsMenu method
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,8 +72,6 @@ class CatalogFragment : Fragment() {
 
         setFabListener()
         animateFab()
-        //  call OnCreateOptionsMenu method
-        setHasOptionsMenu(true)
     }
 
     private fun setFabListener() {
@@ -92,5 +97,66 @@ class CatalogFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.fragment_catalog_appbar_actions, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    /**
+     * Handles clicks on appbar's actions
+     *
+     * Fragment's method is called only, when the Activity didn't consume the event
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.fragment_catalog_appbar_actions_sort_by_name_asc -> {
+                productViewModel.allOrderNameAsc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_name_desc -> {
+                productViewModel.allOrderNameDesc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_price_highest -> {
+                productViewModel.allOrderPriceDesc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_price_lowest -> {
+                productViewModel.allOrderPriceAsc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_date_newest -> {
+                productViewModel.allOrderIdDesc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_date_oldest -> {
+                productViewModel.allOrderIdAsc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_quantity_more -> {
+                productViewModel.allOrderQuantityDesc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            R.id.fragment_catalog_appbar_actions_sort_by_quantity_less -> {
+                productViewModel.allOrderQuantityAsc.observe(this, Observer<List<Product>> {
+                    productListRecyclerAdapter.productList = it!!
+                })
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
