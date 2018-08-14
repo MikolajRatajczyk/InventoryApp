@@ -45,7 +45,6 @@ class StatisticsFragment : Fragment() {
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
 
-        productList = productViewModel.all.value
         productViewModel.all.observe(this, Observer { products ->
             productList = products
             if (productList != null && productList!!.isNotEmpty()) {
