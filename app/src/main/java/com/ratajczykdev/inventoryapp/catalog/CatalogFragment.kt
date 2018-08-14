@@ -52,15 +52,13 @@ class CatalogFragment : Fragment() {
         productListRecyclerAdapter = ProductListRecyclerAdapter(context!!)
 
         //  Use ViewModelProviders to associate your ViewModel with your UI controller.
-        //  TODO: check comment (Activity to Fragment)
         //  When your app first starts, the ViewModelProviders will create the ViewModel.
-        //  When the activity is destroyed, for example through a configuration change, the ViewModel persists.
-        //  When the activity is re-created, the ViewModelProviders return the existing ViewModel
+        //  When the fragment is destroyed, for example through a configuration change, the ViewModel persists.
+        //  When the fragment is re-created, the ViewModelProviders return the existing ViewModel
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
         //  Add an observer for the LiveData returned by getAll().
-        //  TODO: check comment (Activity to Fragment)
         //  The onChanged() method fires when the observed data changes
-        //  and the activity is in the foreground.
+        //  and the fragment is in the foreground.
         productViewModel.all.observe(this,
                 Observer<List<Product>>
                 { // Update the cached copy of the products in the adapter.
