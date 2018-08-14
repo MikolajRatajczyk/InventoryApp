@@ -80,4 +80,5 @@
     <string name="dialog_title_permission_denied">Permission denied</string>
     <string name="dialog_description_app_will_not_work">App will not work without storage permission</string>
     <string name="exit">Exit</string>
+    <string name="bottom_nav_title_export">Export</string>
 </resources>

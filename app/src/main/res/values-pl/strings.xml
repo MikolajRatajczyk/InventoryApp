@@ -78,4 +78,5 @@
     <string name="dialog_title_permission_denied">Odmówiono uprawnień</string>
     <string name="dialog_description_app_will_not_work">Aplikacja nie będzie działać bez uprawnienia do pamięci</string>
     <string name="exit">Wyjście</string>
+    <string name="bottom_nav_title_export">Eksport</string>
 </resources>
