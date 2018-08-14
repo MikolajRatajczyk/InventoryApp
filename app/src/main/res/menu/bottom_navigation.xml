@@ -17,16 +17,16 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/about_button"
-        android:enabled="true"
-        android:icon="@drawable/ic_info"
-        android:title="@string/bottom_nav_title_about"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/export_button"
         android:enabled="true"
         android:icon="@drawable/export_icon"
         android:title="@string/bottom_nav_title_export"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/about_button"
+        android:enabled="true"
+        android:icon="@drawable/ic_info"
+        android:title="@string/bottom_nav_title_about"
         app:showAsAction="ifRoom" />
 </menu>
