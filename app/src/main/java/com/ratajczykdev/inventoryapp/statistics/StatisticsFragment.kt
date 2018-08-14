@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_statistics.*
 class StatisticsFragment : Fragment() {
 
     private lateinit var productViewModel: ProductViewModel
-    private var productList: MutableList<Product?>? = mutableListOf()
+    private var productList: MutableList<Product?> = mutableListOf()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +46,8 @@ class StatisticsFragment : Fragment() {
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
 
         productViewModel.all.observe(this, Observer { products ->
-            productList = products
-            if (productList != null && productList!!.isNotEmpty()) {
+            productList = products ?: mutableListOf()
+            if (productList.isNotEmpty()) {
                 updateStatisticsInUi()
             }
         })
@@ -70,8 +70,8 @@ class StatisticsFragment : Fragment() {
 
     private fun getItemsNumber(): Int {
         var itemsNumber = 0
-        if (productList!!.isNotEmpty()) {
-            for (product in productList!!) {
+        if (productList.isNotEmpty()) {
+            for (product in productList) {
                 itemsNumber += product!!.quantity
             }
         }
@@ -84,7 +84,7 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun getProductsNumber(): Int {
-        return productList!!.size
+        return productList.size
     }
 
     private fun updateMaxPriceInUi() {
@@ -99,7 +99,7 @@ class StatisticsFragment : Fragment() {
 
     private fun getPricesSet(): Set<Float> {
         val pricesSet = HashSet<Float>()
-        for (product in productList!!) {
+        for (product in productList) {
             pricesSet.add(product!!.price)
         }
         return pricesSet
