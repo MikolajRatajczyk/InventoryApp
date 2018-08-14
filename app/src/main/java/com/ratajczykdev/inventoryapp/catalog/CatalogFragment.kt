@@ -31,6 +31,12 @@ class CatalogFragment : Fragment() {
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productListRecyclerAdapter: ProductListRecyclerAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //  call OnCreateOptionsMenu method
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_catalog, container, false)
@@ -39,11 +45,6 @@ class CatalogFragment : Fragment() {
         return view
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //  call OnCreateOptionsMenu method
-        setHasOptionsMenu(true)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -99,7 +100,6 @@ class CatalogFragment : Fragment() {
         inflater.inflate(R.menu.fragment_catalog_appbar_actions, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
 
     /**
      * Handles clicks on appbar's actions
