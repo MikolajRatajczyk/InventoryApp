@@ -143,6 +143,4 @@ class StatisticsFragment : Fragment() {
                 .setDuration(ANIMATION_DURATION_IN_MS)
                 .start()
     }
-
-    //  TODO: reduce using double bang (!!)
 }
