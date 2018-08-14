@@ -70,10 +70,8 @@ class StatisticsFragment : Fragment() {
 
     private fun getItemsNumber(): Int {
         var itemsNumber = 0
-        if (productList.isNotEmpty()) {
-            for (product in productList) {
-                itemsNumber += product.quantity
-            }
+        for (product in productList) {
+            itemsNumber += product.quantity
         }
         return itemsNumber
     }
