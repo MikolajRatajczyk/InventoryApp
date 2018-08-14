@@ -136,11 +136,13 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
      * Handles clicks on appbar's actions
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.activity_main_appbar_actions_settings_action -> startSettingsActivity()
+        return when (item.itemId) {
+            R.id.activity_main_appbar_actions_settings_action -> {
+                startSettingsActivity()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 
     private fun startSettingsActivity() {
