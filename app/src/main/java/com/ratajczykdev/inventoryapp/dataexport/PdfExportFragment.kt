@@ -8,9 +8,6 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.itextpdf.text.Document
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.database.Product
@@ -18,8 +15,6 @@ import com.ratajczykdev.inventoryapp.database.ProductViewModel
 import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.tools.StorageOperations
 import kotlinx.android.synthetic.main.fragment_pdf_export.*
-import java.io.File
-import java.io.FileOutputStream
 
 /**
  * Exports database data to PDF file
@@ -28,7 +23,6 @@ import java.io.FileOutputStream
  * but with the same repository as e.g. [CatalogFragment] and [ProductDetailActivity]
  */
 class PdfExportFragment : Fragment() {
-    //  change to export PDF not TXT
 
     private lateinit var productViewModel: ProductViewModel
     private var productList: MutableList<Product> = mutableListOf()
@@ -50,19 +44,11 @@ class PdfExportFragment : Fragment() {
         val externalExportDir = StorageOperations.createDirInExternal("exported", context)
         val productListString = ProductListConverter.createStringProductList(productList)
 
-        writeToPdfFile(externalExportDir, "exported_database", productListString)
+        StorageOperations.writeToPdfFile(externalExportDir, "exported_database", productListString)
 
         showExportedDatabaseSnackbar()
     }
 
-    private fun writeToPdfFile(directoryPath: File, pdfFileName: String, contentText: String) {
-        val document = Document()
-        val pdfFile = StorageOperations.createEmptyFile(directoryPath, "$pdfFileName.pdf")
-        PdfWriter.getInstance(document, FileOutputStream(pdfFile))
-        document.open()
-        document.add(Paragraph(contentText))
-        document.close()
-    }
 
     private fun showExportedDatabaseSnackbar() {
         Snackbar.make(root_constraintlayout, getString(R.string.snackbar_database_export_success), Snackbar.LENGTH_SHORT)

@@ -1,6 +1,9 @@
 package com.ratajczykdev.inventoryapp.tools
 
 import android.content.Context
+import com.itextpdf.text.Document
+import com.itextpdf.text.Paragraph
+import com.itextpdf.text.pdf.PdfWriter
 import java.io.File
 import java.io.FileOutputStream
 
@@ -64,5 +67,17 @@ object StorageOperations {
             File("")
         }
 
+    }
+
+    /**
+     * Writes [String] to PDF file
+     */
+    fun writeToPdfFile(directoryPath: File, pdfFileName: String, contentText: String) {
+        val document = Document()
+        val pdfFile = StorageOperations.createEmptyFile(directoryPath, "$pdfFileName.pdf")
+        PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+        document.open()
+        document.add(Paragraph(contentText))
+        document.close()
     }
 }
