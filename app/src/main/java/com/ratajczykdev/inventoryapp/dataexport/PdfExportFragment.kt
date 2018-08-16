@@ -15,7 +15,6 @@ import com.ratajczykdev.inventoryapp.database.ProductViewModel
 import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.tools.StorageOperations
 import kotlinx.android.synthetic.main.fragment_pdf_export.*
-import java.io.File
 
 /**
  * Exports database data to PDF file
