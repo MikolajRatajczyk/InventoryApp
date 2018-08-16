@@ -43,10 +43,8 @@ object StorageOperations {
             //  create stream for file
             val stream = FileOutputStream(file)
             //  write String to file
-            try {
-                stream.write(fileContent.toByteArray())
-            } finally {
-                stream.close()
+            stream.use {
+                it.write(fileContent.toByteArray())
             }
         }
     }
