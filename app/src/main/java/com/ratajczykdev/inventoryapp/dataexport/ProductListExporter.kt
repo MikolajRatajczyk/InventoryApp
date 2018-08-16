@@ -7,6 +7,7 @@ import java.util.*
  * Handles converting [Product] list to regular pattern [String]
  */
 object ProductListExporter {
+    //  TODO: Extract Strings and make translations
 
     private const val STRING_FORMAT_STYLE = "%-10s %-25s %-15s %-10s"
 
