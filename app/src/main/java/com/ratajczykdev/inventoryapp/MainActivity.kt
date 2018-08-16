@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.ratajczykdev.inventoryapp.about.AboutFragment
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
+import com.ratajczykdev.inventoryapp.dataexport.PdfExportFragment
 import com.ratajczykdev.inventoryapp.settings.SettingsActivity
 import com.ratajczykdev.inventoryapp.statistics.LoadingFragmentWithArgs
 import com.ratajczykdev.inventoryapp.statistics.StatisticsFragment
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
             when (currentItem.itemId) {
                 R.id.catalog_button -> loadFragment(CatalogFragment())
                 R.id.statistics_button -> loadFragment(StatisticsFragment())
+                R.id.export_button -> loadFragment(PdfExportFragment())
                 R.id.about_button -> loadFragment(AboutFragment())
             }
             true

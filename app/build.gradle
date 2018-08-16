@@ -47,6 +47,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //  Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+    //  Material Components
+    implementation group: 'com.android.support', name: 'design', version: '28.0.0-rc01'
+    //  iText G
+    implementation group: 'com.itextpdf', name: 'itextg', version: '5.5.10'
+
+
+
 }
 repositories {
     mavenCentral()

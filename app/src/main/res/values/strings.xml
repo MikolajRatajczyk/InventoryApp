@@ -80,4 +80,11 @@
     <string name="dialog_title_permission_denied">Permission denied</string>
     <string name="dialog_description_app_will_not_work">App will not work without storage permission</string>
     <string name="exit">Exit</string>
+    <string name="bottom_nav_title_export">Export</string>
+    <string name="card_title_export_settings">Export settings</string>
+    <string name="card_title_export_actions">Export actions</string>
+    <string name="save_to_pdf">Save to PDF</string>
+    <string name="include_photos">Include photos</string>
+    <string name="include_zero_quantity_products">Include zero-quantity products</string>
+    <string name="snackbar_database_export_success">Database exported successfully</string>
 </resources>
