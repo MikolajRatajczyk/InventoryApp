@@ -34,9 +34,10 @@ class MainActivity : AppCompatActivity(), LoadingFragmentWithArgs {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        configureBottomNavigation()
+
         if (savedInstanceState == null) {
             askWriteStoragePermission()
-            configureBottomNavigation()
             tapOnCatalogButton()
         }
     }
