@@ -80,4 +80,9 @@
     <string name="exit">Wyjście</string>
     <string name="bottom_nav_title_export">Eksport</string>
     <string name="snackbar_database_export_success">Baza danych wyeksportowana pomyślnie</string>
+    <string name="card_title_export_settings">Ustawienia eksportu</string>
+    <string name="card_title_export_actions">Akcje eksportu</string>
+    <string name="save_to_pdf">Zapisz do PDF</string>
+    <string name="include_photos">Dołącz zdjęcia</string>
+    <string name="include_zero_quantity_products">Dołącz produkty z zerową ilością</string>
 </resources>
