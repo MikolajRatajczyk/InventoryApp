@@ -51,4 +51,7 @@ class PdfExportFragment : Fragment() {
                 Snackbar.LENGTH_SHORT)
                 .show()
     }
+
+    //  TODO: complete include zero-quantity feature
+    //  TODO: complete include photos feature
 }
