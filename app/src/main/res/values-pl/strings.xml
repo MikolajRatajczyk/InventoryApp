@@ -40,7 +40,6 @@
     <string name="order_dialog_title">Jak wiele chciałbyś zamówić?</string>
     <string name="order_dialog_cancel">Anuluj</string>
     <string name="order_dialog_make_order">Złóż zamówienie</string>
-    <string name="dollar_symbol">$</string>
     <string name="photo_edit_symbol">symbol edycji</string>
     <string name="number_no_data">brak danych</string>
     <string name="sort_by_name_asc">Sortuj nazwą A-Z</string>

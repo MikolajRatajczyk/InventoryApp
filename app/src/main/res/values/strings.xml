@@ -40,7 +40,7 @@
     <string name="order_dialog_title">How many do you want to order?</string>
     <string name="order_dialog_cancel">Cancel</string>
     <string name="order_dialog_make_order">Make order</string>
-    <string name="dollar_symbol">$</string>
+    <string name="dollar_symbol" translatable="false">$</string>
     <string name="number_no_data">no data</string>
     <string name="sort_by_name_asc">Sort by name A-Z</string>
     <string name="sort_by_name_desc">Sort by name Z-A</string>
