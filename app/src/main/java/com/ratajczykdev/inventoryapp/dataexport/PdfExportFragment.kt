@@ -3,6 +3,7 @@ package com.ratajczykdev.inventoryapp.dataexport
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,7 @@ import com.ratajczykdev.inventoryapp.database.ProductViewModel
 import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.tools.StorageOperations
 import kotlinx.android.synthetic.main.fragment_pdf_export.*
-import java.util.*
+import java.io.File
 
 /**
  * Exports database data to PDF file
@@ -46,8 +47,11 @@ class PdfExportFragment : Fragment() {
         val externalExportDir = StorageOperations.createDirInExternal("exported", context)
         val stringProductList = ProductListExporter.createStringProductList(productList)
         StorageOperations.writeStringToFile(externalExportDir, "exported_database.txt", stringProductList)
+        showExportedDatabaseSnackbar()
     }
 
-
-
+    private fun showExportedDatabaseSnackbar() {
+        Snackbar.make(root_constraintlayout, getString(R.string.snackbar_database_export_success), Snackbar.LENGTH_SHORT)
+                .show()
+    }
 }

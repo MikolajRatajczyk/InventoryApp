@@ -86,4 +86,5 @@
     <string name="save_to_pdf">Save to PDF</string>
     <string name="include_photos">Include photos</string>
     <string name="include_zero_quantity_products">Include zero-quantity products</string>
+    <string name="snackbar_database_export_success">Database exported successfully</string>
 </resources>
