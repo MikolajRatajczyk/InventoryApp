@@ -8,6 +8,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.itextpdf.text.Document
+import com.itextpdf.text.Paragraph
+import com.itextpdf.text.pdf.PdfWriter
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.database.Product
@@ -15,6 +18,8 @@ import com.ratajczykdev.inventoryapp.database.ProductViewModel
 import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.tools.StorageOperations
 import kotlinx.android.synthetic.main.fragment_pdf_export.*
+import java.io.File
+import java.io.FileOutputStream
 
 /**
  * Exports database data to PDF file
@@ -38,19 +43,31 @@ class PdfExportFragment : Fragment() {
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
         productViewModel.all.observe(this, Observer { products -> productList = products ?: mutableListOf() })
 
-        save_to_pdf_button.setOnClickListener { action() }
+        save_to_pdf_button.setOnClickListener { saveDatabaseToPdf() }
     }
 
-    private fun action() {
-        //  TODO: change method name
+    private fun saveDatabaseToPdf() {
         val externalExportDir = StorageOperations.createDirInExternal("exported", context)
-        val stringProductList = ProductListExporter.createStringProductList(productList)
-        StorageOperations.writeStringToFile(externalExportDir, "exported_database.txt", stringProductList)
+        val productListString = ProductListConverter.createStringProductList(productList)
+
+        writeToPdfFile(externalExportDir, "exported_database", productListString)
+
         showExportedDatabaseSnackbar()
+    }
+
+    private fun writeToPdfFile(directoryPath: File, pdfFileName: String, contentText: String) {
+        val document = Document()
+        val pdfFile = StorageOperations.createEmptyFile(directoryPath, "$pdfFileName.pdf")
+        PdfWriter.getInstance(document, FileOutputStream(pdfFile))
+        document.open()
+        document.add(Paragraph(contentText))
+        document.close()
     }
 
     private fun showExportedDatabaseSnackbar() {
         Snackbar.make(root_constraintlayout, getString(R.string.snackbar_database_export_success), Snackbar.LENGTH_SHORT)
                 .show()
     }
+
+
 }
