@@ -50,4 +50,19 @@ object StorageOperations {
             }
         }
     }
+
+    /**
+     * Creates empty file
+     * @return [File] containing path to empty file, if failed returns non-existing path file
+     */
+    fun createEmptyFile(directoryPath: File, fileName: String): File {
+        return if (directoryPath.exists()) {
+            val filePath = File(directoryPath, fileName)
+            filePath.createNewFile()
+            filePath
+        } else {
+            File("")
+        }
+
+    }
 }
