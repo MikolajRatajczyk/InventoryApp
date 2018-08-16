@@ -46,7 +46,7 @@ class PdfExportFragment : Fragment() {
 
         StorageOperations.writeToPdfFile(externalExportDir, "exported_database", productListString)
 
-        Snackbar.make(root_constraintlayout,
+        Snackbar.make(root_scrollview,
                 getString(R.string.snackbar_database_export_success),
                 Snackbar.LENGTH_SHORT)
                 .show()
