@@ -25,6 +25,7 @@ This app helps you track your shop inventory.
  - UI based on **Fragments**
  - Help making order for a new supply,
  - Showing the full list of products with photos,
+ - Exporting database to ***PDF file***
  - Fully translated
  
  
