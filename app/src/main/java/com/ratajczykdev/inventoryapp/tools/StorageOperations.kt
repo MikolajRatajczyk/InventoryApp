@@ -42,8 +42,10 @@ object StorageOperations {
             val file = File(directoryPath, fileName)
             //  create stream for file
             val stream = FileOutputStream(file)
-            //  write String to file
+            //  use: execute block function and closes resource down correctly
+            //  whether an exception is thrown or not
             stream.use {
+                //  write String to file
                 it.write(fileContent.toByteArray())
             }
         }
