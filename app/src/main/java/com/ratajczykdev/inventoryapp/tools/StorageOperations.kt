@@ -20,7 +20,7 @@ object StorageOperations {
      * @return [File] object representing newly created or already existing directory,
      * if failed returns non-existing directory
      */
-    fun createDirInExternal(directoryName: String, context: Context?): File {
+    fun createExternalDir(directoryName: String, context: Context?): File {
         //  type of files directory - null for the root of the files directory
         val TYPE_FOR_ROOT_DIRECTORY = null
         //  get external storage path

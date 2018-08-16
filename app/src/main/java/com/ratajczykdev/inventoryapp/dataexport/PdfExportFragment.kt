@@ -41,19 +41,14 @@ class PdfExportFragment : Fragment() {
     }
 
     private fun saveDatabaseToPdf() {
-        val externalExportDir = StorageOperations.createDirInExternal("exported", context)
+        val externalExportDir = StorageOperations.createExternalDir("exported", context)
         val productListString = ProductListConverter.createStringProductList(productList)
 
         StorageOperations.writeToPdfFile(externalExportDir, "exported_database", productListString)
 
-        showExportedDatabaseSnackbar()
-    }
-
-
-    private fun showExportedDatabaseSnackbar() {
-        Snackbar.make(root_constraintlayout, getString(R.string.snackbar_database_export_success), Snackbar.LENGTH_SHORT)
+        Snackbar.make(root_constraintlayout,
+                getString(R.string.snackbar_database_export_success),
+                Snackbar.LENGTH_SHORT)
                 .show()
     }
-
-
 }
