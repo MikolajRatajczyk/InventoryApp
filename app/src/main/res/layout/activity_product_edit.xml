@@ -61,7 +61,7 @@
         android:layout_width="@dimen/icon_width"
         android:layout_height="@dimen/icon_height"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/name_symbol"
         android:transitionName="product_name_icon_to_transition"
         app:layout_constraintBottom_toTopOf="@+id/product_edit_quantity_icon"
@@ -110,7 +110,7 @@
         android:layout_height="@dimen/icon_height"
         android:contentDescription="@string/price_symbol"
         android:transitionName="product_price_icon_to_transition"
-        app:layout_constraintBottom_toTopOf="@+id/product_edit_delete_button"
+        app:layout_constraintBottom_toTopOf="@+id/product_edit_date_icon"
         app:layout_constraintStart_toStartOf="@+id/product_edit_quantity_icon"
         app:layout_constraintTop_toBottomOf="@+id/product_edit_quantity_icon"
         app:srcCompat="@drawable/product_price_black_icon" />
@@ -165,6 +165,40 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/product_edit_date_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/date_symbol"
+        app:layout_constraintBottom_toTopOf="@+id/product_edit_delete_button"
+        app:layout_constraintStart_toStartOf="@+id/product_edit_price_icon"
+        app:layout_constraintTop_toBottomOf="@+id/product_edit_price_icon"
+        app:srcCompat="@drawable/clock_icon" />
+
+    <EditText
+        android:id="@+id/product_edit_day_month_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:focusable="false"
+        android:hint="@string/day_month_year_schema_hint"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/product_edit_date_icon"
+        app:layout_constraintStart_toEndOf="@+id/product_edit_date_icon"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_date_icon" />
+
+    <EditText
+        android:id="@+id/product_edit_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:focusable="false"
+        android:hint="@string/time_schema_hint"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/product_edit_day_month_year"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_day_month_year" />
 
 
 </android.support.constraint.ConstraintLayout>

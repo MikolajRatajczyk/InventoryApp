@@ -96,10 +96,9 @@
                 android:id="@+id/product_detail_price_icon"
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
-                android:layout_marginBottom="8dp"
                 android:contentDescription="@string/price_symbol"
                 android:transitionName="product_price_icon_to_transition"
-                card_view:layout_constraintBottom_toTopOf="@+id/product_detail_order_button"
+                card_view:layout_constraintBottom_toTopOf="@+id/product_detail_date_icon"
                 card_view:layout_constraintStart_toStartOf="@+id/product_detail_quantity_icon"
                 card_view:layout_constraintTop_toBottomOf="@+id/product_detail_quantity_icon"
                 card_view:srcCompat="@drawable/product_price_black_icon" />
@@ -131,12 +130,46 @@
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/name_symbol"
                 android:transitionName="product_name_icon_to_transition"
                 card_view:layout_constraintBottom_toTopOf="@+id/product_detail_quantity_icon"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/product_detail_photo"
+                card_view:layout_constraintVertical_chainStyle="spread"
                 card_view:srcCompat="@drawable/product_name_black_icon" />
+
+            <ImageView
+                android:id="@+id/product_detail_date_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/date_symbol"
+                app:srcCompat="@drawable/clock_icon"
+                card_view:layout_constraintBottom_toTopOf="@+id/product_detail_dismiss_button"
+                card_view:layout_constraintStart_toStartOf="@+id/product_detail_price_icon"
+                card_view:layout_constraintTop_toBottomOf="@+id/product_detail_price_icon" />
+
+            <TextView
+                android:id="@+id/product_detail_day_month_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:textSize="36sp"
+                card_view:layout_constraintBottom_toBottomOf="@+id/product_detail_date_icon"
+                card_view:layout_constraintStart_toEndOf="@+id/product_detail_date_icon"
+                card_view:layout_constraintTop_toTopOf="@+id/product_detail_date_icon"
+                tools:text="27.12.2018" />
+
+            <TextView
+                android:id="@+id/product_detail_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textSize="36sp"
+                card_view:layout_constraintStart_toEndOf="@+id/product_detail_day_month_year"
+                card_view:layout_constraintTop_toTopOf="@+id/product_detail_day_month_year"
+                tools:text="15:35" />
 
 
         </android.support.constraint.ConstraintLayout>

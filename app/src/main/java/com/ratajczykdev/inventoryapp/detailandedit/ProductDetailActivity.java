@@ -19,8 +19,11 @@ import com.ratajczykdev.inventoryapp.catalog.CatalogFragment;
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+import com.ratajczykdev.inventoryapp.tools.DateHelper;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -31,6 +34,8 @@ import java.util.Locale;
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class ProductDetailActivity extends AppCompatActivity implements OrderDialogFragment.OrderDialogListener {
+
+    //  TODO: add animations for date
 
     /**
      * Activity gets its own {@link ProductViewModel},
@@ -45,9 +50,12 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     private ImageView imageNameIcon;
     private ImageView imageQuantityIcon;
     private ImageView imagePriceIcon;
+    private ImageView imageDateIcon;
     private TextView textName;
     private TextView textQuantity;
     private TextView textPrice;
+    private TextView textDayMonthYear;
+    private TextView textTime;
 
     private Product product;
 
@@ -84,6 +92,9 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         imageQuantityIcon = findViewById(R.id.product_detail_quantity_icon);
         textPrice = findViewById(R.id.product_detail_price);
         imagePriceIcon = findViewById(R.id.product_detail_price_icon);
+        textDayMonthYear = findViewById(R.id.product_detail_day_month_year);
+        textTime = findViewById(R.id.product_detail_time);
+        imageDateIcon = findViewById(R.id.product_detail_date_icon);
         buttonOrder = findViewById(R.id.product_detail_order_button);
         buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
     }
@@ -101,6 +112,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         setPriceInUi();
         setNameInUi();
         setPhotoInUi();
+        setDateInUi();
     }
 
     private void setQuantityInUi() {
@@ -125,6 +137,24 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
                 .error(R.drawable.ic_error)
                 .fit()
                 .into(imagePhoto);
+    }
+
+    private void setDateInUi() {
+        Date creationDate = product.getCreationDate();
+        setDayMonthYearInUi(creationDate);
+        setTimeInUi(creationDate);
+    }
+
+    private void setDayMonthYearInUi(Date creationDate) {
+        DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
+        String dayMonthYearString = dateFormat.format(creationDate);
+        textDayMonthYear.setText(dayMonthYearString);
+    }
+
+    private void setTimeInUi(Date creationDate) {
+        DateFormat dateFormat = DateHelper.INSTANCE.getTimeDateFormat(this);
+        String timeString = dateFormat.format(creationDate);
+        textTime.setText(timeString);
     }
 
     private void setFabListener() {
