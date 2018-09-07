@@ -17,9 +17,14 @@ import com.ratajczykdev.inventoryapp.catalog.CatalogFragment;
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
+import com.ratajczykdev.inventoryapp.tools.LocaleHelper;
 import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -48,6 +53,7 @@ public class ProductEditActivity extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextQuantity;
     private EditText editTextPrice;
+    private EditText editTextDate;
     private Button buttonDelete;
     private Button buttonCancel;
     private Button buttonSave;
@@ -88,6 +94,7 @@ public class ProductEditActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.product_edit_name);
         editTextQuantity = findViewById(R.id.product_edit_quantity);
         editTextPrice = findViewById(R.id.product_edit_price);
+        editTextDate = findViewById(R.id.product_edit_date);
         buttonDelete = findViewById(R.id.product_edit_delete_button);
         buttonCancel = findViewById(R.id.product_edit_cancel_button);
         buttonSave = findViewById(R.id.product_edit_save_button);
@@ -197,6 +204,7 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private boolean isUiDataCorrect() {
+        //  TODO: verify date
         String currentName = getStringNameFromUi();
         if (TextUtils.isEmpty(currentName)) {
             Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
@@ -216,6 +224,7 @@ public class ProductEditActivity extends AppCompatActivity {
         currentProduct.setName(getStringNameFromUi());
         currentProduct.setQuantity(getIntQuantityFromUi());
         currentProduct.setPrice(getFloatPriceFromUi());
+        currentProduct.setCreationDate(getDateFromUi());
         if (savedImageUri != null) {
             currentProduct.setPhotoUri(savedImageUri);
         }
@@ -235,6 +244,23 @@ public class ProductEditActivity extends AppCompatActivity {
             stringPrice = "0";
         }
         return Float.valueOf(stringPrice);
+    }
+
+    private Date getDateFromUi() {
+        //  TODO: check if required with date picker
+        //  TODO: simplify logic
+        String stringDate = editTextDate.getText().toString().trim();
+        Date date = new Date(0L);
+        if (!TextUtils.isEmpty(stringDate)) {
+            Locale userLocale = LocaleHelper.INSTANCE.getCurrentLocale(this);
+            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", userLocale);
+            try {
+                date = dateFormat.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
     }
 
     private boolean deleteProduct() {

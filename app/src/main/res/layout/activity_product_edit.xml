@@ -182,7 +182,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:hint="@string/date"
+        android:hint="@string/date_schema_hint"
         android:inputType="date"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/product_edit_date_icon"

@@ -89,4 +89,5 @@
     <string name="snackbar_database_export_success">Database exported successfully</string>
     <string name="date_symbol">date symbol</string>
     <string name="date">Date</string>
+    <string name="date_schema_hint">DD.MM.YYYY</string>
 </resources>
