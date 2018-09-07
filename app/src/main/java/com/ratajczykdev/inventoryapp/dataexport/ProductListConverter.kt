@@ -8,7 +8,7 @@ import java.util.*
  */
 object ProductListConverter {
 
-    private const val STRING_FORMAT_STYLE = "%-10s %-25s %-15s %-20s %-20s"
+    private const val STRING_FORMAT_STYLE = "%-5s %-25s %-15s %-15s %-30s"
 
 
     fun createStringProductList(productList: List<Product>): String {
@@ -18,7 +18,7 @@ object ProductListConverter {
             val name = product.name.toString()
             val price = product.price.toString()
             val quantity = product.quantity.toString()
-            val creationDate = product.creationDate.toString()
+            val creationDate = dateToFormattedString(product.creationDate)
 
             stringProductList += String.format(STRING_FORMAT_STYLE, id, name, price, quantity, creationDate) + "\n"
         }
@@ -30,5 +30,16 @@ object ProductListConverter {
         val columnNames = String.format(STRING_FORMAT_STYLE,
                 "[ID]", "[NAME]", "[PRICE]", "[QUANTITY]", "[CREATION DATE]")
         return dateLine + columnNames
+    }
+
+    private fun dateToFormattedString(date: Date): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val year = calendar.get(Calendar.YEAR)
+        val hour = calendar.get(Calendar.HOUR)
+        val minute = calendar.get(Calendar.MINUTE)
+        return "$day.$month.$year $hour:$minute"
     }
 }
