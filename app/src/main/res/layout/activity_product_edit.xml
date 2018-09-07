@@ -178,12 +178,12 @@
         app:srcCompat="@drawable/clock_icon" />
 
     <EditText
-        android:id="@+id/product_edit_date"
+        android:id="@+id/product_edit_day_month_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:focusable="false"
-        android:hint="@string/date_schema_hint"
+        android:hint="@string/day_month_year_schema_hint"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/product_edit_date_icon"
         app:layout_constraintStart_toEndOf="@+id/product_edit_date_icon"
@@ -197,8 +197,8 @@
         android:focusable="false"
         android:hint="@string/time_schema_hint"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/product_edit_date"
-        app:layout_constraintTop_toTopOf="@+id/product_edit_date" />
+        app:layout_constraintStart_toEndOf="@+id/product_edit_day_month_year"
+        app:layout_constraintTop_toTopOf="@+id/product_edit_day_month_year" />
 
 
 </android.support.constraint.ConstraintLayout>
