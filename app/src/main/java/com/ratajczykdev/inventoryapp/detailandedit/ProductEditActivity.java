@@ -39,8 +39,6 @@ import java.util.Locale;
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class ProductEditActivity extends AppCompatActivity {
-    //  TODO: check for edit mode
-
     /**
      * Request code that identifies photo request from user
      */
@@ -167,10 +165,21 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private void setDateInUi() {
-        Date date = currentProduct.getCreationDate();
+        Date creationDate = currentProduct.getCreationDate();
+        setDayMonthYearInUi(creationDate);
+        setTimeInUi(creationDate);
+    }
+
+    private void setDayMonthYearInUi(Date creationDate) {
         DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
-        String dateString = dateFormat.format(date);
-        editTextDayYearMonth.setText(dateString);
+        String dayMonthYearString = dateFormat.format(creationDate);
+        editTextDayYearMonth.setText(dayMonthYearString);
+    }
+
+    private void setTimeInUi(Date creationDate) {
+        DateFormat dateFormat = DateHelper.INSTANCE.getTimeDateFormat(this);
+        String timeString = dateFormat.format(creationDate);
+        editTextTime.setText(timeString);
     }
 
     private void setPhotoInUi() {
