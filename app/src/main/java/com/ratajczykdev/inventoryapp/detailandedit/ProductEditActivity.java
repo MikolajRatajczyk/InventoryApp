@@ -31,6 +31,8 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity {
 
+    //  TODO: add date selector
+
     /**
      * Request code that identifies photo request from user
      */

@@ -88,4 +88,5 @@
     <string name="include_zero_quantity_products">Include zero-quantity products</string>
     <string name="snackbar_database_export_success">Database exported successfully</string>
     <string name="date_symbol">date symbol</string>
+    <string name="date">Date</string>
 </resources>
