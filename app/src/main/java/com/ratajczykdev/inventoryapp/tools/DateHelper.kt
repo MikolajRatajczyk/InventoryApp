@@ -2,12 +2,14 @@ package com.ratajczykdev.inventoryapp.tools
 
 import android.content.Context
 import android.os.Build
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * Handles receiving [Locale] from device
+ * Helps dealing with date
  */
-object LocaleHelper {
+object DateHelper {
 
     @Suppress("DEPRECATION")
     fun getCurrentLocale(context: Context): Locale {
@@ -16,6 +18,12 @@ object LocaleHelper {
         } else {
             context.resources.configuration.locale
         }
+    }
+
+    fun getDateFormat(context: Context): DateFormat {
+        val dateSchema = "dd.MM.yyyy"
+        val currentLocale = getCurrentLocale(context)
+        return SimpleDateFormat(dateSchema, currentLocale)
     }
 
 }
