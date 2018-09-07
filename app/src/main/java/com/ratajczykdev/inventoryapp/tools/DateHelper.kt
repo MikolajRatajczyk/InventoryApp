@@ -21,7 +21,7 @@ object DateHelper {
     }
 
     fun getDateFormat(context: Context): DateFormat {
-        val dateSchema = "dd.MM.yyyy"
+        val dateSchema = "dd.MM.yyyy HH:mm"
         val currentLocale = getCurrentLocale(context)
         return SimpleDateFormat(dateSchema, currentLocale)
     }

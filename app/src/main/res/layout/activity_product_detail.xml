@@ -159,7 +159,7 @@
                 card_view:layout_constraintBottom_toBottomOf="@+id/product_detail_date_icon"
                 card_view:layout_constraintStart_toEndOf="@+id/product_detail_date_icon"
                 card_view:layout_constraintTop_toTopOf="@+id/product_detail_date_icon"
-                tools:text="15.01.2018" />
+                tools:text="15.01.2018 18:05" />
 
 
         </android.support.constraint.ConstraintLayout>
