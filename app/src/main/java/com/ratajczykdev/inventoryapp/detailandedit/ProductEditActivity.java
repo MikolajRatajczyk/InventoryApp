@@ -1,5 +1,7 @@
 package com.ratajczykdev.inventoryapp.detailandedit;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,8 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.ratajczykdev.inventoryapp.R;
@@ -23,7 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -36,7 +40,7 @@ import java.util.Locale;
  */
 public class ProductEditActivity extends AppCompatActivity {
 
-    //  TODO: add date selector
+    //  TODO: check for edit mode
 
     /**
      * Request code that identifies photo request from user
@@ -53,7 +57,8 @@ public class ProductEditActivity extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextQuantity;
     private EditText editTextPrice;
-    private EditText editTextDate;
+    private EditText editTextDayYearMonth;
+    private EditText editTextTime;
     private Button buttonDelete;
     private Button buttonCancel;
     private Button buttonSave;
@@ -94,7 +99,8 @@ public class ProductEditActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.product_edit_name);
         editTextQuantity = findViewById(R.id.product_edit_quantity);
         editTextPrice = findViewById(R.id.product_edit_price);
-        editTextDate = findViewById(R.id.product_edit_date);
+        editTextDayYearMonth = findViewById(R.id.product_edit_day_month_year);
+        editTextTime = findViewById(R.id.product_edit_time);
         buttonDelete = findViewById(R.id.product_edit_delete_button);
         buttonCancel = findViewById(R.id.product_edit_cancel_button);
         buttonSave = findViewById(R.id.product_edit_save_button);
@@ -163,9 +169,9 @@ public class ProductEditActivity extends AppCompatActivity {
 
     private void setDateInUi() {
         Date date = currentProduct.getCreationDate();
-        DateFormat dateFormat = DateHelper.INSTANCE.getDateFormat(this);
+        DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
         String dateString = dateFormat.format(date);
-        editTextDate.setText(dateString);
+        editTextDayYearMonth.setText(dateString);
     }
 
     private void setPhotoInUi() {
@@ -257,10 +263,10 @@ public class ProductEditActivity extends AppCompatActivity {
     private Date getDateFromUi() {
         //  TODO: check if required with date picker
         //  TODO: simplify logic
-        String stringDate = editTextDate.getText().toString().trim();
+        String stringDate = editTextDayYearMonth.getText().toString().trim();
         Date date = new Date(0L);
         if (!TextUtils.isEmpty(stringDate)) {
-            DateFormat dateFormat = DateHelper.INSTANCE.getDateFormat(this);
+            DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
             try {
                 date = dateFormat.parse(stringDate);
             } catch (ParseException e) {
@@ -291,6 +297,9 @@ public class ProductEditActivity extends AppCompatActivity {
                 }
             }
         });
+
+        configureDayMonthYear();
+        configureTime();
     }
 
     /**
@@ -306,6 +315,60 @@ public class ProductEditActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    private void configureDayMonthYear() {
+        //  TODO:  refactor
+        final Calendar calendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, day);
+                DateFormat dateFormat = (DateHelper.INSTANCE.getDayMonthYearDateFormat(ProductEditActivity.this));
+                String dayMonthYearString = dateFormat.format(calendar.getTime());
+                editTextDayYearMonth.setText(dayMonthYearString);
+            }
+        };
+
+        editTextDayYearMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+
+                new DatePickerDialog(ProductEditActivity.this, onDateSetListener, year, month, day).show();
+            }
+        });
+    }
+
+    private void configureTime() {
+        //  TODO: refactor
+        final Calendar calendar = Calendar.getInstance();
+
+        final TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                calendar.set(Calendar.HOUR, hour);
+                calendar.set(Calendar.MINUTE, minute);
+                DateFormat timeFormat = DateHelper.INSTANCE.getTimeDateFormat(ProductEditActivity.this);
+                String timeString = timeFormat.format(calendar.getTime());
+                editTextTime.setText(timeString);
+            }
+        };
+
+        editTextTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int hour = calendar.get(Calendar.HOUR);
+                int minute = calendar.get(Calendar.MINUTE);
+
+                final boolean IS_24_HOUR_VIEW = true;
+                new TimePickerDialog(ProductEditActivity.this, onTimeSetListener, hour, minute, IS_24_HOUR_VIEW).show();
+            }
+        });
     }
 
     /**
