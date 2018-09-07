@@ -39,7 +39,6 @@ import java.util.Locale;
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 public class ProductEditActivity extends AppCompatActivity {
-
     //  TODO: check for edit mode
 
     /**
@@ -218,7 +217,6 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private boolean isUiDataCorrect() {
-        //  TODO: verify date
         String currentName = getStringNameFromUi();
         if (TextUtils.isEmpty(currentName)) {
             Toast.makeText(this, R.string.info_correct_name_enter, Toast.LENGTH_SHORT).show();
@@ -267,35 +265,32 @@ public class ProductEditActivity extends AppCompatActivity {
         return new Date(unixDate);
     }
 
-
     private Date getDayMonthYearFromUi() {
-        //  TODO: simplify logic
         String stringDate = editTextDayYearMonth.getText().toString().trim();
-        Date date = new Date(0L);
+        Date dayMonthYearDate = new Date(0L);
         if (!TextUtils.isEmpty(stringDate)) {
             DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
             try {
-                date = dateFormat.parse(stringDate);
+                dayMonthYearDate = dateFormat.parse(stringDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        return date;
+        return dayMonthYearDate;
     }
 
     private Date getTimeFromUi() {
-        //  TODO: simplify logic
         String timeString = editTextTime.getText().toString();
-        Date date = new Date(0L);
+        Date timeDate = new Date(0L);
         if (!TextUtils.isEmpty(timeString)) {
             DateFormat dateFormat = DateHelper.INSTANCE.getTimeDateFormat(this);
             try {
-                date = dateFormat.parse(timeString);
+                timeDate = dateFormat.parse(timeString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        return date;
+        return timeDate;
     }
 
     private boolean deleteProduct() {
@@ -320,8 +315,8 @@ public class ProductEditActivity extends AppCompatActivity {
             }
         });
 
-        configureDayMonthYear();
-        configureTime();
+        configureDayMonthYearPicker();
+        configureTimePicker();
     }
 
     /**
@@ -339,16 +334,16 @@ public class ProductEditActivity extends AppCompatActivity {
         }
     }
 
-    private void configureDayMonthYear() {
-        //  TODO:  refactor
+    private void configureDayMonthYearPicker() {
         final Calendar calendar = Calendar.getInstance();
+
         final DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, day);
-                DateFormat dateFormat = (DateHelper.INSTANCE.getDayMonthYearDateFormat(ProductEditActivity.this));
+                DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(ProductEditActivity.this);
                 String dayMonthYearString = dateFormat.format(calendar.getTime());
                 editTextDayYearMonth.setText(dayMonthYearString);
             }
@@ -357,17 +352,16 @@ public class ProductEditActivity extends AppCompatActivity {
         editTextDayYearMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH);
-                int year = calendar.get(Calendar.YEAR);
+                int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+                int currentMonth = calendar.get(Calendar.MONTH);
+                int currentYear = calendar.get(Calendar.YEAR);
 
-                new DatePickerDialog(ProductEditActivity.this, onDateSetListener, year, month, day).show();
+                new DatePickerDialog(ProductEditActivity.this, onDateSetListener, currentYear, currentMonth, currentDay).show();
             }
         });
     }
 
-    private void configureTime() {
-        //  TODO: refactor
+    private void configureTimePicker() {
         final Calendar calendar = Calendar.getInstance();
 
         final TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
@@ -384,11 +378,11 @@ public class ProductEditActivity extends AppCompatActivity {
         editTextTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int hour = calendar.get(Calendar.HOUR);
-                int minute = calendar.get(Calendar.MINUTE);
+                int currentHour = calendar.get(Calendar.HOUR);
+                int currentMinute = calendar.get(Calendar.MINUTE);
 
                 final boolean IS_24_HOUR_VIEW = true;
-                new TimePickerDialog(ProductEditActivity.this, onTimeSetListener, hour, minute, IS_24_HOUR_VIEW).show();
+                new TimePickerDialog(ProductEditActivity.this, onTimeSetListener, currentHour, currentMinute, IS_24_HOUR_VIEW).show();
             }
         });
     }
