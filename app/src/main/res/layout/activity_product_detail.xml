@@ -151,15 +151,25 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/product_detail_price_icon" />
 
             <TextView
-                android:id="@+id/product_detail_date"
+                android:id="@+id/product_detail_day_month_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:textSize="36sp"
+                android:textSize="24sp"
                 card_view:layout_constraintBottom_toBottomOf="@+id/product_detail_date_icon"
                 card_view:layout_constraintStart_toEndOf="@+id/product_detail_date_icon"
                 card_view:layout_constraintTop_toTopOf="@+id/product_detail_date_icon"
-                tools:text="15.01.2018 18:05" />
+                tools:text="27.12.2018" />
+
+            <TextView
+                android:id="@+id/product_detail_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textSize="24sp"
+                card_view:layout_constraintStart_toEndOf="@+id/product_detail_day_month_year"
+                card_view:layout_constraintTop_toTopOf="@+id/product_detail_day_month_year"
+                tools:text="15:35" />
 
 
         </android.support.constraint.ConstraintLayout>

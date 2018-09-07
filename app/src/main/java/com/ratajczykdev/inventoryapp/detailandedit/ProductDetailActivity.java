@@ -54,7 +54,8 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     private TextView textName;
     private TextView textQuantity;
     private TextView textPrice;
-    private TextView textDate;
+    private TextView textDayMonthYear;
+    private TextView textTime;
 
     private Product product;
 
@@ -91,7 +92,8 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         imageQuantityIcon = findViewById(R.id.product_detail_quantity_icon);
         textPrice = findViewById(R.id.product_detail_price);
         imagePriceIcon = findViewById(R.id.product_detail_price_icon);
-        textDate = findViewById(R.id.product_detail_date);
+        textDayMonthYear = findViewById(R.id.product_detail_day_month_year);
+        textTime = findViewById(R.id.product_detail_time);
         imageDateIcon = findViewById(R.id.product_detail_date_icon);
         buttonOrder = findViewById(R.id.product_detail_order_button);
         buttonDismiss = findViewById(R.id.product_detail_dismiss_button);
@@ -138,10 +140,21 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     }
 
     private void setDateInUi() {
-        Date date = product.getCreationDate();
+        Date creationDate = product.getCreationDate();
+        setDayMonthYearInUi(creationDate);
+        setTimeInUi(creationDate);
+    }
+
+    private void setDayMonthYearInUi(Date creationDate) {
         DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
-        String dateString = dateFormat.format(date);
-        textDate.setText(dateString);
+        String dayMonthYearString = dateFormat.format(creationDate);
+        textDayMonthYear.setText(dayMonthYearString);
+    }
+
+    private void setTimeInUi(Date creationDate) {
+        DateFormat dateFormat = DateHelper.INSTANCE.getTimeDateFormat(this);
+        String timeString = dateFormat.format(creationDate);
+        textTime.setText(timeString);
     }
 
     private void setFabListener() {
