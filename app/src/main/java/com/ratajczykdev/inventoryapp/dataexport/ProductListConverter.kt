@@ -1,5 +1,6 @@
 package com.ratajczykdev.inventoryapp.dataexport
 
+import android.util.Log
 import com.ratajczykdev.inventoryapp.database.Product
 import java.util.*
 
@@ -21,6 +22,7 @@ object ProductListConverter {
             val creationDate = dateToFormattedString(product.creationDate)
 
             stringProductList += String.format(STRING_FORMAT_STYLE, id, name, price, quantity, creationDate) + "\n"
+            Log.e("line: ", stringProductList)
         }
         return stringProductList
     }
@@ -33,6 +35,7 @@ object ProductListConverter {
     }
 
     private fun dateToFormattedString(date: Date): String {
+        //  TODO: consider moving to [DateHelper]
         val calendar = Calendar.getInstance()
         calendar.time = date
         val day = calendar.get(Calendar.DAY_OF_MONTH)

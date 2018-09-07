@@ -54,4 +54,5 @@ class PdfExportFragment : Fragment() {
 
     //  TODO: complete include zero-quantity feature
     //  TODO: complete include photos feature
+    //  TODO: fix columns inconsistency in exported file
 }
