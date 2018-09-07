@@ -261,7 +261,14 @@ public class ProductEditActivity extends AppCompatActivity {
     }
 
     private Date getDateFromUi() {
-        //  TODO: check if required with date picker
+        Date dayMonthYear = getDayMonthYearFromUi();
+        Date time = getTimeFromUi();
+        long unixDate = dayMonthYear.getTime() + time.getTime();
+        return new Date(unixDate);
+    }
+
+
+    private Date getDayMonthYearFromUi() {
         //  TODO: simplify logic
         String stringDate = editTextDayYearMonth.getText().toString().trim();
         Date date = new Date(0L);
@@ -269,6 +276,21 @@ public class ProductEditActivity extends AppCompatActivity {
             DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
             try {
                 date = dateFormat.parse(stringDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return date;
+    }
+
+    private Date getTimeFromUi() {
+        //  TODO: simplify logic
+        String timeString = editTextTime.getText().toString();
+        Date date = new Date(0L);
+        if (!TextUtils.isEmpty(timeString)) {
+            DateFormat dateFormat = DateHelper.INSTANCE.getTimeDateFormat(this);
+            try {
+                date = dateFormat.parse(timeString);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
