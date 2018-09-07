@@ -17,7 +17,7 @@ import com.ratajczykdev.inventoryapp.catalog.CatalogFragment;
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter;
 import com.ratajczykdev.inventoryapp.database.Product;
 import com.ratajczykdev.inventoryapp.database.ProductViewModel;
-import com.ratajczykdev.inventoryapp.tools.LocaleHelper;
+import com.ratajczykdev.inventoryapp.tools.DateHelper;
 import com.ratajczykdev.inventoryapp.tools.ImageHelper;
 import com.squareup.picasso.Picasso;
 
@@ -252,8 +252,7 @@ public class ProductEditActivity extends AppCompatActivity {
         String stringDate = editTextDate.getText().toString().trim();
         Date date = new Date(0L);
         if (!TextUtils.isEmpty(stringDate)) {
-            Locale userLocale = LocaleHelper.INSTANCE.getCurrentLocale(this);
-            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", userLocale);
+            DateFormat dateFormat = DateHelper.INSTANCE.getDateFormat(this);
             try {
                 date = dateFormat.parse(stringDate);
             } catch (ParseException e) {
