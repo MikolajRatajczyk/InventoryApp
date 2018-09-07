@@ -20,10 +20,19 @@ object DateHelper {
         }
     }
 
-    fun getDateFormat(context: Context): DateFormat {
-        val dateSchema = "dd.MM.yyyy HH:mm"
+    fun getDayMonthYearDateFormat(context: Context): DateFormat {
+        val dateSchema = "dd.MM.yyyy"
+        return getDateFormat(dateSchema, context)
+    }
+
+    fun getTimeDateFormat(context: Context): DateFormat {
+        val timeSchema = "HH:mm"
+        return getDateFormat(timeSchema, context)
+    }
+
+    private fun getDateFormat(schema: String, context: Context): DateFormat {
         val currentLocale = getCurrentLocale(context)
-        return SimpleDateFormat(dateSchema, currentLocale)
+        return SimpleDateFormat(schema, currentLocale)
     }
 
 }

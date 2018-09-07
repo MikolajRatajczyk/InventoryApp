@@ -139,7 +139,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
 
     private void setDateInUi() {
         Date date = product.getCreationDate();
-        DateFormat dateFormat = DateHelper.INSTANCE.getDateFormat(this);
+        DateFormat dateFormat = DateHelper.INSTANCE.getDayMonthYearDateFormat(this);
         String dateString = dateFormat.format(date);
         textDate.setText(dateString);
     }
