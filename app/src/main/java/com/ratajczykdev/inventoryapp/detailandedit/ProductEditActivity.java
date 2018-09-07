@@ -142,6 +142,7 @@ public class ProductEditActivity extends AppCompatActivity {
         setQuantityInUi();
         setPriceInUi();
         setNameInUi();
+        setDateInUi();
         setPhotoInUi();
     }
 
@@ -158,6 +159,13 @@ public class ProductEditActivity extends AppCompatActivity {
     private void setNameInUi() {
         String name = currentProduct.getName();
         editTextName.setText(name);
+    }
+
+    private void setDateInUi() {
+        Date date = currentProduct.getCreationDate();
+        DateFormat dateFormat = DateHelper.INSTANCE.getDateFormat(this);
+        String dateString = dateFormat.format(date);
+        editTextDate.setText(dateString);
     }
 
     private void setPhotoInUi() {
