@@ -1,8 +1,11 @@
 package com.ratajczykdev.inventoryapp.database;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+
+import java.util.Date;
 
 /**
  * Data model class for the database
@@ -21,6 +24,8 @@ public class Product {
     private String photoUri;
     private float price;
     private int quantity;
+    @ColumnInfo(name = "creation_date")
+    private Date creationDate;
 
     public Product() {
     }
@@ -63,5 +68,13 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

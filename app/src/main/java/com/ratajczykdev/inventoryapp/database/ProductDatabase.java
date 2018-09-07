@@ -4,6 +4,7 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.support.annotation.NonNull;
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
  */
 @Database(entities = {Product.class}, version = 1, exportSchema = false)
+@TypeConverters({DateConverter.class})
 public abstract class ProductDatabase extends RoomDatabase {
 
     private static ProductDatabase productDatabaseInstance;
