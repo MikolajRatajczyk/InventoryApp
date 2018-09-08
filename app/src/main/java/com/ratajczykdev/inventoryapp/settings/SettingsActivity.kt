@@ -7,7 +7,7 @@ import com.ratajczykdev.inventoryapp.R
 /**
  * Displays Fragment with preferences
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 class SettingsActivity : AppCompatActivity() {
 

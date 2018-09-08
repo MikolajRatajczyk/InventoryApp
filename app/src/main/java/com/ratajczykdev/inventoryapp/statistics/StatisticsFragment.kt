@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_statistics.*
  * Gets data from own [ProductViewModel]
  * but with the same repository as e.g. [CatalogFragment] and [ProductDetailActivity]
  *
- * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 class StatisticsFragment : Fragment() {
 

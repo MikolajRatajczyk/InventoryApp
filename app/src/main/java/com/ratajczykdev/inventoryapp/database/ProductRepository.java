@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
  * The Repository is not part of the Architecture Components libraries,
  * but is a suggested best practice for code separation and architecture.
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 public class ProductRepository {
 

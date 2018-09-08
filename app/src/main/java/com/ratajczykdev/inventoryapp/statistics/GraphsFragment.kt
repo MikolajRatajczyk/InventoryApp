@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_graphs.*
 /**
  * Shows graphs with statistics data about products
  *
- * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 class GraphsFragment : Fragment() {
 

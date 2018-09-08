@@ -15,7 +15,7 @@ import com.ratajczykdev.inventoryapp.R;
 /**
  * DialogFragment for making order
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 public class OrderDialogFragment extends DialogFragment {
     /**

@@ -12,7 +12,7 @@ import java.util.Date;
  * <p>
  * Represents single product and products table name
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 @Entity(tableName = "products_table")
 public class Product {

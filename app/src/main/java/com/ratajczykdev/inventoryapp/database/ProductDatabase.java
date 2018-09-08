@@ -14,7 +14,7 @@ import android.support.annotation.NonNull;
  * <p>
  * Uses Singleton design pattern
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 @Database(entities = {Product.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})

@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * Helper class that handles retrieving/saving images from/to memory
  *
- * @author Mikołaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikołaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 public final class ImageHelper {
     private static final String LOG_TAG = ImageHelper.class.getSimpleName();

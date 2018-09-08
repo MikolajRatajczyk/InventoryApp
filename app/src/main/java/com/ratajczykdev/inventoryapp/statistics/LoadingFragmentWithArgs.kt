@@ -9,7 +9,7 @@ import com.ratajczykdev.inventoryapp.MainActivity
  *
  * Data flow example: [StatisticsFragment] -> [MainActivity] -> [GraphsFragment]
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 interface LoadingFragmentWithArgs {
 

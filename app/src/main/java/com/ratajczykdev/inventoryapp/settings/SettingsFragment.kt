@@ -7,7 +7,7 @@ import com.ratajczykdev.inventoryapp.R
 /**
  * Loads preferences from an XML file resource
  *
- * @author Mikolaj Ratajczyk <mikolaj.ratajczyk@gmail.com>
+ * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 class SettingsFragment : PreferenceFragmentCompat() {
 
