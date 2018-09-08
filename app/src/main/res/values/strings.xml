@@ -54,8 +54,8 @@
     <string name="about_the_app">About the app</string>
     <string name="content_description_big_app_icon">big app icon</string>
     <string name="created_by">Created by:</string>
-    <string name="mikolaj_ratajczyk">Mikołaj Ratajczyk</string>
-    <string name="mikolaj_ratajczyk_at_gmail">mikolaj.ratajczyk@gmail.com</string>
+    <string name="mikolaj_ratajczyk" translatable="false">Mikołaj Ratajczyk</string>
+    <string name="mikolaj_ratajczyk_at_gmail" translatable="false">mikolaj.ratajczyk@gmail.com</string>
     <string name="number_of_items">Number of items</string>
     <string name="number_of_products">Number of products</string>
     <string name="maximum_price">Maximum price</string>
