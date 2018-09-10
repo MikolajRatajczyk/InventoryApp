@@ -100,6 +100,7 @@ public class ProductEditActivity extends AppCompatActivity {
         } else {
             currentProduct = new Product();
             setupButtonsForAdding();
+            setCurrentDateInUi();
         }
     }
 
@@ -352,6 +353,13 @@ public class ProductEditActivity extends AppCompatActivity {
         } else {
             return false;
         }
+    }
+
+    private void setCurrentDateInUi() {
+        final Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+        setDayMonthYearInUi(currentDate);
+        setTimeInUi(currentDate);
     }
 
     private void configureDayMonthYearPicker() {
