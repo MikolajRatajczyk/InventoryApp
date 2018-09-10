@@ -3,10 +3,8 @@ package com.ratajczykdev.inventoryapp.database;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Abstracts access to multiple data sources (here: only one)
@@ -119,289 +117,63 @@ public class ProductRepository {
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderNameAsc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderNameAsc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderNameAscAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderNameAsc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
+        return productDao.getAllOrderNameAsc();
     }
 
-    /**
-     * Static class for {@link ProductRepository#getAllOrderNameAsc()}
-     */
-    private static class GetAllOrderNameAscAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderNameAscAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderNameAsc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
-    }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderNameDesc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderNameDesc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderNameDescAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderNameDesc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
+        return productDao.getAllOrderNameDesc();
     }
 
-    /**
-     * Static class for {@link ProductRepository#getAllOrderNameDesc()}
-     */
-    private static class GetAllOrderNameDescAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderNameDescAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderNameDesc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
-    }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderPriceDesc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderPriceDesc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderPriceDescAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderPriceDesc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
-    }
-
-    /**
-     * Static class for {@link ProductRepository#getAllOrderPriceDesc()}
-     */
-    private static class GetAllOrderPriceDescAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderPriceDescAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderPriceDesc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
+        return productDao.getAllOrderPriceDesc();
     }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderPriceAsc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderPriceAsc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderPriceAscAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderPriceAsc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
+        return productDao.getAllOrderPriceAsc();
     }
 
-    /**
-     * Static class for {@link ProductRepository#getAllOrderPriceAsc()}
-     */
-    private static class GetAllOrderPriceAscAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderPriceAscAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderPriceAsc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
-    }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderIdDesc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderIdDesc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderIdDescAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderIdDesc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
+        return productDao.getAllOrderIdDesc();
     }
 
-    /**
-     * Static class for {@link ProductRepository#getAllOrderIdDesc()}
-     */
-    private static class GetAllOrderIdDescAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderIdDescAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderIdDesc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
-    }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderIdAsc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderIdAsc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderIdAscAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderIdAsc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
+        return productDao.getAllOrderIdAsc();
     }
 
-    /**
-     * Static class for {@link ProductRepository#getAllOrderIdAsc()}
-     */
-    private static class GetAllOrderIdAscAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderIdAscAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderIdAsc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
-    }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderQuantityDesc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderQuantityDesc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderQuantityDescAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderQuantityDesc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
-    }
-
-    /**
-     * Static class for {@link ProductRepository#getAllOrderQuantityDesc()}
-     */
-    private static class GetAllOrderQuantityDescAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderQuantityDescAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderQuantityDesc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
+        return productDao.getAllOrderQuantityDesc();
     }
 
     /**
      * Wrapper for {@link ProductDao#getAllOrderQuantityAsc()}
-     * Call this on a non-UI thread or app will crash.
      */
     public LiveData<List<Product>> getAllOrderQuantityAsc() {
-        LiveData<List<Product>> productLiveDataList = null;
-        try {
-            productLiveDataList = new GetAllOrderQuantityAscAsyncTask(productDao).execute().get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "getAllOrderQuantityAsc failed");
-            e.printStackTrace();
-        }
-        return productLiveDataList;
+        return productDao.getAllOrderQuantityAsc();
     }
 
-    /**
-     * Static class for {@link ProductRepository#getAllOrderQuantityAsc()}
-     */
-    private static class GetAllOrderQuantityAscAsyncTask extends AsyncTask<Void, Void, LiveData<List<Product>>> {
-        private ProductDao productDao;
-
-        public GetAllOrderQuantityAscAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected LiveData<List<Product>> doInBackground(Void... voids) {
-            return productDao.getAllOrderQuantityAsc();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Product>> listLiveData) {
-            super.onPostExecute(listLiveData);
-        }
-    }
 }
