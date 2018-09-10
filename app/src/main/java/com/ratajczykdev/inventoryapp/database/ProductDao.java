@@ -12,6 +12,8 @@ import java.util.List;
 /**
  * Interface class for database access
  *
+ * Getting LiveData happens on background thread automatically
+ *
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
 @Dao
@@ -43,7 +45,7 @@ public interface ProductDao {
     LiveData<Product> findSingleByName(String searchName);
 
     @Query("SELECT * FROM products_table WHERE id = :searchId")
-    Product findSingleById(int searchId);
+    LiveData<Product> findSingleById(int searchId);
 
     @Query("SELECT * FROM products_table ORDER BY name ASC")
     LiveData<List<Product>> getAllOrderNameAsc();

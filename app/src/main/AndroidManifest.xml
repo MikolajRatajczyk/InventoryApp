@@ -12,11 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".detailandedit.ProductDetailActivity"
-            android:label="@string/details_title"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".detailandedit.ProductEditActivity"
+            android:parentActivityName=".MainActivity"
             android:label="@string/edit_product_title" />
         <activity
             android:name=".settings.SettingsActivity"
@@ -28,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".detailandedit.ProductDetailActivity"
+            android:noHistory="true" />
     </application>
 
 </manifest>

@@ -47,7 +47,7 @@ public class ProductViewModel extends AndroidViewModel {
     /**
      * This way implementation is completely hidden from UI
      */
-    public Product findSingleById(int searchId) {
+    public LiveData<Product> findSingleById(int searchId) {
         return productRepository.findSingleById(searchId);
     }
 
