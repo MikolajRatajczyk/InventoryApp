@@ -285,8 +285,8 @@ public class ProductEditActivity extends AppCompatActivity {
     private Date getDateFromUi() {
         Date dayMonthYear = getDayMonthYearFromUi();
         Date time = getTimeFromUi();
-        long unixDate = dayMonthYear.getTime() + time.getTime();
-        return new Date(unixDate);
+        //  use helper method because of not matching GMT zones (dayMonthYear and time)
+        return DateHelper.INSTANCE.dayMonthYearPlusTime(dayMonthYear, time);
     }
 
     private Date getDayMonthYearFromUi() {
