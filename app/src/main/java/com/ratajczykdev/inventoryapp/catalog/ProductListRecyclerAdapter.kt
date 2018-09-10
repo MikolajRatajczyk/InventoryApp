@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
-import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailKotlinActivity
 import com.squareup.picasso.Picasso
 import java.util.*
 
@@ -46,7 +46,7 @@ class ProductListRecyclerAdapter(val context: Context) : RecyclerView.Adapter<Pr
         loadProductPhotoFromUri(holder, currentProduct)
 
         holder.listItemRootView.setOnClickListener {
-            val intent = Intent(context, ProductDetailActivity::class.java)
+            val intent = Intent(context, ProductDetailKotlinActivity::class.java)
             intent.putExtra(DATA_SELECTED_PRODUCT_ID, currentProduct.id.toString())
             context.startActivity(intent)
         }

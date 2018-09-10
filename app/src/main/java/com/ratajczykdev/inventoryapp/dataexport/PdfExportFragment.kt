@@ -12,7 +12,7 @@ import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
-import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailKotlinActivity
 import com.ratajczykdev.inventoryapp.tools.StorageOperations
 import kotlinx.android.synthetic.main.fragment_pdf_export.*
 
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_pdf_export.*
  * Exports database data to PDF file
  *
  * Gets data from own [ProductViewModel]
- * but with the same repository as e.g. [CatalogFragment] and [ProductDetailActivity]
+ * but with the same repository as e.g. [CatalogFragment] and [ProductDetailKotlinActivity]
  */
 class PdfExportFragment : Fragment() {
 
