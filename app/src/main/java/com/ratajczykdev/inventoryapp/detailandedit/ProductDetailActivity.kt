@@ -93,7 +93,6 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
                 .load(product.photoUri)
                 .placeholder(R.drawable.product_list_item_placeholder)
                 .error(R.drawable.ic_error)
-                .fit()
                 .into(product_detail_photo)
     }
 

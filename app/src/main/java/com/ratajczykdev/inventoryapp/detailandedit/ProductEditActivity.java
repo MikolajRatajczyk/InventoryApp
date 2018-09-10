@@ -195,7 +195,6 @@ public class ProductEditActivity extends AppCompatActivity {
                 .load(currentProduct.getPhotoUri())
                 .placeholder(R.drawable.product_list_item_placeholder)
                 .error(R.drawable.ic_error)
-                .fit()
                 .into(imagePhoto);
     }
 
