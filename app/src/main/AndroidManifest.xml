@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".detailandedit.ProductEditActivity"
+            android:parentActivityName=".MainActivity"
             android:label="@string/edit_product_title" />
         <activity
             android:name=".settings.SettingsActivity"
