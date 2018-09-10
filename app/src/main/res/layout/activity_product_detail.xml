@@ -145,6 +145,7 @@
                 android:layout_height="32dp"
                 android:layout_marginBottom="8dp"
                 android:contentDescription="@string/date_symbol"
+                android:transitionName="product_date_icon_to_transition"
                 app:srcCompat="@drawable/clock_icon"
                 card_view:layout_constraintBottom_toTopOf="@+id/product_detail_dismiss_button"
                 card_view:layout_constraintStart_toStartOf="@+id/product_detail_price_icon"
