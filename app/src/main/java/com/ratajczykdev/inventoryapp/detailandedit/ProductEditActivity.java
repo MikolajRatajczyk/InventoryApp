@@ -225,6 +225,9 @@ public class ProductEditActivity extends AppCompatActivity {
                 }
             }
         });
+
+        configureDayMonthYearPicker();
+        configureTimePicker();
     }
 
     private boolean saveProduct() {
