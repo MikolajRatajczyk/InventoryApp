@@ -1,11 +1,14 @@
 package com.ratajczykdev.inventoryapp.detailandedit
 
+import android.app.ActivityOptions
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Pair
+import android.view.View
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter
 import com.ratajczykdev.inventoryapp.database.Product
@@ -38,6 +41,7 @@ class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.Ord
             val productId = getProductIdFromIntent(intent)
             product = productViewModel.findSingleById(productId)
             setReceivedProductDataInUi()
+            setFabListener()
         }
     }
 
@@ -97,6 +101,25 @@ class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.Ord
         val dateFormat = DateHelper.getTimeDateFormat(this)
         val timeString = dateFormat.format(creationDate)
         product_detail_time.text = timeString
+    }
+
+    private fun setFabListener() {
+        product_detail_edit_fab.setOnClickListener {
+            val pairNameIcon: Pair<View, String> = Pair.create(product_detail_name_icon, product_detail_name_icon.transitionName)
+            val pairQuantityIcon: Pair<View, String> = Pair.create(product_detail_quantity_icon, product_detail_quantity_icon.transitionName)
+            val pairPriceIcon: Pair<View, String> = Pair.create(product_detail_price_icon, product_detail_price_icon.transitionName)
+            val pairDateIcon: Pair<View, String> = Pair.create(product_detail_date_icon, product_detail_date_icon.transitionName)
+            val sharedElementPairs = arrayOf(pairNameIcon, pairQuantityIcon, pairPriceIcon, pairDateIcon)
+
+            //  already have an array and want to pass its contents to the function,
+            //  use the spread operator (prefix the array with *)
+            val bundle = ActivityOptions.makeSceneTransitionAnimation(this@ProductDetailKotlinActivity, *sharedElementPairs).toBundle()
+
+            val intent = Intent(this@ProductDetailKotlinActivity, ProductEditActivity::class.java)
+            intent.putExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID, product.id.toString())
+            //  TODO: check transition animation
+            startActivity(intent, bundle)
+        }
     }
 
 
