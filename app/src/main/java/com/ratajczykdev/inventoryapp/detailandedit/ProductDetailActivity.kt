@@ -76,7 +76,7 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
 
     private fun setPriceInUi() {
         val price = product.price
-        product_detail_price.text = String.format(Locale.US, "$.2f", price)
+        product_detail_price.text = String.format(Locale.US, "%.2f", price)
     }
 
     private fun setNameInUi() {
