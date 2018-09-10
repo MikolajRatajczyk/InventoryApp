@@ -417,4 +417,14 @@ public class ProductEditActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Overridden in order to change out transition
+     */
+    @Override
+    public void finish() {
+        super.finish();
+        //  disable exit animation
+        overridePendingTransition(0, 0);
+    }
 }
