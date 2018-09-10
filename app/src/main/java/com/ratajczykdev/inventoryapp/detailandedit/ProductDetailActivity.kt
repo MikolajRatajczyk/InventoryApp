@@ -192,4 +192,6 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
     override fun onDialogNegativeClick(dialog: DialogFragment) {
         dialog.dismiss()
     }
+
+    //  TODO: check data update after editing the product
 }
