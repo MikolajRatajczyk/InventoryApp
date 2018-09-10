@@ -24,7 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detailandedit.ProductDetailActivity"></activity>
+        <activity
+            android:name=".detailandedit.ProductDetailActivity"
+            android:noHistory="true" />
     </application>
 
 </manifest>

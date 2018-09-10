@@ -125,8 +125,6 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
 
             val intent = Intent(this@ProductDetailActivity, ProductEditActivity::class.java)
             intent.putExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID, product.id.toString())
-            //  TODO: check transition animation
-            finish()
             startActivity(intent, bundle)
         }
     }
@@ -193,6 +191,4 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
     override fun onDialogNegativeClick(dialog: DialogFragment) {
         dialog.dismiss()
     }
-
-    //  TODO: check data update after editing the product
 }
