@@ -26,7 +26,7 @@ import java.util.*
  *
  * @author Mikolaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
-class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.OrderDialogListener {
+class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDialogListener {
 
     /**
      * Activity gets its own [ProductViewModel],
@@ -121,9 +121,9 @@ class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.Ord
 
             //  already have an array and want to pass its contents to the function,
             //  use the spread operator (prefix the array with *)
-            val bundle = ActivityOptions.makeSceneTransitionAnimation(this@ProductDetailKotlinActivity, *sharedElementPairs).toBundle()
+            val bundle = ActivityOptions.makeSceneTransitionAnimation(this@ProductDetailActivity, *sharedElementPairs).toBundle()
 
-            val intent = Intent(this@ProductDetailKotlinActivity, ProductEditActivity::class.java)
+            val intent = Intent(this@ProductDetailActivity, ProductEditActivity::class.java)
             intent.putExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID, product.id.toString())
             //  TODO: check transition animation
             startActivity(intent, bundle)

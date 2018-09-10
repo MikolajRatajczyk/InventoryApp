@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
-import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailKotlinActivity
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import com.ratajczykdev.inventoryapp.detailandedit.ProductEditActivity
 import kotlinx.android.synthetic.main.fragment_catalog.*
 
@@ -26,7 +26,7 @@ class CatalogFragment : Fragment() {
 
     /**
      * Fragment gets its own [ProductViewModel]
-     * but with the same repository as e.g. [ProductDetailKotlinActivity]
+     * but with the same repository as e.g. [ProductDetailActivity]
      */
     private lateinit var productViewModel: ProductViewModel
     private lateinit var productListRecyclerAdapter: ProductListRecyclerAdapter

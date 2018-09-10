@@ -14,14 +14,14 @@ import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
-import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailKotlinActivity
+import com.ratajczykdev.inventoryapp.detailandedit.ProductDetailActivity
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
 /**
  * Shows statistics data about products in numeric form
  *
  * Gets data from own [ProductViewModel]
- * but with the same repository as e.g. [CatalogFragment] and [ProductDetailKotlinActivity]
+ * but with the same repository as e.g. [CatalogFragment] and [ProductDetailActivity]
  *
  * @author Mikołaj Ratajczyk <mikolaj.ratajczyk(AT)gmail.com>
  */
