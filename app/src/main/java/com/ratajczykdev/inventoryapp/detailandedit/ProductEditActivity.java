@@ -2,10 +2,12 @@ package com.ratajczykdev.inventoryapp.detailandedit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -81,10 +83,16 @@ public class ProductEditActivity extends AppCompatActivity {
         setButtonChangePhotoListener();
 
         if (getIntent().hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
-            int currentProductId = getProductIdFromIntent(getIntent());
-            currentProduct = productViewModel.findSingleById(currentProductId);
-            loadProductDataToUi();
-            setupButtonsForEditing();
+            final int currentProductId = getProductIdFromIntent(getIntent());
+            productViewModel.findSingleById(currentProductId).observe(this,
+                    new Observer<Product>() {
+                        @Override
+                        public void onChanged(@Nullable Product loadedProduct) {
+                            currentProduct = loadedProduct;
+                            loadProductDataToUi();
+                            setupButtonsForEditing();
+                        }
+                    });
         } else {
             currentProduct = new Product();
             setupButtonsForAdding();

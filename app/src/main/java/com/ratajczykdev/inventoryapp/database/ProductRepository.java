@@ -87,39 +87,9 @@ public class ProductRepository {
 
     /**
      * Wrapper for {@link ProductDao#findSingleById(int)}
-     * Call this on a non-UI thread or app will crash.
      */
-    public Product findSingleById(int searchId) {
-        Product product = null;
-        try {
-            product = new FindSingleByIdAsyncTask(productDao).execute(searchId).get();
-        } catch (InterruptedException | ExecutionException e) {
-            Log.e("ProductRepository", "findSingleById failed, id: " + searchId);
-            e.printStackTrace();
-        }
-        return product;
-    }
-
-    /**
-     * Static class for {@link ProductRepository#findSingleById(int)}
-     */
-    private static class FindSingleByIdAsyncTask extends AsyncTask<Integer, Void, Product> {
-        private ProductDao productDao;
-
-        public FindSingleByIdAsyncTask(ProductDao productDao) {
-            this.productDao = productDao;
-        }
-
-        @Override
-        protected Product doInBackground(Integer... ids) {
-            Product product = productDao.findSingleById(ids[0]);
-            return product;
-        }
-
-        @Override
-        protected void onPostExecute(Product product) {
-            super.onPostExecute(product);
-        }
+    public LiveData<Product> findSingleById(int searchId) {
+        return productDao.findSingleById(searchId);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.ratajczykdev.inventoryapp.detailandedit
 
 import android.app.ActivityOptions
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
@@ -44,13 +45,16 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
 
         if (intent.hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
             val productId = getProductIdFromIntent(intent)
-            product = productViewModel.findSingleById(productId)
-            setReceivedProductDataInUi()
-            setFabListener()
+            productViewModel.findSingleById(productId).observe(this,
+                    Observer<Product>
+                    { loadedProduct ->
+                        product = loadedProduct!!
+                        setReceivedProductDataInUi()
+                        setFabListener()
+                        setDismissButtonListener()
+                        setOrderButtonListener()
+                    })
         }
-
-        setDismissButtonListener()
-        setOrderButtonListener()
     }
 
     private fun getProductIdFromIntent(intent: Intent): Int {
