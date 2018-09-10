@@ -398,7 +398,7 @@ public class ProductEditActivity extends AppCompatActivity {
         final TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                calendar.set(Calendar.HOUR, hour);
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
                 calendar.set(Calendar.MINUTE, minute);
                 DateFormat timeFormat = DateHelper.INSTANCE.getTimeDateFormat(ProductEditActivity.this);
                 String timeString = timeFormat.format(calendar.getTime());
@@ -409,7 +409,7 @@ public class ProductEditActivity extends AppCompatActivity {
         editTextTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentHour = calendar.get(Calendar.HOUR);
+                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
 
                 final boolean IS_24_HOUR_VIEW = true;
