@@ -1,12 +1,12 @@
 package com.ratajczykdev.inventoryapp.detailandedit;
 
 import android.app.ActivityOptions;
-import android.app.DialogFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.View;
@@ -81,7 +81,6 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
         setButtonDismissListener();
         setButtonOrderListener();
     }
-
 
     private void setUiElementsReferences() {
         imagePhoto = findViewById(R.id.product_detail_photo);
@@ -205,7 +204,7 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
      */
     private void showOrderDialog() {
         OrderDialogFragment orderDialog = new OrderDialogFragment();
-        orderDialog.show(getFragmentManager(), "OrderDialogFragment");
+        orderDialog.show(getSupportFragmentManager(), "OrderDialogFragment");
     }
 
     /**
@@ -257,4 +256,5 @@ public class ProductDetailActivity extends AppCompatActivity implements OrderDia
     public void onDialogNegativeClick(DialogFragment dialog) {
         dialog.dismiss();
     }
+
 }
