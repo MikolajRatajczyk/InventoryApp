@@ -1,13 +1,19 @@
 package com.ratajczykdev.inventoryapp.detailandedit
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AppCompatActivity
 import com.ratajczykdev.inventoryapp.R
+import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter
+import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
+import com.ratajczykdev.inventoryapp.tools.DateHelper
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product_detail.*
+import java.util.*
 
 /**
  * Shows details about product and help with making order
@@ -18,11 +24,81 @@ import kotlinx.android.synthetic.main.activity_product_detail.*
  */
 class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.OrderDialogListener {
 
+    private lateinit var productViewModel: ProductViewModel
+    private lateinit var product: Product
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
+
+        if (intent.hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
+            val productId = getProductIdFromIntent(intent)
+            product = productViewModel.findSingleById(productId)
+            setReceivedProductDataInUi()
+        }
     }
+
+    private fun getProductIdFromIntent(intent: Intent): Int {
+        val productIdString = intent.getStringExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)
+        return productIdString.toInt()
+    }
+
+    /**
+     * Set current product data with provided ones
+     */
+    private fun setReceivedProductDataInUi() {
+        setQuantityInUi()
+        setPriceInUi()
+        setNameInUi()
+        setPhotoInUi()
+        setDateInUi()
+    }
+
+    private fun setQuantityInUi() {
+        val quantity = product.quantity.toString()
+        product_detail_quantity.text = quantity
+    }
+
+    private fun setPriceInUi() {
+        val price = product.price
+        product_detail_price.text = String.format(Locale.US, "$.2f", price)
+    }
+
+    private fun setNameInUi() {
+        val name = product.name
+        product_detail_name.text = name
+    }
+
+    private fun setPhotoInUi() {
+        Picasso.get()
+                .load(product.photoUri)
+                .placeholder(R.drawable.product_list_item_placeholder)
+                .error(R.drawable.ic_error)
+                .fit()
+                .into(product_detail_photo)
+    }
+
+    private fun setDateInUi() {
+        val creationDate = product.creationDate
+        setDayMonthYearInUi(creationDate)
+        setTimeInUi(creationDate)
+    }
+
+    private fun setDayMonthYearInUi(creationDate: Date) {
+        val dateFormat = DateHelper.getDayMonthYearDateFormat(this)
+        val dayMonthYearString = dateFormat.format(creationDate)
+        product_detail_day_month_year.text = dayMonthYearString
+    }
+
+    private fun setTimeInUi(creationDate: Date) {
+        val dateFormat = DateHelper.getTimeDateFormat(this)
+        val timeString = dateFormat.format(creationDate)
+        product_detail_time.text = timeString
+    }
+
 
     /**
      * Triggered when user clicks positive button on OrderDialogFragment
