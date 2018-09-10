@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Pair
 import android.view.View
 import com.ratajczykdev.inventoryapp.R
+import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter
 import com.ratajczykdev.inventoryapp.database.Product
 import com.ratajczykdev.inventoryapp.database.ProductViewModel
@@ -27,6 +28,10 @@ import java.util.*
  */
 class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.OrderDialogListener {
 
+    /**
+     * Activity gets its own [ProductViewModel],
+     * but with the same repository as e.g. [CatalogFragment] and [ProductEditActivity]
+     */
     private lateinit var productViewModel: ProductViewModel
     private lateinit var product: Product
 
@@ -43,6 +48,9 @@ class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.Ord
             setReceivedProductDataInUi()
             setFabListener()
         }
+
+        setDismissButtonListener()
+        setOrderButtonListener()
     }
 
     private fun getProductIdFromIntent(intent: Intent): Int {
@@ -122,6 +130,22 @@ class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.Ord
         }
     }
 
+    private fun setDismissButtonListener() {
+        product_detail_dismiss_button.setOnClickListener { finish() }
+    }
+
+    private fun setOrderButtonListener() {
+        product_detail_order_button.setOnClickListener { showOrderDialog() }
+    }
+
+    /**
+     * Shows [OrderDialogFragment] that gets product quantity from user
+     */
+    private fun showOrderDialog() {
+        val orderDialogFragment = OrderDialogFragment()
+        orderDialogFragment.show(supportFragmentManager, "OrderDialogFragment")
+    }
+
 
     /**
      * Triggered when user clicks positive button on OrderDialogFragment
@@ -168,6 +192,4 @@ class ProductDetailKotlinActivity : AppCompatActivity(), OrderDialogFragment.Ord
     override fun onDialogNegativeClick(dialog: DialogFragment) {
         dialog.dismiss()
     }
-
-
 }
