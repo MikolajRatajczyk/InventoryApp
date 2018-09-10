@@ -427,4 +427,6 @@ public class ProductEditActivity extends AppCompatActivity {
         //  disable exit animation
         overridePendingTransition(0, 0);
     }
+
+    //  TODO: fix icons fading away animation after pressing back button
 }
