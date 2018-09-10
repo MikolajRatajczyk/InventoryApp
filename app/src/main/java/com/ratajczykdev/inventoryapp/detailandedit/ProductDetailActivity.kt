@@ -126,6 +126,7 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
             val intent = Intent(this@ProductDetailActivity, ProductEditActivity::class.java)
             intent.putExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID, product.id.toString())
             //  TODO: check transition animation
+            finish()
             startActivity(intent, bundle)
         }
     }
