@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp.detailandedit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -84,15 +85,18 @@ public class ProductEditActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
             final int currentProductId = getProductIdFromIntent(getIntent());
-            productViewModel.findSingleById(currentProductId).observe(this,
+            final LiveData<Product> liveDataProduct = productViewModel.findSingleById(currentProductId);
+            liveDataProduct.observe(this,
                     new Observer<Product>() {
                         @Override
                         public void onChanged(@Nullable Product loadedProduct) {
+                            //  stop getting updates about LiveData
+                            liveDataProduct.removeObserver(this);
                             currentProduct = loadedProduct;
                             loadProductDataToUi();
-                            setupButtonsForEditing();
                         }
                     });
+            setupButtonsForEditing();
         } else {
             currentProduct = new Product();
             setupButtonsForAdding();
