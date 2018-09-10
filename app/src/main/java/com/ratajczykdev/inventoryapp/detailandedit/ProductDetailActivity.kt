@@ -45,15 +45,19 @@ class ProductDetailActivity : AppCompatActivity(), OrderDialogFragment.OrderDial
 
         if (intent.hasExtra(ProductListRecyclerAdapter.DATA_SELECTED_PRODUCT_ID)) {
             val productId = getProductIdFromIntent(intent)
-            productViewModel.findSingleById(productId).observe(this,
-                    Observer<Product>
-                    { loadedProduct ->
-                        product = loadedProduct!!
-                        setReceivedProductDataInUi()
-                        setFabListener()
-                        setDismissButtonListener()
-                        setOrderButtonListener()
-                    })
+            val liveDataProduct = productViewModel.findSingleById(productId)
+            //  here must be anonymous inner class, because of use this in removeObserver
+            liveDataProduct.observe(this, object : Observer<Product> {
+                override fun onChanged(loadedProduct: Product?) {
+                    //  stop getting updates about LiveData
+                    liveDataProduct.removeObserver(this)
+                    product = loadedProduct!!
+                    setReceivedProductDataInUi()
+                }
+            })
+            setFabListener()
+            setDismissButtonListener()
+            setOrderButtonListener()
         }
     }
 
