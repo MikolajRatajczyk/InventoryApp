@@ -42,7 +42,7 @@ class PdfExportFragment : Fragment() {
 
     private fun saveDatabaseToPdf() {
         val externalExportDir = StorageOperations.createExternalDir("exported", context)
-        val productListString = ProductListConverter.createStringProductList(productList)
+        val productListString = ProductListConverter.createStringProductList(productList, isZeroQuantityChecked())
 
         StorageOperations.writeToPdfFile(externalExportDir, "exported_database", productListString)
 
@@ -52,7 +52,12 @@ class PdfExportFragment : Fragment() {
                 .show()
     }
 
+    private fun isZeroQuantityChecked(): Boolean {
+        return include_zero_quantity_switch.isChecked
+    }
+
     //  TODO: complete include zero-quantity feature
     //  TODO: complete include photos feature
+    //  TODO: add icon for include photos
     //  TODO: fix columns inconsistency in exported file
 }

@@ -77,7 +77,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_access_time_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_circle_outline_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -87,7 +87,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="clock_icon" />
+                            <entry key="outputName" value="include_zero_quantity_icon" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\Misiekmr" />
                           </map>
