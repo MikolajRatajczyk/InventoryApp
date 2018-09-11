@@ -56,7 +56,6 @@ class PdfExportFragment : Fragment() {
         return include_zero_quantity_switch.isChecked
     }
 
-    //  TODO: complete include zero-quantity feature
     //  TODO: complete include photos feature
     //  TODO: add icon for include photos
     //  TODO: fix columns inconsistency in exported file
