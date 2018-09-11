@@ -57,6 +57,5 @@ class PdfExportFragment : Fragment() {
     }
 
     //  TODO: complete include photos feature
-    //  TODO: add icon for include photos
     //  TODO: fix columns inconsistency in exported file
 }
