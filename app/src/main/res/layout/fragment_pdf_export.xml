@@ -89,16 +89,27 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/include_zero_quantity_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/include_zero_quantity_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/include_zero_quantity_switch"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/include_zero_quantity_switch" />
+
                 <Switch
                     android:id="@+id/include_zero_quantity_switch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="32dp"
+                    android:checked="true"
                     android:text="@string/include_zero_quantity_products"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/include_zero_quantity_icon"
                     app:layout_constraintTop_toBottomOf="@+id/export_settings_title_textview" />
 
                 <Switch
