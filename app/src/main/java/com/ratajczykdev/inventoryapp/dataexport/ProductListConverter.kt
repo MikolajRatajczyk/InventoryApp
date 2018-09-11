@@ -12,7 +12,7 @@ object ProductListConverter {
     private const val STRING_FORMAT_STYLE = "%-5s %-25s %-15s %-15s %-30s"
 
 
-    fun createStringProductList(productList: List<Product>): String {
+    fun createStringProductList(productList: List<Product>, includeZeroQuantity: Boolean = true): String {
         var stringProductList = createDatabaseHeader() + "\n"
         for (product in productList) {
             val id = product.id.toString()
@@ -20,8 +20,12 @@ object ProductListConverter {
             val price = product.price.toString()
             val quantity = product.quantity.toString()
             val creationDate = dateToFormattedString(product.creationDate)
-
-            stringProductList += String.format(STRING_FORMAT_STYLE, id, name, price, quantity, creationDate) + "\n"
+            if (!includeZeroQuantity and (product.quantity <= 0)) {
+                continue
+            } else {
+                stringProductList += String.format(STRING_FORMAT_STYLE, id, name, price, quantity, creationDate) + "\n"
+            }
+            //  TODO: delete Log
             Log.e("line: ", stringProductList)
         }
         return stringProductList
