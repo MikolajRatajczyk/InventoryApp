@@ -48,12 +48,7 @@ class PdfExportFragment : Fragment() {
         ExportDatabaseAsyncTask(successSnackbar).execute()
     }
 
-    private fun isZeroQuantityChecked(): Boolean {
-        return include_zero_quantity_switch.isChecked
-    }
-
     private inner class ExportDatabaseAsyncTask(val successSnackbar: Snackbar) : AsyncTask<Unit, Unit, Unit>() {
-
         override fun doInBackground(vararg paramters: Unit?) {
             val externalExportDir = StorageOperations.createExternalDir("exported", context)
             val productListString = ProductListConverter.createStringProductList(productList, isZeroQuantityChecked())
@@ -65,6 +60,10 @@ class PdfExportFragment : Fragment() {
             super.onPostExecute(result)
             successSnackbar.show()
         }
+    }
+
+    private fun isZeroQuantityChecked(): Boolean {
+        return include_zero_quantity_switch.isChecked
     }
 
     //  TODO: complete include photos feature
