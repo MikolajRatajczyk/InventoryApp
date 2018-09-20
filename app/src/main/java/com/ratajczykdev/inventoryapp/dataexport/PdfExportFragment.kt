@@ -2,6 +2,7 @@ package com.ratajczykdev.inventoryapp.dataexport
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.os.AsyncTask
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -41,19 +42,29 @@ class PdfExportFragment : Fragment() {
     }
 
     private fun saveDatabaseToPdf() {
-        val externalExportDir = StorageOperations.createExternalDir("exported", context)
-        val productListString = ProductListConverter.createStringProductList(productList, isZeroQuantityChecked())
-
-        StorageOperations.writeToPdfFile(externalExportDir, "exported_database", productListString)
-
-        Snackbar.make(root_scrollview,
+        val successSnackbar = Snackbar.make(root_scrollview,
                 getString(R.string.snackbar_database_export_success),
                 Snackbar.LENGTH_SHORT)
-                .show()
+        ExportDatabaseAsyncTask(successSnackbar).execute()
     }
 
     private fun isZeroQuantityChecked(): Boolean {
         return include_zero_quantity_switch.isChecked
+    }
+
+    private inner class ExportDatabaseAsyncTask(val successSnackbar: Snackbar) : AsyncTask<Unit, Unit, Unit>() {
+
+        override fun doInBackground(vararg paramters: Unit?) {
+            val externalExportDir = StorageOperations.createExternalDir("exported", context)
+            val productListString = ProductListConverter.createStringProductList(productList, isZeroQuantityChecked())
+
+            StorageOperations.writeToPdfFile(externalExportDir, "exported_database", productListString)
+        }
+
+        override fun onPostExecute(result: Unit?) {
+            super.onPostExecute(result)
+            successSnackbar.show()
+        }
     }
 
     //  TODO: complete include photos feature
