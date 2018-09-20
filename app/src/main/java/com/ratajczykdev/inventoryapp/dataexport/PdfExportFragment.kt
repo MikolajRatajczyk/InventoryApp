@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_pdf_export.*
 class PdfExportFragment : Fragment() {
 
     private lateinit var productViewModel: ProductViewModel
-    private var productList: MutableList<Product> = mutableListOf()
+    private var productList: List<Product> = listOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_pdf_export, container, false)
@@ -36,7 +36,7 @@ class PdfExportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel::class.java)
-        productViewModel.all.observe(this, Observer { products -> productList = products ?: mutableListOf() })
+        productViewModel.all.observe(this, Observer { products -> productList = products ?: listOf() })
 
         save_to_pdf_button.setOnClickListener { saveDatabaseToPdf() }
     }
