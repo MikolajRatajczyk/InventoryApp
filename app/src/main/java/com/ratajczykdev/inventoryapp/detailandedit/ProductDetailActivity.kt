@@ -1,15 +1,15 @@
 package com.ratajczykdev.inventoryapp.detailandedit
 
 import android.app.ActivityOptions
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Pair
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.ratajczykdev.inventoryapp.R
 import com.ratajczykdev.inventoryapp.catalog.CatalogFragment
 import com.ratajczykdev.inventoryapp.catalog.ProductListRecyclerAdapter
