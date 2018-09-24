@@ -23,8 +23,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation group: 'androidx.appcompat', name: 'appcompat', version: '1.0.0'
-    //  fix "...exact same version specification..." error
-    implementation group: 'androidx.exifinterface', name: 'exifinterface', version: '1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation group: 'androidx.legacy', name: 'legacy-support-v4', version: '1.0.0'
     //  Android Support Preference
