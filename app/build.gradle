@@ -49,7 +49,7 @@ dependencies {
     //  Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
     //  Material Components
-    implementation group: 'com.google.android.material', name: 'material', version: '1.0.0-alpha1'
+    implementation group: 'com.google.android.material', name: 'material', version: '1.0.0'
     //  iText G
     implementation group: 'com.itextpdf', name: 'itextg', version: '5.5.10'
 
