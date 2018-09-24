@@ -17,6 +17,7 @@ This app helps you track your shop inventory.
  - Statistics,
  - Drawing **graphs**,
  - Loading photos with Picasso library,
+ - Refactored to use **AndroidX** namespace,
  - Adding a new product with: name, quantity, price and photo,
  - **Sorting** products by: name, price, date and quantity,
  - Editing added product,
