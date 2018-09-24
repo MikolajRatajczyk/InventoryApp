@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".detailandedit.ProductEditActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/photo_parent_constraintlayout"
         android:layout_width="0dp"
         android:layout_height="200dp"
@@ -54,7 +54,7 @@
             app:layout_constraintTop_toTopOf="@+id/product_edit_change_photo_button"
             app:srcCompat="@drawable/product_photo_black_icon" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/product_edit_name_icon"
@@ -202,4 +202,4 @@
         app:layout_constraintTop_toTopOf="@+id/product_edit_day_month_year" />
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

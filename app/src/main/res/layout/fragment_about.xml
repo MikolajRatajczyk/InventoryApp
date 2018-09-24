@@ -9,7 +9,7 @@
     tools:context=".about.AboutFragment">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="@+id/store_imageview"
             app:layout_constraintStart_toStartOf="@+id/store_imageview"
             app:layout_constraintTop_toBottomOf="@+id/store_imageview" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </ScrollView>
