@@ -8,4 +8,5 @@
     <color name="amber">#FFC107</color>
     <color name="dark_orange_400">#ff7043</color>
     <color name="dark_grey_600">#757575</color>
+    <color name="indigo_500">#3F51B5</color>
 </resources>
