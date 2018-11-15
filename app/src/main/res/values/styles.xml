@@ -7,8 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="floatingActionButtonStyle">@style/Widget.Design.FloatingActionButton</item>
-        <!--Fix for: Failed to find style-->
-        <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
     </style>
 
 </resources>
