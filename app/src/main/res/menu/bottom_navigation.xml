@@ -12,7 +12,7 @@
     <item
         android:id="@+id/statistics_button"
         android:enabled="true"
-        android:icon="@drawable/statistics_icon_dark_orange"
+        android:icon="@drawable/statistics_icon"
         android:title="@string/bottom_nav_title_statistics"
         app:showAsAction="ifRoom" />
 

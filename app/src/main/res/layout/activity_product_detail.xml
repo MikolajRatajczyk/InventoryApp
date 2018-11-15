@@ -79,7 +79,7 @@
                 card_view:layout_constraintBottom_toTopOf="@+id/product_detail_price_icon"
                 card_view:layout_constraintStart_toStartOf="@+id/product_detail_name_icon"
                 card_view:layout_constraintTop_toBottomOf="@+id/product_detail_name_icon"
-                card_view:srcCompat="@drawable/product_quantity_black_icon" />
+                card_view:srcCompat="@drawable/product_quantity_icon" />
 
             <TextView
                 android:id="@+id/product_detail_price"
@@ -101,7 +101,7 @@
                 card_view:layout_constraintBottom_toTopOf="@+id/product_detail_date_icon"
                 card_view:layout_constraintStart_toStartOf="@+id/product_detail_quantity_icon"
                 card_view:layout_constraintTop_toBottomOf="@+id/product_detail_quantity_icon"
-                card_view:srcCompat="@drawable/product_price_black_icon" />
+                card_view:srcCompat="@drawable/product_price_icon" />
 
             <ImageView
                 android:id="@+id/product_detail_photo"
@@ -137,7 +137,7 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/product_detail_photo"
                 card_view:layout_constraintVertical_chainStyle="spread"
-                card_view:srcCompat="@drawable/product_name_black_icon" />
+                card_view:srcCompat="@drawable/product_name_icon" />
 
             <ImageView
                 android:id="@+id/product_detail_date_icon"
