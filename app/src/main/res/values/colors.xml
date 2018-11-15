@@ -7,4 +7,5 @@
     <color name="red">#F44336</color>
     <color name="amber">#FFC107</color>
     <color name="dark_orange_400">#ff7043</color>
+    <color name="dark_grey_600">#757575</color>
 </resources>
