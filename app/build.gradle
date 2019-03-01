@@ -23,22 +23,22 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation group: 'androidx.appcompat', name: 'appcompat', version: '1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation group: 'androidx.legacy', name: 'legacy-support-v4', version: '1.0.0'
     //  Android Support Preference
     implementation group: 'androidx.preference', name: 'preference', version: '1.0.0'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.21.0'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation group: 'androidx.cardview', name: 'cardview', version: '1.0.0'
     implementation 'com.jjoe64:graphview:4.2.2'
-    implementation 'androidx.room:room-runtime:2.1.0-alpha02'
-    annotationProcessor 'androidx.room:room-compiler:2.1.0-alpha02'
+    implementation 'androidx.room:room-runtime:2.1.0-alpha04'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0-alpha04'
     // Room components
-    implementation "androidx.room:room-runtime:2.1.0-alpha02"
-    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha02"
-    androidTestImplementation "androidx.room:room-testing:2.1.0-alpha02"
+    implementation "androidx.room:room-runtime:2.1.0-alpha04"
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
+    androidTestImplementation "androidx.room:room-testing:2.1.0-alpha04"
     // Lifecycle components
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.0.0"
